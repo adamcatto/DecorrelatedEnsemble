@@ -1,0 +1,3900 @@
+{
+  "anchor": "coerror_b6000_k64",
+  "configs": [
+    {
+      "baselines": [
+        {
+          "family": "random_forest",
+          "id": "random_forest",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "extra_trees",
+          "id": "extra_trees",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "xgboost",
+          "id": "xgboost",
+          "parameters": {
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "n_estimators": 300
+          }
+        },
+        {
+          "family": "lightgbm",
+          "id": "lightgbm",
+          "parameters": {
+            "learning_rate": 0.05,
+            "n_estimators": 300,
+            "num_leaves": 31
+          }
+        },
+        {
+          "family": "catboost",
+          "id": "catboost",
+          "parameters": {
+            "depth": 6,
+            "iterations": 300,
+            "learning_rate": 0.05
+          }
+        },
+        {
+          "family": "linear",
+          "id": "linear",
+          "parameters": {}
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_leaf5",
+          "parameters": {
+            "min_samples_leaf": 5,
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_shallow64",
+          "parameters": {
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64
+          }
+        },
+        {
+          "family": "random_patches",
+          "id": "random_patches64",
+          "parameters": {
+            "feature_fraction": 0.2,
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64,
+            "row_fraction": 0.5
+          }
+        }
+      ],
+      "candidates": {
+        "B": 6000,
+        "balanced_grid": true,
+        "depths": [
+          3,
+          6
+        ],
+        "feature_fractions": [
+          0.05,
+          0.2,
+          0.5
+        ],
+        "min_samples_leaf": [
+          10
+        ]
+      },
+      "certification": {
+        "alpha": 0.05,
+        "auc_threshold": 0.51,
+        "bootstrap_reps": 100,
+        "engine": "weighted",
+        "regression_threshold": 0.01
+      },
+      "datasets": [
+        {
+          "id": "credit_default",
+          "max_samples": 20000,
+          "path": "results/data_sources/credit_default.pkl",
+          "sha256": "91c452ddccb942dc443effc8353e5dcaf2c8f1f4b8b6ce38200eaa03f222fef8",
+          "source": "cached_public",
+          "subsample_seed": 7321
+        }
+      ],
+      "group_exact_duplicates": true,
+      "hypothesis": "At fixed retained K, increasing balanced nested candidate B improves outer performance; feature width/depth at matched cell B tests representation. All sweep outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning or resource-matched superiority claim.",
+      "id": "exp_006_large_credit_default",
+      "inner_folds": 2,
+      "methods": [
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "top_quality_b300_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "coerror_b300_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "random_cert_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "top_quality_cert_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "coerror_cert_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "abs_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "abs_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "signed_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "signed_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l002_b6000_k64",
+          "lambda": 0.02,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l01_b6000_k64",
+          "lambda": 0.1,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l05_b6000_k64",
+          "lambda": 0.5,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "caruana_b6000_k64",
+          "selector": "caruana_coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_swap_b6000_k64",
+          "max_swaps": 1,
+          "selector": "coerror"
+        },
+        {
+          "K": 256,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_b6000_k256",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f05_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f05_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f05_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f05_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f20_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f20_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f20_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f20_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f50_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f50_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f50_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f50_d6_b1000_k64",
+          "selector": "coerror"
+        }
+      ],
+      "oof_jobs": 4,
+      "outer_folds": 3,
+      "refit_jobs": 4,
+      "role": "development",
+      "seeds": [
+        11
+      ]
+    },
+    {
+      "baselines": [
+        {
+          "family": "random_forest",
+          "id": "random_forest",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "extra_trees",
+          "id": "extra_trees",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "xgboost",
+          "id": "xgboost",
+          "parameters": {
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "n_estimators": 300
+          }
+        },
+        {
+          "family": "lightgbm",
+          "id": "lightgbm",
+          "parameters": {
+            "learning_rate": 0.05,
+            "n_estimators": 300,
+            "num_leaves": 31
+          }
+        },
+        {
+          "family": "catboost",
+          "id": "catboost",
+          "parameters": {
+            "depth": 6,
+            "iterations": 300,
+            "learning_rate": 0.05
+          }
+        },
+        {
+          "family": "linear",
+          "id": "linear",
+          "parameters": {}
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_leaf5",
+          "parameters": {
+            "min_samples_leaf": 5,
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_shallow64",
+          "parameters": {
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64
+          }
+        },
+        {
+          "family": "random_patches",
+          "id": "random_patches64",
+          "parameters": {
+            "feature_fraction": 0.2,
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64,
+            "row_fraction": 0.5
+          }
+        }
+      ],
+      "candidates": {
+        "B": 6000,
+        "balanced_grid": true,
+        "depths": [
+          3,
+          6
+        ],
+        "feature_fractions": [
+          0.05,
+          0.2,
+          0.5
+        ],
+        "min_samples_leaf": [
+          10
+        ]
+      },
+      "certification": {
+        "alpha": 0.05,
+        "auc_threshold": 0.51,
+        "bootstrap_reps": 100,
+        "engine": "weighted",
+        "regression_threshold": 0.01
+      },
+      "datasets": [
+        {
+          "id": "higgs",
+          "max_samples": 20000,
+          "path": "results/data_sources/higgs.pkl",
+          "sha256": "3341a602a1dc0dbf15b104c9442098f88ec8e03020b6d8199ad091d854ad8d50",
+          "source": "cached_public",
+          "subsample_seed": 7321
+        }
+      ],
+      "group_exact_duplicates": true,
+      "hypothesis": "At fixed retained K, increasing balanced nested candidate B improves outer performance; feature width/depth at matched cell B tests representation. All sweep outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning or resource-matched superiority claim.",
+      "id": "exp_006_large_higgs",
+      "inner_folds": 2,
+      "methods": [
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "top_quality_b300_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "coerror_b300_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "random_cert_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "top_quality_cert_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "coerror_cert_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "abs_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "abs_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "signed_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "signed_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l002_b6000_k64",
+          "lambda": 0.02,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l01_b6000_k64",
+          "lambda": 0.1,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l05_b6000_k64",
+          "lambda": 0.5,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "caruana_b6000_k64",
+          "selector": "caruana_coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_swap_b6000_k64",
+          "max_swaps": 1,
+          "selector": "coerror"
+        },
+        {
+          "K": 256,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_b6000_k256",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f05_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f05_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f05_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f05_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f20_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f20_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f20_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f20_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f50_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f50_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f50_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f50_d6_b1000_k64",
+          "selector": "coerror"
+        }
+      ],
+      "oof_jobs": 4,
+      "outer_folds": 3,
+      "refit_jobs": 4,
+      "role": "development",
+      "seeds": [
+        11
+      ]
+    },
+    {
+      "baselines": [
+        {
+          "family": "random_forest",
+          "id": "random_forest",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "extra_trees",
+          "id": "extra_trees",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "xgboost",
+          "id": "xgboost",
+          "parameters": {
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "n_estimators": 300
+          }
+        },
+        {
+          "family": "lightgbm",
+          "id": "lightgbm",
+          "parameters": {
+            "learning_rate": 0.05,
+            "n_estimators": 300,
+            "num_leaves": 31
+          }
+        },
+        {
+          "family": "catboost",
+          "id": "catboost",
+          "parameters": {
+            "depth": 6,
+            "iterations": 300,
+            "learning_rate": 0.05
+          }
+        },
+        {
+          "family": "linear",
+          "id": "linear",
+          "parameters": {}
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_leaf5",
+          "parameters": {
+            "min_samples_leaf": 5,
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_shallow64",
+          "parameters": {
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64
+          }
+        },
+        {
+          "family": "random_patches",
+          "id": "random_patches64",
+          "parameters": {
+            "feature_fraction": 0.2,
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64,
+            "row_fraction": 0.5
+          }
+        }
+      ],
+      "candidates": {
+        "B": 6000,
+        "balanced_grid": true,
+        "depths": [
+          3,
+          6
+        ],
+        "feature_fractions": [
+          0.05,
+          0.2,
+          0.5
+        ],
+        "min_samples_leaf": [
+          10
+        ]
+      },
+      "certification": {
+        "alpha": 0.05,
+        "auc_threshold": 0.51,
+        "bootstrap_reps": 100,
+        "engine": "weighted",
+        "regression_threshold": 0.01
+      },
+      "datasets": [
+        {
+          "id": "miniboone",
+          "max_samples": 20000,
+          "path": "results/data_sources/miniboone.pkl",
+          "sha256": "73345a3c98de7e0c3865998c956474f55dd1542a768934f52aa12062be4c40b6",
+          "source": "cached_public",
+          "subsample_seed": 7321
+        }
+      ],
+      "group_exact_duplicates": true,
+      "hypothesis": "At fixed retained K, increasing balanced nested candidate B improves outer performance; feature width/depth at matched cell B tests representation. All sweep outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning or resource-matched superiority claim.",
+      "id": "exp_006_large_miniboone",
+      "inner_folds": 2,
+      "methods": [
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "top_quality_b300_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "coerror_b300_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "random_cert_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "top_quality_cert_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "coerror_cert_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "abs_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "abs_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "signed_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "signed_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l002_b6000_k64",
+          "lambda": 0.02,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l01_b6000_k64",
+          "lambda": 0.1,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l05_b6000_k64",
+          "lambda": 0.5,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "caruana_b6000_k64",
+          "selector": "caruana_coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_swap_b6000_k64",
+          "max_swaps": 1,
+          "selector": "coerror"
+        },
+        {
+          "K": 256,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_b6000_k256",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f05_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f05_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f05_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f05_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f20_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f20_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f20_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f20_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f50_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f50_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f50_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f50_d6_b1000_k64",
+          "selector": "coerror"
+        }
+      ],
+      "oof_jobs": 4,
+      "outer_folds": 3,
+      "refit_jobs": 4,
+      "role": "development",
+      "seeds": [
+        11
+      ]
+    },
+    {
+      "baselines": [
+        {
+          "family": "random_forest",
+          "id": "random_forest",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "extra_trees",
+          "id": "extra_trees",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "xgboost",
+          "id": "xgboost",
+          "parameters": {
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "n_estimators": 300
+          }
+        },
+        {
+          "family": "lightgbm",
+          "id": "lightgbm",
+          "parameters": {
+            "learning_rate": 0.05,
+            "n_estimators": 300,
+            "num_leaves": 31
+          }
+        },
+        {
+          "family": "catboost",
+          "id": "catboost",
+          "parameters": {
+            "depth": 6,
+            "iterations": 300,
+            "learning_rate": 0.05
+          }
+        },
+        {
+          "family": "linear",
+          "id": "linear",
+          "parameters": {}
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_leaf5",
+          "parameters": {
+            "min_samples_leaf": 5,
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_shallow64",
+          "parameters": {
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64
+          }
+        },
+        {
+          "family": "random_patches",
+          "id": "random_patches64",
+          "parameters": {
+            "feature_fraction": 0.2,
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64,
+            "row_fraction": 0.5
+          }
+        }
+      ],
+      "candidates": {
+        "B": 6000,
+        "balanced_grid": true,
+        "depths": [
+          3,
+          6
+        ],
+        "feature_fractions": [
+          0.05,
+          0.2,
+          0.5
+        ],
+        "min_samples_leaf": [
+          10
+        ]
+      },
+      "certification": {
+        "alpha": 0.05,
+        "auc_threshold": 0.51,
+        "bootstrap_reps": 100,
+        "engine": "weighted",
+        "regression_threshold": 0.01
+      },
+      "datasets": [
+        {
+          "id": "superconductivity",
+          "max_samples": 20000,
+          "path": "results/data_sources/superconductivity.pkl",
+          "sha256": "5925fc0372b4f6dca392584f0f730b05d69dc15ec190c8c8756fbd5f5022febe",
+          "source": "cached_public",
+          "subsample_seed": 7321
+        }
+      ],
+      "group_exact_duplicates": true,
+      "hypothesis": "At fixed retained K, increasing balanced nested candidate B improves outer performance; feature width/depth at matched cell B tests representation. All sweep outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning or resource-matched superiority claim.",
+      "id": "exp_006_large_superconductivity",
+      "inner_folds": 2,
+      "methods": [
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "top_quality_b300_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "coerror_b300_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "random_cert_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "top_quality_cert_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "coerror_cert_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "abs_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "abs_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "signed_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "signed_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l002_b6000_k64",
+          "lambda": 0.02,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l01_b6000_k64",
+          "lambda": 0.1,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l05_b6000_k64",
+          "lambda": 0.5,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "caruana_b6000_k64",
+          "selector": "caruana_coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_swap_b6000_k64",
+          "max_swaps": 1,
+          "selector": "coerror"
+        },
+        {
+          "K": 256,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_b6000_k256",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f05_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f05_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f05_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f05_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f20_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f20_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f20_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f20_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f50_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f50_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f50_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f50_d6_b1000_k64",
+          "selector": "coerror"
+        }
+      ],
+      "oof_jobs": 4,
+      "outer_folds": 3,
+      "refit_jobs": 4,
+      "role": "development",
+      "seeds": [
+        11
+      ]
+    },
+    {
+      "baselines": [
+        {
+          "family": "random_forest",
+          "id": "random_forest",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "extra_trees",
+          "id": "extra_trees",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "xgboost",
+          "id": "xgboost",
+          "parameters": {
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "n_estimators": 300
+          }
+        },
+        {
+          "family": "lightgbm",
+          "id": "lightgbm",
+          "parameters": {
+            "learning_rate": 0.05,
+            "n_estimators": 300,
+            "num_leaves": 31
+          }
+        },
+        {
+          "family": "catboost",
+          "id": "catboost",
+          "parameters": {
+            "depth": 6,
+            "iterations": 300,
+            "learning_rate": 0.05
+          }
+        },
+        {
+          "family": "linear",
+          "id": "linear",
+          "parameters": {}
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_leaf5",
+          "parameters": {
+            "min_samples_leaf": 5,
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_shallow64",
+          "parameters": {
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64
+          }
+        },
+        {
+          "family": "random_patches",
+          "id": "random_patches64",
+          "parameters": {
+            "feature_fraction": 0.2,
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64,
+            "row_fraction": 0.5
+          }
+        }
+      ],
+      "candidates": {
+        "B": 6000,
+        "balanced_grid": true,
+        "depths": [
+          3,
+          6
+        ],
+        "feature_fractions": [
+          0.05,
+          0.2,
+          0.5
+        ],
+        "min_samples_leaf": [
+          10
+        ]
+      },
+      "certification": {
+        "alpha": 0.05,
+        "auc_threshold": 0.51,
+        "bootstrap_reps": 100,
+        "engine": "weighted",
+        "regression_threshold": 0.01
+      },
+      "datasets": [
+        {
+          "id": "california_housing",
+          "max_samples": 20000,
+          "path": "results/data_sources/california_housing.pkl",
+          "sha256": "485686fb976d5520330a0efed7714ba74747b4028c34b4717fb50ca0c5dab001",
+          "source": "cached_public",
+          "subsample_seed": 7321
+        }
+      ],
+      "group_exact_duplicates": true,
+      "hypothesis": "At fixed retained K, increasing balanced nested candidate B improves outer performance; feature width/depth at matched cell B tests representation. All sweep outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning or resource-matched superiority claim.",
+      "id": "exp_006_large_california_housing",
+      "inner_folds": 2,
+      "methods": [
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "top_quality_b300_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "coerror_b300_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "random_cert_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "top_quality_cert_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "coerror_cert_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "abs_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "abs_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "signed_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "signed_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l002_b6000_k64",
+          "lambda": 0.02,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l01_b6000_k64",
+          "lambda": 0.1,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l05_b6000_k64",
+          "lambda": 0.5,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "caruana_b6000_k64",
+          "selector": "caruana_coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_swap_b6000_k64",
+          "max_swaps": 1,
+          "selector": "coerror"
+        },
+        {
+          "K": 256,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_b6000_k256",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f05_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f05_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f05_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f05_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f20_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f20_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f20_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f20_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f50_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f50_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f50_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f50_d6_b1000_k64",
+          "selector": "coerror"
+        }
+      ],
+      "oof_jobs": 4,
+      "outer_folds": 3,
+      "refit_jobs": 4,
+      "role": "development",
+      "seeds": [
+        11
+      ]
+    },
+    {
+      "baselines": [
+        {
+          "family": "random_forest",
+          "id": "random_forest",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "extra_trees",
+          "id": "extra_trees",
+          "parameters": {
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "xgboost",
+          "id": "xgboost",
+          "parameters": {
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "n_estimators": 300
+          }
+        },
+        {
+          "family": "lightgbm",
+          "id": "lightgbm",
+          "parameters": {
+            "learning_rate": 0.05,
+            "n_estimators": 300,
+            "num_leaves": 31
+          }
+        },
+        {
+          "family": "catboost",
+          "id": "catboost",
+          "parameters": {
+            "depth": 6,
+            "iterations": 300,
+            "learning_rate": 0.05
+          }
+        },
+        {
+          "family": "linear",
+          "id": "linear",
+          "parameters": {}
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_leaf5",
+          "parameters": {
+            "min_samples_leaf": 5,
+            "n_estimators": 256
+          }
+        },
+        {
+          "family": "random_forest",
+          "id": "rf_shallow64",
+          "parameters": {
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64
+          }
+        },
+        {
+          "family": "random_patches",
+          "id": "random_patches64",
+          "parameters": {
+            "feature_fraction": 0.2,
+            "max_depth": 6,
+            "min_samples_leaf": 10,
+            "n_estimators": 64,
+            "row_fraction": 0.5
+          }
+        }
+      ],
+      "candidates": {
+        "B": 6000,
+        "balanced_grid": true,
+        "depths": [
+          3,
+          6
+        ],
+        "feature_fractions": [
+          0.05,
+          0.2,
+          0.5
+        ],
+        "min_samples_leaf": [
+          10
+        ]
+      },
+      "certification": {
+        "alpha": 0.05,
+        "auc_threshold": 0.51,
+        "bootstrap_reps": 100,
+        "engine": "weighted",
+        "regression_threshold": 0.01
+      },
+      "datasets": [
+        {
+          "id": "musk2",
+          "path": "results/data_sources/musk2.pkl",
+          "sha256": "d986458ca9339f42cf3fafbe3fad3587441d8e9140d383313470e32aaca5f1fb",
+          "source": "cached_public"
+        }
+      ],
+      "group_aggregation": "max",
+      "group_exact_duplicates": false,
+      "hypothesis": "At fixed retained K, increasing balanced nested candidate B improves outer performance; feature width/depth at matched cell B tests representation. All sweep outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning or resource-matched superiority claim.",
+      "id": "exp_006_large_musk2",
+      "inner_folds": 2,
+      "methods": [
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "random_b1000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "top_quality_b1000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 1000
+          },
+          "certified": false,
+          "id": "coerror_b1000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "random_b3000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "top_quality_b3000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 3000
+          },
+          "certified": false,
+          "id": "coerror_b3000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k16",
+          "selector": "random"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k16",
+          "selector": "top_quality"
+        },
+        {
+          "K": 16,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k16",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "random_b6000_k128",
+          "selector": "random"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "top_quality_b6000_k128",
+          "selector": "top_quality"
+        },
+        {
+          "K": 128,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 6000
+          },
+          "certified": false,
+          "id": "coerror_b6000_k128",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "top_quality_b300_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "prefix": 300
+          },
+          "certified": false,
+          "id": "coerror_b300_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "random_cert_b6000_k64",
+          "selector": "random"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "top_quality_cert_b6000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certification_threshold": null,
+          "certified": true,
+          "id": "coerror_cert_b6000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "abs_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "abs_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "signed_correlation_b6000_k64",
+          "matrix_free": true,
+          "selector": "signed_correlation"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l002_b6000_k64",
+          "lambda": 0.02,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l01_b6000_k64",
+          "lambda": 0.1,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "quality_diversity_l05_b6000_k64",
+          "lambda": 0.5,
+          "matrix_free": true,
+          "selector": "quality_diversity"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "caruana_b6000_k64",
+          "selector": "caruana_coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_swap_b6000_k64",
+          "max_swaps": 1,
+          "selector": "coerror"
+        },
+        {
+          "K": 256,
+          "cache_columns": true,
+          "certified": false,
+          "id": "coerror_b6000_k256",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f05_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f05_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f05_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.05,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f05_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f20_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f20_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f20_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.2,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f20_d6_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "top_quality_f50_d3_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 3
+          },
+          "certified": false,
+          "id": "coerror_f50_d3_b1000_k64",
+          "selector": "coerror"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "top_quality_f50_d6_b1000_k64",
+          "selector": "top_quality"
+        },
+        {
+          "K": 64,
+          "cache_columns": true,
+          "candidate_pool": {
+            "feature_fraction": 0.5,
+            "limit": 1000,
+            "max_depth": 6
+          },
+          "certified": false,
+          "id": "coerror_f50_d6_b1000_k64",
+          "selector": "coerror"
+        }
+      ],
+      "oof_jobs": 4,
+      "outer_folds": 3,
+      "refit_jobs": 4,
+      "role": "development",
+      "sampling_structure": "clustered",
+      "seeds": [
+        11
+      ],
+      "source_groups": true
+    }
+  ],
+  "interval_scope": "Task bootstrap after paired-fold averaging on four chosen classification/two regression tasks; exploratory unadjusted intervals, one seed, no task-population coverage claim",
+  "report_script_sha256": "b6fa50dcb74665b7cfed40a50326ed7f582bd63d64e0567720ec7ed4f07b2ba6",
+  "resource_scope": "Every setting charged full shared 6000-candidate library; no matched standalone prefix CPU budget",
+  "runs": [
+    "exp_006_large_credit_default_v1",
+    "exp_006_large_higgs_v1",
+    "exp_006_large_miniboone_v1",
+    "exp_006_large_superconductivity_v1",
+    "exp_006_large_california_housing_v1",
+    "exp_006_large_musk2_v1"
+  ],
+  "sweep_selection_checks": 936
+}

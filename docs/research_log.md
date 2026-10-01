@@ -259,3 +259,32 @@ explanation of our gains. Preserve the initial pooled-AUC protocol; record the
 limitation and investigate independent fixed-function/same-fit ranking next.
 The independently registered loss-aligned control addresses a separate quality
 criterion confound, not every OOF estimation issue. No confirmation access.
+
+### 2026-10-01 — completed six-task sweep and molecule counterexample
+
+Musk completes the six-task panel:1,098 predictions,216,000 OOF base fits,
+52 selection settings and9 baselines per dataset. Three Musk folds audit with
+maximum Gram identity error3.83e-15. Co-error molecule AUC.792826 loses to
+quality.817151,RF.846166 and Caruana.806586, despite row Brier.123342 versus
+quality.130993; Caruana row Brier.115159 is stronger still. Preserve the primary
+negative result: row-loss selection does not optimize nonlinear molecule ranking.
+The separately preregistered count-only molecule control averagesAUC.453927
+(folds.497835/.455782/.408163). It does not support a simple count-only explanation,
+without excluding pooling/cardinality interactions. Only102 molecule units exist.
+
+Full automatically generated reports retain all61 settings, nested B/K and
+homogeneous width/depth cells, actual study-sample metadata, partition counts,
+per-task paired effects, descriptive reference ranks and resource measurements.
+Exploratory bootstrap intervals resample task means (four binary/two regression
+tasks), never rows/folds as scientific units; no coverage or significance claim.
+Sample counts are separated from full-source catalog counts (sampled HIGGS has
+zero missing cells although its source has9). All18 co-error/quality subsets
+have64 exact distinct OOF columns; their gaps are not exact-copy weighting here.
+Absolute/signed residual-correlation selections are identical onall18 folds.
+Credit's RF leaf5 matches the co-error default-RF gain, while larger K worsens
+both regression task means past64. No universal scaling or forest-family gain.
+
+All95 tests pass after adding sample/partition metadata checks. The report's
+generated Musk LaTeX macro names use alphabetic identifiers; paper compilation
+checks the resulting tables. Main configurations remain unchanged. Exp_007 is
+next, on the entire immutable panel; all six tasks remain development only.

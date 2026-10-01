@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+Task / metric & Co-error & Top & Caruana & RF & RF leaf5 & ET & XGB & LGB & Cat & Linear \\
+\midrule
+Credit default / AUC & 0.779 & 0.776 & 0.778 & 0.767 & 0.779 & 0.746 & 0.776 & 0.775 & 0.784 & 0.728 \\
+HIGGS / AUC & 0.764 & 0.746 & 0.764 & 0.785 & 0.786 & 0.767 & 0.792 & 0.794 & 0.793 & 0.689 \\
+MiniBooNE / AUC & 0.970 & 0.963 & 0.970 & 0.976 & 0.975 & 0.976 & 0.982 & 0.982 & 0.981 & 0.932 \\
+Superconductivity / RMSE & 13.807 & 14.038 & 13.840 & 10.206 & 10.342 & 9.899 & 10.246 & 10.324 & 11.641 & 17.773 \\
+California housing / RMSE & 0.594 & 0.633 & 0.594 & 0.508 & 0.516 & 0.505 & 0.466 & 0.460 & 0.489 & 0.726 \\
+Musk v2 (molecules) / AUC & 0.793 & 0.817 & 0.807 & 0.846 & 0.842 & 0.872 & 0.868 & 0.885 & 0.864 & 0.787 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Predesignated $B=6,000,K=64$ co-error anchor and static references. Means of three outer folds and one seed. Exact feature-vector groups for five tasks; molecule groups and molecule-max AUC for Musk. Other sweep cells are reported separately; no test-based winner selection or resource matching.}
+\end{table}

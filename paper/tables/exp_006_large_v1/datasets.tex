@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Task & Study rows & Features & Split groups & Missing cells \\
+\midrule
+Credit default & 20,000 & 23 & 19,972 & 0 \\
+HIGGS & 20,000 & 28 & 19,999 & 0 \\
+MiniBooNE & 20,000 & 50 & 19,917 & 0 \\
+Superconductivity & 20,000 & 81 & 14,397 & 0 \\
+California housing & 20,000 & 8 & 20,000 & 0 \\
+Musk v2 (molecules) & 6,598 & 166 & 102 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Stored study samples, distinct from full-source catalog counts. Exact raw feature-vector groups for five tasks; molecule groups for Musk. Missing cells are imputed inside training folds. MiniBooNE's retained $-999$ sentinels do not count as missing cells.}
+\end{table}

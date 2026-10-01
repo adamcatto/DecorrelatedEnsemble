@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from make_large_report import LABELS, NAMES, PRIMARY, paired_effect
+from make_large_report import LABELS, LATEX_KEYS, NAMES, PRIMARY, paired_effect
 
 from decorrelated_ensemble.evaluation.artifacts import sha256, verify_manifest, write_json
 
@@ -70,7 +70,7 @@ def report(run_id, predictions_only=False):
                     )
                 )
         for suffix, method in [("Aligned", NEW), ("Quality", OLD[0]), ("Co", OLD[1])]:
-            key = "".join(w.capitalize() for w in name.split("_")) + suffix
+            key = LATEX_KEYS[name] + suffix
             facts.append(
                 r"\newcommand{\ExpSeven" + key + "}{" + f"{frame.loc[method, primary]:.3f}" + "}"
             )

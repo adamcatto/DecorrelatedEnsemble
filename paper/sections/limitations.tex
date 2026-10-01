@@ -14,8 +14,10 @@ same-fit ranking controls are future work. Sparse
 shallow trees can fail on interactions that need joint feature access. Only two
 generation seeds and one dimensional/sample-size setting have been tested in the
 completed synthetic studies. The initial three real tasks are small numerical
-development datasets; the larger five-task checkpoint adds only
-one seed and chosen tasks. Repeated folds of the same rows are not independent
+development datasets; the six-task public-data sweep adds only
+one seed and chosen tasks. Musk contributes 102 molecules with a nonlinear
+pooling primary metric different from its row selection objective. Repeated
+folds of the same rows are not independent
 scientific replicates. Exact-vector groups control duplicate leakage but do not
 establish temporal, geographic, or chemical-scaffold generalization.
 Duplicate OOF columns can make equal specification weights into effective frequency
@@ -36,7 +38,9 @@ Unadjusted OOF screening can fail, equal averaging can attenuate additive signal
 and co-error gains over quality are conditional. Affine calibration helps some
 fixed subsets, while flexible selection and larger pools can increase optimism.
 The initial small real panel favors linear controls; the larger classification
-checkpoint favors boosting references and gives a forest win only on credit.
+panel favors boosting references; a regularized forest matches the apparent
+credit gain over the default forest. Musk supplies a primary-metric counterexample
+to gains over quality selection, despite improved row Brier.
 Exact OOF deduplication
 eliminates some quality-selection gaps while hurting regression, implicating
 useful implicit weighting rather than independent specialists. Independent

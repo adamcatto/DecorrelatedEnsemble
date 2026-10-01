@@ -73,8 +73,8 @@ Cluster-bootstrap multiplicities and matrix-free selector columns accelerate
 computations while matching literal-resampling and dense toy references.
 All settings are charged the complete shared-library search cost, a conservative
 accounting convention rather than a matched independent-training budget.
-The registered plan and smoke audit precede main scoring. The three binary tasks
-and two regression tasks are complete at this checkpoint; the extension is pending.
+The registered plan and smoke audit precede main scoring. All five original tasks
+and the molecule-level extension are complete.
 
 A later extension, registered after credit default completed but before its own
 scores, adds Musk v2 \citep{musk1994}: 6,598 conformations, 166 features, and
@@ -84,6 +84,29 @@ after the row ensemble gives molecule AUROC, while row losses are also retained.
 Training and selection use inherited row labels and row Brier; they do not optimize
 the nonlinear molecule score, and the Gram identity is not claimed for that score.
 The extension is explicit development exploration, not independent confirmation.
+
+An auxiliary control, registered before the main Musk run, fits a training-only
+scaled logistic model on $\log(1+m)$, where $m$ is the conformation count, with
+one observation per molecule on the unchanged outer partitions. It probes bag-size
+information without distance features. Under illustrative independent uniform
+row scores, the maximum of $m$ scores has CDF $t^m$; cardinality can therefore
+induce ranking without feature signal. These assumptions are not asserted for
+our fitted probabilities, and the count control cannot rule out all pooling effects.
+
+Experiment 007 is registered after the first three classification results, before
+its own scores. It reuses all six immutable development datasets, specifications,
+OOF matrices and partitions at $B=6,000,K=64$, replacing individual classification
+AUROC quality by individual row squared loss. The selected specifications are
+refitted and evaluated once; regression supplies an expected unchanged-selection
+control. This separates criterion alignment from joint co-error selection, while
+remaining adaptive development reuse rather than fresh confirmation.
+
+Reports preserve per-task outcomes, paired fold differences, resources and
+descriptive ranks among predesignated references. Exploratory task-bootstrap
+intervals first average paired folds within tasks, then resample the four binary
+or two regression tasks; normalized squared loss avoids mixing regression units.
+These small chosen panels do not justify population coverage. Many comparisons
+are unadjusted exploratory estimates, without significance declarations.
 
 The runner requests one BLAS thread, but NumPy uses Apple Accelerate on this
 host and threadpoolctl does not expose its thread counts. Actual numerical

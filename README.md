@@ -123,3 +123,17 @@ fitted models are omitted. Run `python scripts/verify_export.py <run_id>` to
 reconstruct parts in a fresh temporary directory, verify hashes, and rerun the
 metric/split/Gram audit. See `results/artifacts/README.md` for manual restoration
 and `--predictions-only` reporting on restored exports. Full models remain local.
+
+The registered count-only Musk explanation control and loss-aligned quality
+follow-up reuse these immutable partitions and candidate predictions:
+
+```bash
+python scripts/audit_musk_bag_sizes.py
+python scripts/run_quality_alignment.py configs/experiments/exp_007_quality_alignment.yaml --run-id exp_007_quality_alignment_v1
+python scripts/audit_quality_alignment.py exp_007_quality_alignment_v1
+python scripts/make_quality_report.py exp_007_quality_alignment_v1
+```
+
+See `experiments/exp_007_quality_alignment/protocol.md` for the exploratory
+test-fold reuse and regression unchanged-selection control. Its export links to
+all six parent bundles, which `verify_export.py` restores before auditing.

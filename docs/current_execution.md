@@ -1,29 +1,21 @@
-# Active exp_006 execution checkpoint (temporary operations note)
+# Active research checkpoint (temporary operations note)
 
-2026-10-01 17:34 UTC: The owned dataset-loop parent PID81143 was resumed with
-SIGCONT after the classification audit/push barrier. Tool session56031 owns the
-loop. Credit default, HIGGS and MiniBooNE are complete and audited/exported; their
-bundles passed fresh reconstruction audits. Superconductivity and California housing are complete/audited/exported;
-the original five-task loop has ended. The parent is not intentionally stopped now.
-If process signals become necessary, verify create_time from
-/private/tmp/de-large-orchestrator.json. Do not kill the training jobs.
+2026-10-01 19:32 UTC: All six exp_006 tasks are complete and audited. The first
+five are exported/pushed through f891f06 and passed fresh reconstruction audits.
+Musk and the registered count-only diagnostic are complete; full six-task sweep,
+sample/partition metadata, task-level statistics and resource plots are generated.
+Musk molecule AUC supplies a negative primary result despite improved row Brier.
 
-Main algorithms for the original five tasks have not changed. All94 tests and the loss-alignment OOF-only refit check pass;
-latest pushed registration commit b2122cb. The separately registered Musk main job has not
-started. A count-only molecule diagnostic was additionally registered before
-that main job to probe bag-cardinality effects; its script has passed small tests and awaits
-main-run completion. Source-group/max APIs are opt-in and inert for the five tasks.
+Exp_007 loss-aligned quality control was registered/tested before its scoring.
+It is next to run on all six immutable parents. All95 tests pass. Preserve all
+outcomes and failed artifacts; the main sweep settings remain frozen.
 
-After the original loop completes, audit/export the two regressions while no ML
-training is active, update/push a checkpoint, then run Musk separately. Avoid heavy
-exports/tests/plots during timed training. Full reporting expects all SIX tasks
-and predesignated coerror_b6000_k64, with group_auroc primary only for Musk.
-Run the auxiliary count control on the same completed Musk partitions separately.
+Avoid heavy exports/tests/plots during timed training. After Musk completes,
+run the registered controls, audit their artifacts, generate the full six-task
+report and update the paper. Export Musk with lossless column-major OOF layout
+and 48 MiB parts; verify fresh reconstruction. Exp_007 depends on all six
+published parent bundles; its fresh export audit restores those dependencies.
 
-Large source caches and raw combined archives/models remain ignored/local.
---column-major-oof --part-mib48 exports exactly preserve all OOF values/dtypes,
-original/export manifests and every prediction/decision artifact; only fitted
-models omitted. Use scripts/verify_export.py to reconstruct and audit publishedparts.
-Compile/render/inspect the paper after full results updates; keep frequent main
-commits/pushes. No final response yet for the larger-data request. Finish remaining
-runs/evidence/paper/pushes before summarizing this completed research milestone.
+Frequent main commits/pushes are authorized. Clear this temporary operations
+note at the completed milestone. Compile from the paper directory, render and
+inspect new pages, and verify the final pushed commit and clean working tree.

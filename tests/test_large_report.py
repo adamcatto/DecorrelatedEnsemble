@@ -108,3 +108,45 @@ def test_followup_array_digest_is_storage_independent_and_value_sensitive():
     altered[0, 0] = np.nextafter(0.0, 1.0)
     assert aligned.array_digest(values) != aligned.array_digest(altered)
     assert aligned.array_digest(values) != aligned.array_digest(values.astype(np.float32))
+
+
+def test_large_metadata_separates_sample_and_full_source_counts(tmp_path):
+    import json
+
+    import numpy as np
+
+    root = tmp_path / "run"
+    sample = root / "musk2" / "seed_11"
+    sample.mkdir(parents=True)
+    (root / "config.json").write_text(json.dumps({"datasets": [{"id": "musk2"}], "seeds": [11]}))
+    (sample / "metadata.json").write_text(
+        json.dumps(
+            {
+                "id": "musk2",
+                "task": "binary",
+                "n_full": 100,
+                "missing_values": 12,
+                "exact_duplicate_feature_rows": 10,
+            }
+        )
+    )
+    pd.DataFrame({"x": [1.0, 1.0, np.nan, 3.0]}).to_pickle(sample / "X.pkl")
+    np.save(sample / "y.npy", [0, 0, 1, 1])
+    np.save(sample / "groups.npy", ["a", "a", "b", "c"])
+    row = module.dataset_metadata([root]).iloc[0]
+    assert row.sample_rows == 4 and row.source_full_rows == 100
+    assert row.sample_missing_cells == 1 and row.source_catalog_missing_cells == 12
+    assert row.sample_repeated_feature_rows == 1
+    assert row.source_catalog_repeated_feature_rows == 10
+    assert row.split_groups == 3 and row.max_rows_per_group == 2
+    assert row.sample_positive_rows == 2 and row.positive_molecules == 2
+    assert row.primary_metric == "group_auroc"
+    fold = sample / "fold_0"
+    fold.mkdir()
+    np.savez(fold / "outer_split.npz", train=[2, 1, 0], test=[3])
+    partitions = module.partition_metadata([root]).set_index("role")
+    assert partitions.loc["train", "rows"] == 3
+    assert partitions.loc["train", "split_groups"] == 2
+    assert partitions.loc["train", "positive_rows"] == 1
+    assert partitions.loc["train", "positive_molecules"] == 1
+    assert partitions.loc["test", "split_groups"] == 1

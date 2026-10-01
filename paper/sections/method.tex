@@ -60,6 +60,11 @@ co-error followed by improving one-swaps. Direct squared-loss selection without
 replacement is exactly the same greedy objective, so it supplies a verification
 baseline rather than a separate contribution. A with-replacement Caruana-style
 baseline yields nonuniform weights and is labeled separately.
+The loss-aligned quality-only control selects the $K$ lowest diagonal elements
+$G_{ii}$, with stable candidate-ID ties and equal weights. It uses no cross-error
+terms. For regression it is equivalent to ranking individual cross-fitted skill
+on a common null denominator; for classification it tests whether comparing
+AUROC quality with Brier-based co-error confounds quality-criterion alignment.
 
 \subsection{Bias-Preserving Shrinkage Variant}
 We additionally test $G_\alpha=(1-\alpha)C+\alpha\operatorname{diag}(C)+\mu\mu^\top$.

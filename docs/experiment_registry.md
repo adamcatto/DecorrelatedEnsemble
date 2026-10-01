@@ -16,13 +16,15 @@
 - **Protocol:** `experiments/exp_006_large/protocol.md`; five task-specific
   `configs/experiments/exp_006_large_*.yaml`, 6,000 candidates per outer fold,
   3 binary/2 regression tasks, 20,000 rows, 3 outer/2 OOF folds, one seed.
-- **Status:** Original five tasks complete/audited (915 test predictions);
-  Musk extension pending.
+- **Status:** All six tasks complete/audited (1,098 test predictions;
+  216,000 OOF base fits), full sweep and resource reports generated.
 - **Anchor:** Unscreened co-error B6,000,K64; full sweep retained, no best-test tuning.
-- **Partial result:** Anchor AUROC .779/.764/.970 on credit/HIGGS/MiniBooNE;
+- **Result:** Anchor AUROC .779/.764/.970 on credit/HIGGS/MiniBooNE;
   exceeds top quality on each but beats default RF only on credit; RF leaf5 matches
   credit co-error at .779. Trails at least one
-  boosting reference on each. B6000 does not improve B3000 at K64 on credit/HIGGS.
+  boosting reference on each. Regression RMSE13.807/.594 versus RF10.206/.508.
+  B6000 does not improve B3000 at K64 on credit/HIGGS; increasing K beyond64
+  worsens both regression means. All18 co/quality subsets have64 unique OOF columns.
 - **Interpretation/follow-up:** Conditional development evidence. These are chosen tasks with
   exact-feature group holdouts, not a locked representative confirmation benchmark.
 
@@ -35,6 +37,11 @@ completed, to test higher dimensionality. Training/selection row objectives diff
 from the group-max primary; preserve both and do not call this optimized MIL.
 Bioresponse deferred because preexisting descriptor-normalization provenance is
 unspecified. No primary data exclusion based on observed performance.
+Complete/audited: co-error molecule AUC.793 vsquality.817,RF.846,Caruana.807;
+row Brier improves from.131 quality to.123 co-error but Caruana reaches.115.
+Registered count-only molecule control averagesAUC.454 (folds.498/.456/.408).
+This primary-metric counterexample is preserved; no simple count-only explanation
+is supported, and more complex pooling/cardinality effects remain possible.
 
 ## exp_007 — loss-aligned quality-only control (registered; pending)
 

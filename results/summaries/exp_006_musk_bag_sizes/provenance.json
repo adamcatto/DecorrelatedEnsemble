@@ -1,0 +1,9 @@
+{
+  "main_manifest_sha256": "b9067d21ebcb6f1f19ace50cafa71a1c2e2b2cb6ad102856a2227eb9889a1515",
+  "main_run": "exp_006_large_musk2_v1",
+  "mean_group_auroc": 0.45392702535559676,
+  "primary": "molecule AUROC",
+  "protocol": "One observation per molecule; log1p count, fold-local scale, C1 logistic; unchanged main outer folds; auxiliary structural-information control",
+  "scope": "One dataset and three overlapping development folds; no population interval or optimized MIL claim",
+  "script_sha256": "61e96bd5442fff254d8a945ca44be7bd6b9f4d1888080e459cc113c9b5570bcb"
+}

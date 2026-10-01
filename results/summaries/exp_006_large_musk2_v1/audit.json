@@ -1,0 +1,22 @@
+{
+  "affine_fits_audited": 0,
+  "checks": [
+    "artifact hashes",
+    "outer disjointness",
+    "outer/inner partitions and OOF coverage",
+    "outer/inner feature-group separation where configured",
+    "selected IDs within recorded eligible pool",
+    "OOF and test label row mapping",
+    "test prediction row mapping",
+    "stored metric reconstruction",
+    "weighted co-error identity",
+    "direct/greedy squared objective identity",
+    "training OOF affine fit and profiled loss reconstruction where applicable",
+    "same selected subsets for raw/calibrated controls where applicable"
+  ],
+  "folds_audited": 3,
+  "maximum_squared_loss_identity_error": 3.83026943495679e-15,
+  "run_id": "exp_006_large_musk2_v1",
+  "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel",
+  "test_predictions_audited": 183
+}

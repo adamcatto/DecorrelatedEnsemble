@@ -214,27 +214,29 @@ generalization. Uniqueness is neither statistical independence nor a universal
 algorithmic improvement.}
 \end{figure}
 
-\subsection{Experiment 006: Larger Classification Panel (Partial Checkpoint)}
-\input{tables/exp_006_classification_partial/facts}
-The first three registered tasks are complete: 549 test-prediction records,
-three outer folds per task, and 6,000 candidates per fold. Artifact audits
-reconstruct all metrics and the row squared-loss identity, with maximum
-discrepancy below $1.1\times10^{-14}$. The regression checkpoint follows below;
-the molecule-level extension remains pending.
-\input{tables/exp_006_classification_partial/anchor}
+\subsection{Experiment 006: Larger Public-Data Sweep}
+\input{tables/exp_006_large_v1/facts}
+All six registered tasks are complete: 1,098 test-prediction records,
+three outer folds per task, and 6,000 candidates per fold. The two-fold OOF
+libraries require 216,000 base fits, before selected refits and baseline fits.
+Artifact audits reconstruct metrics and row squared-loss identities, with maximum
+discrepancy below $2.9\times10^{-13}$. All 52 selection settings and nine static
+baselines per task are retained; the anchor is not a test-selected winner.
+\input{tables/exp_006_large_v1/datasets}
+\input{tables/exp_006_large_v1/anchor}
 
 Credit default lies in the requested harder baseline region: the fixed forest
-achieves AUROC \ExpSixPartialCreditDefaultRF{} and logistic regression
-\ExpSixPartialCreditDefaultLinear{}. The predesignated co-error anchor reaches
-\ExpSixPartialCreditDefaultCo{}, exceeding top quality
-(\ExpSixPartialCreditDefaultTop{}) and the default forest, but trailing CatBoost.
+achieves AUROC \ExpSixCreditDefaultRF{} and logistic regression
+\ExpSixCreditDefaultLinear{}. The predesignated co-error anchor reaches
+\ExpSixCreditDefaultCo{}, exceeding top quality
+(\ExpSixCreditDefaultTop{}) and the default forest, but trailing CatBoost.
 The predeclared forest with minimum leaf size five reaches
-\ExpSixPartialCreditDefaultLeafFive{}, nearly identical to co-error at displayed
+$.779$, nearly identical to co-error at displayed
 precision. The apparent default-forest gain is therefore not a gain over the
 forest family or evidence beyond ordinary regularization.
 On HIGGS, co-error improves over top quality
-(\ExpSixPartialHiggsCo{} versus \ExpSixPartialHiggsTop{}) yet trails the forest
-(\ExpSixPartialHiggsRF{}) and all three boosting references. MiniBooNE is easier
+(\ExpSixHiggsCo{} versus \ExpSixHiggsTop{}) yet trails the forest
+(\ExpSixHiggsRF{}) and all three boosting references. MiniBooNE is easier
 for these baselines than the requested AUC region; it remains in the panel.
 Its anchor also trails the forest and boosting references despite improving
 over top quality. These conditional observations establish neither broad
@@ -243,24 +245,83 @@ superiority nor an independent diversity mechanism.
 Increasing the nested library from $B=3,000$ to $6,000$ at fixed $K=64$ slightly
 worsens co-error task-mean AUROC on both credit default and HIGGS. Thus more
 candidate search does not monotonically improve generalization even on these
-larger tasks. All 52 registered settings and nine static baselines are retained;
-no outer-test winner is substituted for the anchor. Costs include the entire
-shared library and are unmatched across methods. This partial panel supplies
-descriptive development evidence, not a dataset-population uncertainty estimate.
+larger tasks. MiniBooNE has a small endpoint improvement. The regression tasks
+show modest improvement across $B=1,000/3,000/6,000$, while increasing $K$ beyond
+64 worsens both regression task means. These curves refute a universal monotone
+benefit from either search size or retained size.
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_006_large_v1/performance_vs_B.pdf}
+\caption{Nested available-pool size at fixed $K=64$; task means over three paired
+development folds. All settings share the full generated library and are charged
+its cost, so the horizontal axis is not a matched independent training budget.
+Musk uses molecule-max AUROC; regression uses RMSE. No confidence bars are implied.}
+\end{figure}
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_006_large_v1/performance_vs_K.pdf}
+\caption{Retained size varies independently of generated $B=6,000$. Larger
+ensembles are not uniformly better. Fixed forests and linear references have
+different capacities and unmatched costs.}
+\end{figure}
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_006_large_v1/performance_vs_fraction_depth.pdf}
+\caption{Homogeneous feature-fraction/depth cells at matched available $B=1,000$
+and $K=64$. Width and depth alter representation and individual strength. The
+cells are descriptive ablations, not test-tuned hyperparameters.}
+\end{figure}
 
-\subsection{Experiment 006: Regression Checkpoint}
-\input{tables/exp_006_regression_partial/facts}
-The two regression runs complete the initial five-task panel: all 366 additional
-predictions are audited, with maximum squared-loss identity error below
-$2.9\times10^{-13}$. Co-error improves over quality selection, but remains weaker
-than the forest: superconductivity RMSE is \ExpSixRegSuperconductivityCo{}
-versus \ExpSixRegSuperconductivityTop{} and \ExpSixRegSuperconductivityRF{};
-California RMSE is \ExpSixRegCaliforniaHousingCo{} versus
-\ExpSixRegCaliforniaHousingTop{} and \ExpSixRegCaliforniaHousingRF{}.
-Both tasks show modest task-mean improvement as $B$ grows from 1,000 to 6,000
-at fixed $K=64$, unlike the nonmonotone credit/HIGGS endpoints. No resource
-matching or independent confirmation follows from these chosen development tasks.
-\input{tables/exp_006_regression_partial/anchor}
+Co-error improves over quality selection on both regressions, but remains weaker
+than the forest: superconductivity RMSE is \ExpSixSuperconductivityCo{}
+versus \ExpSixSuperconductivityTop{} and \ExpSixSuperconductivityRF{};
+California RMSE is \ExpSixCaliforniaHousingCo{} versus
+\ExpSixCaliforniaHousingTop{} and \ExpSixCaliforniaHousingRF{}.
+With-replacement Caruana selection is nearly identical on California
+(\ExpSixCaliforniaHousingCaruana{}) and close on the original three classifiers.
+These results provide no substantial new advantage over ordinary ensemble selection.
+
+\subsection{Molecule-Level Counterexample and Pooling Control}
+Musk co-error molecule AUROC is \ExpSixMuskTwoCo{}, below top quality
+(\ExpSixMuskTwoTop{}), the forest (\ExpSixMuskTwoRF{}) and all boosting references.
+Row Brier nevertheless improves from $.131$ for quality to $.123$ for co-error;
+Caruana reaches $.115$ and molecule AUROC \ExpSixMuskTwoCaruana{}.
+Thus a row squared-loss improvement need not transfer to a nonlinear molecule
+ranking metric. The count-only control averages molecule AUROC $.454$, with
+fold values $.498/.456/.408$. It does not support a simple count-only explanation,
+but cannot exclude interactions between score distributions, cardinality and max
+pooling. There are only 102 independent-molecule units under the assumed sampling
+model, not 6,598 independent conformations. This is a negative primary result.
+
+\subsection{Resources and Objective Diagnostics}
+Compute, capacity, raw serialized size and row inference measurements accompany
+every method. Search costs include the entire shared library; raw model bytes
+include fit-row provenance, and phase RSS includes shared arrays and other models.
+The resource plots are measured points with static settings and unmatched budgets,
+not optimized frontiers or evidence of budget-matched superiority.
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_006_large_v1/resource_train_cpu_seconds.pdf}
+\caption{Performance versus charged process CPU. Selected methods pay for OOF
+search and screening plus selection/refit; static references have no comparable
+hyperparameter search. Process CPU includes numerical threads.}
+\end{figure}
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_006_large_v1/resource_inference_rows_per_second.pdf}
+\caption{Measured row inference throughput on training inputs, including each
+learner's preprocessing. Musk molecule aggregation is not included in row
+throughput. Timings are development measurements on one host.}
+\end{figure}
+
+On all nine original classification folds, screening leaves both co-error and
+top-quality IDs, weights and predictions exactly unchanged. Absolute and signed
+residual-correlation selectors choose the same subsets on all 18 panel folds;
+this panel cannot discriminate those notions by comparing their identical
+outputs. On HIGGS and MiniBooNE correlation selection improves AUROC relative to
+co-error but worsens Brier, further separating ranking and squared-loss objectives.
+Unlike the narrow diabetes experiment, both quality and co-error select 64 exact
+distinct OOF columns on every larger-panel fold. Exact repeated selected columns
+therefore do not explain this panel's gap, although correlated or nearly equal
+functions and effective concentration remain possible. The full pools have
+approximately 3,650--6,000 distinct OOF patterns; specification count is not a
+count of statistically independent learners. Musk screening survival also varies
+sharply across folds (1,372--5,235 of 6,000), reinforcing the sampling-unit caveat.
 
 \section{Ablations and Analysis}
 The stored ablations include all required v0 components, signed versus absolute

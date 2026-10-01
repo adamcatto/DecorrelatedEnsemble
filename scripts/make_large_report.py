@@ -13,6 +13,7 @@ from decorrelated_ensemble.certification import Certification
 from decorrelated_ensemble.evaluation.artifacts import sha256, verify_manifest, write_json
 from decorrelated_ensemble.evaluation.runner import candidate_pool_mask, eligibility
 from decorrelated_ensemble.selection import distinct_prediction_indices
+from decorrelated_ensemble.statistics import paired_task_comparison
 
 NAMES = ["credit_default", "higgs", "miniboone", "superconductivity", "california_housing", "musk2"]
 LABELS = dict(
@@ -29,6 +30,8 @@ LABELS = dict(
     )
 )
 ANCHOR = "coerror_b6000_k64"
+LATEX_KEYS = {name: "".join(w.capitalize() for w in name.split("_")) for name in NAMES}
+LATEX_KEYS["musk2"] = "MuskTwo"
 CORE = ["random", "top_quality", "coerror"]
 METHOD_LABELS = {"random": "Random", "top_quality": "Top quality", "coerror": "Co-error"}
 PRIMARY = {"binary": "auroc", "regression": "rmse"}
@@ -202,7 +205,7 @@ def plot_sweeps(means, figure_dir):
     import matplotlib.pyplot as plt
 
     plt.rcParams.update(
-        {"font.size": 9, "axes.spines.top": False, "axes.spines.right": False, "pdf.fonttype": 42}
+        {"font.size": 11, "axes.spines.top": False, "axes.spines.right": False, "pdf.fonttype": 42}
     )
     colors = {"random": "#777777", "top_quality": "#e69f00", "coerror": "#0072b2"}
     for variable in ["B", "K", "fraction_depth"]:
@@ -262,6 +265,135 @@ def plot_sweeps(means, figure_dir):
         fig.suptitle("Registered development sweep: one seed, three group-separated outer folds")
         fig.savefig(figure_dir / f"performance_vs_{variable}.pdf")
         fig.savefig(figure_dir / f"performance_vs_{variable}.png", dpi=180)
+        plt.close(fig)
+
+
+def dataset_metadata(roots):
+    """Describe the stored study sample; source catalog counts stay separate."""
+    rows = []
+    for root in roots:
+        cfg = json.loads((root / "config.json").read_text())
+        name = cfg["datasets"][0]["id"]
+        sample = root / name / f"seed_{cfg['seeds'][0]}"
+        meta = json.loads((sample / "metadata.json").read_text())
+        X = pd.read_pickle(sample / "X.pkl")
+        y = np.load(sample / "y.npy")
+        groups = np.load(sample / "groups.npy")
+        unique, first, counts = np.unique(groups, return_index=True, return_counts=True)
+        row = {
+            "dataset": name,
+            "task": meta["task"],
+            "sample_rows": len(y),
+            "features": X.shape[1],
+            "source_full_rows": meta.get("n_full", len(y)),
+            "sample_missing_cells": int(X.isna().sum().sum()),
+            "sample_repeated_feature_rows": int(X.duplicated().sum()),
+            "split_groups": len(unique),
+            "min_rows_per_group": int(counts.min()),
+            "max_rows_per_group": int(counts.max()),
+            "group_semantics": "molecule" if name == "musk2" else "exact raw feature vector",
+            "primary_metric": "group_auroc" if name == "musk2" else PRIMARY[meta["task"]],
+            "source_catalog_missing_cells": meta.get("missing_values"),
+            "source_catalog_repeated_feature_rows": meta.get("exact_duplicate_feature_rows"),
+        }
+        if meta["task"] == "binary":
+            row["sample_positive_rows"] = int(np.sum(y == 1))
+            if name == "musk2":
+                row["positive_molecules"] = int(np.sum(y[first] == 1))
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def partition_metadata(roots):
+    rows = []
+    for root in roots:
+        for path in sorted(root.rglob("outer_split.npz")):
+            sample = path.parent.parent
+            meta = json.loads((sample / "metadata.json").read_text())
+            groups, y = np.load(sample / "groups.npy"), np.load(sample / "y.npy")
+            with np.load(path) as split:
+                for role in ["train", "test"]:
+                    ids = split[role]
+                    unique, first, counts = np.unique(
+                        groups[ids], return_index=True, return_counts=True
+                    )
+                    row = {
+                        "dataset": meta["id"],
+                        "seed": int(sample.name.split("_")[-1]),
+                        "fold": int(path.parent.name.split("_")[-1]),
+                        "role": role,
+                        "rows": len(ids),
+                        "split_groups": len(unique),
+                        "max_rows_per_group": int(counts.max()),
+                    }
+                    if meta["task"] == "binary":
+                        row["positive_rows"] = int(np.sum(y[ids] == 1))
+                        if meta["id"] == "musk2":
+                            row["positive_molecules"] = int(np.sum(y[ids[first]] == 1))
+                    rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def plot_resources(means, figure_dir):
+    """Measured resource-performance points, without claiming matched budgets."""
+    import matplotlib.pyplot as plt
+
+    methods = [
+        ANCHOR,
+        "top_quality_b6000_k64",
+        "random_forest",
+        "rf_leaf5",
+        "extra_trees",
+        "xgboost",
+        "lightgbm",
+        "catboost",
+        "linear",
+        "rf_shallow64",
+        "random_patches64",
+    ]
+    colors = plt.get_cmap("tab20")(np.linspace(0, 1, len(methods)))
+    labels = [
+        "Co-error64",
+        "Top64",
+        "RF256",
+        "RF leaf5",
+        "ET256",
+        "XGB300",
+        "LGB300",
+        "Cat300",
+        "Linear",
+        "RF shallow64",
+        "Random patches64",
+    ]
+    for cost, caption in [
+        ("train_cpu_seconds", "Charged training process CPU (s)"),
+        ("model_bytes", "Serialized research model (MiB)"),
+        ("inference_rows_per_second", "Measured row inference throughput (rows/s)"),
+    ]:
+        fig, axes = plt.subplots(2, 3, figsize=(11.3, 6.2), constrained_layout=True)
+        for ax, name in zip(axes.ravel(), NAMES):
+            frame = means[means.dataset == name].set_index("method")
+            metric = "group_auroc" if name == "musk2" else PRIMARY[frame.task.iloc[0]]
+            for method, label, color in zip(methods, labels, colors):
+                x = frame.loc[method, cost] / (2**20 if cost == "model_bytes" else 1)
+                ax.scatter(
+                    x,
+                    frame.loc[method, metric],
+                    color=color,
+                    label=label,
+                    s=42,
+                    marker="*" if method == ANCHOR else "o",
+                )
+            ax.set_xscale("log")
+            ax.set_title(LABELS[name])
+            ax.set_xlabel(caption)
+            ax.set_ylabel("AUROC" if metric.endswith("auroc") else "RMSE")
+            ax.grid(alpha=0.15)
+        handles, legend = axes.ravel()[0].get_legend_handles_labels()
+        fig.legend(handles, legend, loc="outside lower center", ncol=4, frameon=False)
+        fig.suptitle("Development resource measurements: static settings, unmatched budgets")
+        fig.savefig(figure_dir / f"resource_{cost}.pdf")
+        fig.savefig(figure_dir / f"resource_{cost}.png", dpi=180)
         plt.close(fig)
 
 
@@ -349,6 +481,9 @@ def report(run_ids, predictions_only=False):
     pd.DataFrame(checks).to_csv(output / "pool_selection_audit.csv", index=False)
     pd.DataFrame(screening).to_csv(output / "screening_by_cell.csv", index=False)
     pd.DataFrame(resources).to_csv(output / "run_resources.csv", index=False)
+    metadata = dataset_metadata(roots)
+    metadata.to_csv(output / "dataset_metadata.csv", index=False)
+    partition_metadata(roots).to_csv(output / "partition_metadata.csv", index=False)
     control_equivalences(roots).to_csv(output / "control_equivalences.csv", index=False)
     effects = []
     comparisons = [
@@ -395,11 +530,73 @@ def report(run_ids, predictions_only=False):
     effects.groupby(["dataset", "left", "right", "metric"]).effect_favors_left.agg(
         ["mean", "min", "max", "count"]
     ).reset_index().to_csv(output / "paired_effect_summary.csv", index=False)
+    # Average within tasks before resampling tasks; overlapping folds are not
+    # independent scientific units. Musk's primary is group rather than row AUC.
+    binary = records[records.task == "binary"].copy()
+    binary["primary_auroc"] = binary["auroc"]
+    binary.loc[binary.dataset == "musk2", "primary_auroc"] = binary.loc[
+        binary.dataset == "musk2", "group_auroc"
+    ]
+    task_comparisons = []
+    for frame, metric, higher, scope in [
+        (binary, "primary_auroc", True, "four chosen binary tasks; molecule AUC for Musk"),
+        (
+            records[records.task == "regression"],
+            "normalized_squared_loss",
+            False,
+            "two chosen regression tasks; fold-specific cross-fitted null normalization",
+        ),
+    ]:
+        for left, right in comparisons:
+            comparison = paired_task_comparison(frame, left, right, metric, higher)
+            comparison["panel_scope"] = scope
+            comparison["bootstrap_reps"] = 5000
+            comparison["bootstrap_seed"] = 123
+            comparison["win_tie_loss_tolerance"] = 1e-4
+            task_comparisons.append(comparison)
+    write_json(output / "task_bootstrap_comparisons.json", task_comparisons)
+    ranks = []
+    for name in NAMES:
+        frame = means[(means.dataset == name) & means.method.isin(TABLE_METHODS)].copy()
+        metric = "group_auroc" if name == "musk2" else PRIMARY[frame.task.iloc[0]]
+        frame["rank"] = frame[metric].rank(ascending=not metric.endswith("auroc"), method="average")
+        ranks.append(frame[["dataset", "method", "rank"]])
+    pd.concat(ranks).to_csv(output / "reference_ranks_per_task.csv", index=False)
+    pd.concat(ranks).groupby("method")["rank"].mean().rename("average_rank").to_csv(
+        output / "reference_average_rank.csv"
+    )
     figures = Path("paper/figures/exp_006_large_v1")
     figures.mkdir(parents=True, exist_ok=True)
     tables = Path("paper/tables/exp_006_large_v1")
     tables.mkdir(parents=True, exist_ok=True)
     plot_sweeps(means, figures)
+    plot_resources(means, figures)
+    data_lines = [
+        r"\begin{table}[t]",
+        r"\centering\small",
+        r"\begin{tabular}{lrrrr}",
+        r"\toprule",
+        r"Task & Study rows & Features & Split groups & Missing cells \\",
+        r"\midrule",
+    ]
+    for name in NAMES:
+        row = metadata.set_index("dataset").loc[name]
+        data_lines.append(
+            LABELS[name]
+            + " & "
+            + " & ".join(
+                f"{int(row[key]):,}"
+                for key in ["sample_rows", "features", "split_groups", "sample_missing_cells"]
+            )
+            + r" \\"
+        )
+    data_lines += [
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\caption{Stored study samples, distinct from full-source catalog counts. Exact raw feature-vector groups for five tasks; molecule groups for Musk. Missing cells are imputed inside training folds. MiniBooNE's retained $-999$ sentinels do not count as missing cells.}",
+        r"\end{table}",
+    ]
+    (tables / "datasets.tex").write_text("\n".join(data_lines) + "\n")
     lines = [
         r"\begin{table}[t]",
         r"\centering\small",
@@ -439,7 +636,7 @@ def report(run_ids, predictions_only=False):
             ("Caruana", "caruana_b6000_k64"),
             ("SmallB", "coerror_b1000_k64"),
         ]:
-            key = "".join(w.capitalize() for w in name.split("_")) + label
+            key = LATEX_KEYS[name] + label
             facts.append(
                 r"\newcommand{\ExpSix" + key + "}{" + f"{frame.loc[method, metric]:.3f}" + "}"
             )
@@ -462,7 +659,7 @@ def report(run_ids, predictions_only=False):
         ]
     ]
     anchor.to_csv(output / "anchor_and_references.csv", index=False)
-    note = "# Experiment 006: larger-data sweep\n\nAll five original tasks and the registered Musk extension retained; one seed and three group-separated outer folds. Molecule-max AUROC is primary only for Musk.\nNo calibrated intervals or best-test tuned method; static baselines and unmatched budgets.\n\n"
+    note = "# Experiment 006: larger-data sweep\n\nAll five original tasks and the registered Musk extension retained; one seed and three group-separated outer folds. Molecule-max AUROC is primary only for Musk.\nNo calibrated intervals or best-test tuned method; static baselines and unmatched budgets. Task-bootstrap intervals resample only the four/two observed classification/regression tasks after fold averaging. They are exploratory, unadjusted, and do not justify population or significance claims; rank summaries are descriptive.\n\n"
     for name in NAMES:
         frame = means[means.dataset == name].set_index("method")
         metric = "group_auroc" if name == "musk2" else PRIMARY[frame.task.iloc[0]]
@@ -491,7 +688,7 @@ def report(run_ids, predictions_only=False):
             "anchor": ANCHOR,
             "configs": configs,
             "sweep_selection_checks": len(checks),
-            "interval_scope": "Descriptive paired folds only; one seed; no task-population inference",
+            "interval_scope": "Task bootstrap after paired-fold averaging on four chosen classification/two regression tasks; exploratory unadjusted intervals, one seed, no task-population coverage claim",
             "resource_scope": "Every setting charged full shared 6000-candidate library; no matched standalone prefix CPU budget",
         },
     )

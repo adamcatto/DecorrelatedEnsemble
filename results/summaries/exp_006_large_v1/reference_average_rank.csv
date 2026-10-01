@@ -1,0 +1,11 @@
+method,average_rank
+caruana_b6000_k64,7.0
+catboost,3.1666666666666665
+coerror_b6000_k64,7.0
+extra_trees,4.333333333333333
+lightgbm,2.5
+linear,10.0
+random_forest,5.0
+rf_leaf5,4.833333333333333
+top_quality_b6000_k64,8.166666666666666
+xgboost,3.0
