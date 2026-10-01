@@ -1,0 +1,9 @@
+left,right,metric,paired_tasks,paired_splits,mean_advantage,ci_lower,ci_upper,win,tie,loss,interval_scope,multiplicity
+coerror,top_quality,rmse,0,0,,,,,,,,
+coerror,abs_correlation,rmse,0,0,,,,,,,,
+coerror,random_forest,rmse,0,0,,,,,,,,
+coerror_no_cert,top_no_cert,rmse,2,4,0.023035857942246607,0.007897716134038224,0.03817399975045499,2.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,rmse,0,0,,,,,,,,
+shrinkage,coerror,rmse,0,0,,,,,,,,
+coerror,caruana,rmse,0,0,,,,,,,,
+coerror_no_cert,random_forest,rmse,0,0,,,,,,,,

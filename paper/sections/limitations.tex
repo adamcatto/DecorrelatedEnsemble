@@ -4,10 +4,16 @@ OOF selection risks overfitting to a reused training prediction matrix. Refittin
 changes the fitted functions and may change their error dependence. IID row
 bootstrap screens do not justify guarantees under overlapping training folds,
 large candidate libraries, grouped observations, or temporal shifts. Sparse
-shallow trees can fail on interactions that need joint feature access.
+shallow trees can fail on interactions that need joint feature access. Only two
+generation seeds and one dimensional/sample-size setting have been tested in the
+first study. Static baselines lack tuning and resources are unmatched. Partial
+screening feasibility changes the support of comparisons; aggregate effects can
+be driven by one mechanism. These restrictions preclude real-world or broad
+algorithm-superiority claims.
 
 \section{Conclusion}
-The research program tests whether feature-sparse error complementarity supplies
-an advantage beyond established subspace and ensemble-selection methods. Conclusions
-will follow stored paired experiments, including negative results.
-
+The first development study does not establish a broadly competitive method.
+It reveals weaknesses in unadjusted bootstrap screening and in sparse-subspace
+aggregation, while co-error offers only modest and conditional gains over quality
+selection. Follow-up tests isolate aggregate calibration, selection uncertainty,
+and candidate-search effects before any locked benchmark evaluation.

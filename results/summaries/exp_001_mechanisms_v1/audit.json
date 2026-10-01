@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "artifact hashes",
+    "outer disjointness",
+    "test prediction row mapping",
+    "stored metric reconstruction",
+    "weighted co-error identity",
+    "direct/greedy squared objective identity"
+  ],
+  "folds_audited": 108,
+  "maximum_squared_loss_identity_error": 4.440892098500626e-16,
+  "run_id": "exp_001_mechanisms_v1",
+  "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel"
+}

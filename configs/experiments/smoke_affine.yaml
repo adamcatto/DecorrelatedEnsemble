@@ -1,0 +1,85 @@
+id: smoke_affine
+role: development
+seeds:
+- 11
+outer_folds: 2
+inner_folds: 2
+candidates:
+  B: 20
+  feature_fractions:
+  - 0.1
+  depths:
+  - 3
+  min_samples_leaf:
+  - 5
+certification:
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+- id: additive_regression
+  regime: additive
+  task: regression
+  n: 160
+  p: 20
+  noise: 1.0
+- id: null_regression
+  regime: 'null'
+  task: regression
+  n: 160
+  p: 20
+  noise: 1.0
+methods:
+- id: random_subspace
+  selector: random
+  K: 4
+  certified: false
+  max_swaps: 0
+  charge_search: false
+- id: random_subspace_affine
+  selector: random
+  K: 4
+  certified: false
+  max_swaps: 0
+  charge_search: true
+  affine_calibration: true
+- id: top_no_cert
+  selector: top_quality
+  K: 4
+  certified: false
+  max_swaps: 0
+- id: top_no_cert_affine
+  selector: top_quality
+  K: 4
+  certified: false
+  max_swaps: 0
+  affine_calibration: true
+  charge_search: true
+- id: coerror_no_cert
+  selector: coerror
+  K: 4
+  certified: false
+  max_swaps: 5
+- id: coerror_no_cert_affine
+  selector: coerror
+  K: 4
+  certified: false
+  max_swaps: 5
+  affine_calibration: true
+  charge_search: true
+- id: affine_profiled
+  selector: affine_profiled
+  K: 4
+  certified: false
+  affine_calibration: true
+  max_swaps: 5
+baselines:
+- id: rf_shallow
+  family: random_forest
+  parameters:
+    n_estimators: 8
+    max_depth: 3
+    min_samples_leaf: 5
+hypothesis: Affine correction reduces attenuation; profiled selection adds value beyond
+  calibration of fixed subsets.

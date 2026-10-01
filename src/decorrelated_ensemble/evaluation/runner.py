@@ -39,11 +39,19 @@ def aggregate_predictions(P, selection):
     return np.tensordot(P[:, selection.ids], selection.weights, axes=(1, 0))
 
 
-def fit_selection(X, y, specs, selection, task):
+def fit_selection(X, y, specs, selection, task, calibration=False, oof_predictions=None):
     n_classes = len(np.unique(y)) if task != "regression" else 0
-    return SelectedEnsemble(
+    base = SelectedEnsemble(
         [specs[i] for i in selection.ids], selection.weights, task, n_classes
     ).fit(X, y)
+    if not calibration:
+        return base
+    if task != "regression" or oof_predictions is None:
+        raise ValueError("Affine calibration requires regression and training OOF predictions")
+    from decorrelated_ensemble.ensembles.affine import AffineAggregate
+    from decorrelated_ensemble.selection.profiled import fit_affine
+
+    return AffineAggregate(base, fit_affine(y, aggregate_predictions(oof_predictions, selection)))
 
 
 def nested_tune(X, y, specs, task, cert_config, method, inner_folds, seed, path=None):
@@ -84,7 +92,15 @@ def nested_tune(X, y, specs, task, cert_config, method, inner_folds, seed, path=
                     candidate,
                     seed + 300 + fold,
                 )
-                model = fit_selection(X.iloc[train], y[train], specs, chosen, task)
+                model = fit_selection(
+                    X.iloc[train],
+                    y[train],
+                    specs,
+                    chosen,
+                    task,
+                    candidate.get("affine_calibration", False),
+                    oof.predictions,
+                )
                 prediction = model.predict(X.iloc[valid])
                 metric = candidate.get("tuning_metric", "squared")
                 loss = (
@@ -255,14 +271,29 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path):
                 },
             )
             with ResourceTimer() as refit_timer:
-                model = fit_selection(X, y, specs, chosen, task)
+                model = fit_selection(
+                    X,
+                    y,
+                    specs,
+                    chosen,
+                    task,
+                    tuned.get("affine_calibration", False),
+                    oof.predictions,
+                )
             diag = diagnostics(y, oof.predictions, task, specs, chosen, cert.quality)
+            if tuned.get("affine_calibration", False):
+                write_json(method_path / "calibration.json", model.parameters)
+                aggregate = aggregate_predictions(oof.predictions, chosen)
+                calibrated = model.parameters["slope"] * aggregate + model.parameters["intercept"]
+                diag["oof_calibrated_squared_loss"] = squared_loss(y, calibrated, task)
             raw_model = method_path / "model.joblib"
             joblib.dump(model, raw_model, compress=0)
             search_cost = 1 if method.get("charge_search", True) else 0
             resource = {
                 "requested_K": method["K"],
-                "aggregation": "equal"
+                "aggregation": "affine_of_equal"
+                if tuned.get("affine_calibration", False)
+                else "equal"
                 if np.allclose(chosen.weights, 1 / len(chosen.weights))
                 else "frequency_weighted",
                 "search": search_timer.to_dict(),

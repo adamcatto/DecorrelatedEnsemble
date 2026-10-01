@@ -58,6 +58,8 @@ def make_figures(run_id):
         for i in range(len(table)):
             for j in range(len(methods)):
                 value = table.iloc[i, j]
+                rgba = cmap(im.norm(value)) if np.isfinite(value) else (1, 1, 1, 1)
+                luminance = np.dot(rgba[:3], [0.2126, 0.7152, 0.0722])
                 ax.text(
                     j,
                     i,
@@ -65,7 +67,7 @@ def make_figures(run_id):
                     ha="center",
                     va="center",
                     fontsize=7.5,
-                    color="black" if np.isnan(value) else "white",
+                    color="black" if luminance > 0.5 else "white",
                 )
         ax.set_xticks(range(len(methods)), methods, rotation=65, ha="right", fontsize=7)
         ax.set_yticks(range(len(table)), [name.replace("_" + task, "") for name in table.index])

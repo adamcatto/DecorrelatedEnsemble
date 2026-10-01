@@ -1,0 +1,9 @@
+method,mean_rank,tasks,task_type
+affine_profiled,5.75,2,regression
+coerror_no_cert,4.5,2,regression
+coerror_no_cert_affine,5.25,2,regression
+random_subspace,2.0,2,regression
+random_subspace_affine,2.0,2,regression
+rf_shallow,4.0,2,regression
+top_no_cert,6.5,2,regression
+top_no_cert_affine,6.0,2,regression

@@ -15,7 +15,11 @@ validation-based ensemble selection. Squared-error and binary Brier losses admit
 an exact residual second-moment objective, whereas correlation-based diversity
 discards scale and can penalize useful negative dependence. The protocol reserves
 outer test folds, compares methods on shared candidate populations, and records
-selection and computational costs. Initial experiments are development studies;
+selection and computational costs. An initial synthetic study finds modest gains
+over quality selection, severe screening infeasibility, and false survivors under
+the null, while strong forest and boosting baselines generally perform better.
+An oracle additive counterexample identifies attenuation from averaging subspaces,
+motivating an affine-profiled diagnostic. Results remain development evidence;
 no benchmark superiority or novelty claim is established.
 \end{abstract}
 \input{sections/introduction}

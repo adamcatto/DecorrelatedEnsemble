@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+Regime & RS & Top & AbsCorr & CoErr & CoErr-all & RF & CatBoost \\
+\midrule
+additive & 0.655 & 0.689 & 0.701 & 0.693 & 0.693 & 0.809 & 0.794 \\
+correlated\_blocks & 0.805 & 0.775 & 0.822 & 0.804 & 0.804 & 0.842 & 0.849 \\
+dominant & 0.752 & 0.875$^{\dagger}$ & 0.867$^{\dagger}$ & 0.872$^{\dagger}$ & 0.872 & 0.869 & 0.886 \\
+mixed & 0.588 & 0.662 & 0.672 & 0.666 & 0.666 & 0.705 & 0.746 \\
+null & 0.506 & 0.527$^{\dagger}$ & 0.535$^{\dagger}$ & 0.509$^{\dagger}$ & 0.529 & 0.500 & 0.522 \\
+parity & 0.528 & -- & -- & -- & 0.503 & 0.502 & 0.500 \\
+redundant & 0.826 & 0.805 & 0.840 & 0.827 & 0.827 & 0.868 & 0.872 \\
+sparse & 0.645 & 0.778 & 0.820 & 0.815 & 0.815 & 0.849 & 0.868 \\
+xor & 0.483 & 0.478$^{\dagger}$ & 0.481$^{\dagger}$ & 0.494$^{\dagger}$ & 0.495 & 0.605 & 0.838 \\
+\bottomrule
+\end{tabular}
+\caption{exp\_001\_mechanisms\_v1: binary, auroc. Means over completed outer folds and seeds. --: fixed-K infeasible in every split; $\dagger$: partial feasibility. Full coverage is stored separately. Static baselines, unmatched compute; development only.}
+\end{table}

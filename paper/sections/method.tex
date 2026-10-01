@@ -53,3 +53,18 @@ This is a population calculation for these oracle learners, not a lower bound
 for arbitrary subspace functions, finite-sample fitted trees, or classification
 AUROC. Coordinated fitting or non-simplex rescaling can escape its assumptions.
 It motivates testing aggregate scale calibration separately from diversity.
+
+\subsection{Affine-Profiled Diagnostic Variant (APCE)}
+After Experiment 001, we test an affine correction $a\bar P_S+b$, with $a\ge0$
+and intercept $b$ fitted exclusively on training OOF predictions. For a fixed
+subset, the profiled squared loss is
+\begin{equation}
+\widehat L_{\mathrm{aff}}(S)=\widehat{\operatorname{Var}}(Y)
+-\frac{\max(\widehat{\operatorname{Cov}}(Y,\bar P_S),0)^2}
+{\widehat{\operatorname{Var}}(\bar P_S)}.
+\end{equation}
+Zero aggregate variance gives the constant predictor. Centered prediction moments
+support incremental greedy and one-swap updates. The comparison includes affine
+correction of unchanged random, top-quality, and co-error subsets, isolating
+selection from the two new aggregation parameters. This is a stacking-like
+diagnostic and is not claimed as a novel optimizer or equal-output-weight primary method.

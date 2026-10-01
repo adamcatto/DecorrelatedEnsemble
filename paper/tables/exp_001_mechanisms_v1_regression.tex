@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+Regime & RS & Top & AbsCorr & CoErr & CoErr-all & RF & CatBoost \\
+\midrule
+additive & 0.933 & -- & -- & -- & 0.899 & 0.784 & 0.764 \\
+correlated\_blocks & 0.735 & 0.750$^{\dagger}$ & 0.713$^{\dagger}$ & 0.723$^{\dagger}$ & 0.718 & 0.615 & 0.606 \\
+dominant & 0.890 & 0.525$^{\dagger}$ & 0.525$^{\dagger}$ & 0.523$^{\dagger}$ & 0.515 & 0.511 & 0.514 \\
+mixed & 0.974 & -- & -- & -- & 0.904 & 0.846 & 0.814 \\
+null & 1.007 & -- & -- & -- & 1.018 & 1.038 & 1.018 \\
+parity & 1.009 & -- & -- & -- & 1.027 & 1.039 & 1.023 \\
+redundant & 0.691 & 0.701 & 0.686 & 0.687 & 0.687 & 0.591 & 0.580 \\
+sparse & 0.925 & 0.797$^{\dagger}$ & 0.795$^{\dagger}$ & 0.797$^{\dagger}$ & 0.744 & 0.639 & 0.617 \\
+xor & 1.021 & -- & -- & -- & 0.987 & 0.978 & 0.852 \\
+\bottomrule
+\end{tabular}
+\caption{exp\_001\_mechanisms\_v1: regression, normalized\_squared\_loss. Means over completed outer folds and seeds. --: fixed-K infeasible in every split; $\dagger$: partial feasibility. Full coverage is stored separately. Static baselines, unmatched compute; development only.}
+\end{table}

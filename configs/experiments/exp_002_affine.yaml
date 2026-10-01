@@ -1,0 +1,136 @@
+id: exp_002_affine
+role: development
+seeds:
+- 11
+- 29
+outer_folds: 3
+inner_folds: 3
+candidates:
+  B: 100
+  feature_fractions:
+  - 0.1
+  depths:
+  - 3
+  min_samples_leaf:
+  - 5
+certification:
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+- id: additive_regression
+  regime: additive
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: redundant_regression
+  regime: redundant
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: sparse_regression
+  regime: sparse
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: dominant_regression
+  regime: dominant
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: mixed_regression
+  regime: mixed
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: null_regression
+  regime: 'null'
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+methods:
+- id: random_subspace
+  selector: random
+  K: 8
+  certified: false
+  max_swaps: 0
+  charge_search: false
+- id: random_subspace_affine
+  selector: random
+  K: 8
+  certified: false
+  max_swaps: 0
+  charge_search: true
+  affine_calibration: true
+- id: top_no_cert
+  selector: top_quality
+  K: 8
+  certified: false
+  max_swaps: 0
+- id: top_no_cert_affine
+  selector: top_quality
+  K: 8
+  certified: false
+  max_swaps: 0
+  affine_calibration: true
+  charge_search: true
+- id: coerror_no_cert
+  selector: coerror
+  K: 8
+  certified: false
+  max_swaps: 5
+- id: coerror_no_cert_affine
+  selector: coerror
+  K: 8
+  certified: false
+  max_swaps: 5
+  affine_calibration: true
+  charge_search: true
+- id: affine_profiled
+  selector: affine_profiled
+  K: 8
+  certified: false
+  affine_calibration: true
+  max_swaps: 5
+baselines:
+- id: rf_shallow
+  family: random_forest
+  parameters:
+    n_estimators: 8
+    max_depth: 3
+    min_samples_leaf: 5
+- id: random_forest
+  family: random_forest
+  parameters:
+    n_estimators: 256
+- id: extra_trees
+  family: extra_trees
+  parameters:
+    n_estimators: 256
+- id: xgboost
+  family: xgboost
+  parameters:
+    n_estimators: 100
+    max_depth: 4
+    learning_rate: 0.05
+- id: lightgbm
+  family: lightgbm
+  parameters:
+    n_estimators: 100
+    num_leaves: 15
+    learning_rate: 0.05
+- id: catboost
+  family: catboost
+  parameters:
+    iterations: 100
+    depth: 4
+    learning_rate: 0.05
+hypothesis: Affine correction reduces attenuation; profiled selection adds value beyond
+  calibration of fixed subsets.

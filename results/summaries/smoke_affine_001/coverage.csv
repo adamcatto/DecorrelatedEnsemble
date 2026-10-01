@@ -1,0 +1,17 @@
+dataset,method,status,count
+additive_regression,affine_profiled,complete,2
+additive_regression,coerror_no_cert,complete,2
+additive_regression,coerror_no_cert_affine,complete,2
+additive_regression,random_subspace,complete,2
+additive_regression,random_subspace_affine,complete,2
+additive_regression,rf_shallow,complete,2
+additive_regression,top_no_cert,complete,2
+additive_regression,top_no_cert_affine,complete,2
+null_regression,affine_profiled,complete,2
+null_regression,coerror_no_cert,complete,2
+null_regression,coerror_no_cert_affine,complete,2
+null_regression,random_subspace,complete,2
+null_regression,random_subspace_affine,complete,2
+null_regression,rf_shallow,complete,2
+null_regression,top_no_cert,complete,2
+null_regression,top_no_cert_affine,complete,2

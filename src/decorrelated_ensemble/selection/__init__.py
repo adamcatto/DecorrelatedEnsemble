@@ -262,6 +262,12 @@ def select(y, P, null, task, quality, eligible, cfg, seed):
     elif kind in {"direct_squared", "direct_auroc", "caruana"}:
         metric = "auroc" if kind == "direct_auroc" else "squared"
         result = direct_greedy(y, Psmall, task, k, metric, kind == "caruana")
+    elif kind == "affine_profiled":
+        if task != "regression":
+            raise ValueError("Affine-profiled diagnostic supports regression only")
+        from decorrelated_ensemble.selection.profiled import profiled_greedy
+
+        result = profiled_greedy(y, Psmall, k, swaps)
     else:
         raise ValueError(f"Unknown selector {kind}")
     result.ids = ids[result.ids]

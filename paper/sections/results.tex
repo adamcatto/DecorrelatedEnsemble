@@ -1,17 +1,68 @@
 \section{Synthetic Experiments}
-Planned mechanisms include distributed additive signal, redundant groups,
-correlated blocks, sparse signal, dominant features, XOR, higher-order parity,
-mixed additive/interactions, and a label-null control. Noise, dimensions, sample
-size, feature fractions, candidate count, and retained count are configuration
-variables. No experiment has yet been evaluated in this version.
+\input{tables/exp_001_mechanisms_v1_facts}
+Experiment 001 evaluated nine known mechanisms for each of binary classification
+and regression: additive, redundant, correlated blocks, sparse, dominant, XOR,
+four-way parity, mixed, and null. Fixed settings were $N=600$, $M=40$, $B=100$,
+$K=8$, feature fraction $0.1$, tree depth 3, minimum leaf size 5, two generation
+seeds, three outer folds, and three OOF folds. This produced
+\ExpOneOuterFolds{} paired outer evaluations. Forest and boosting baselines use
+static configurations; search compute, final capacity, and inference budgets
+are measured but unmatched.
+
+\input{tables/exp_001_mechanisms_v1_binary}
+\input{tables/exp_001_mechanisms_v1_regression}
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_001_mechanisms_v1/performance.pdf}
+\caption{Development mechanism results. Gray cells indicate no feasible fixed-$K$
+screened ensemble. Numerical annotations are means of completed splits; the
+tables mark partial feasibility. Rankings are not confirmation evidence.}
+\end{figure}
+
+The initial hypothesis is not supported as a broad performance claim at these
+settings. Unfiltered co-error improves mean binary AUROC over unfiltered top
+quality by \ExpOneAucGain{}, but generally trails the strong forests and boosting
+models. Co-error does not consistently improve over absolute residual correlation
+on outer AUROC or squared loss; a positive aggregate Brier effect is concentrated
+in the dominant-feature regime. The $\alpha=0.5$ shrinkage variant fails to improve
+on unregularized co-error in the compared task means. These are negative findings
+for the preregistered settings, not universal statements about the objectives.
+
+\subsection{Screening Failure and Feasibility}
+Screened co-error is feasible in only \ExpOneBinaryFeasible{} of 54 binary splits
+and \ExpOneRegressionFeasible{} of 54 regression splits. On every binary null
+split, \ExpOneNullMin{}--\ExpOneNullMax{} of 100 candidates pass the empirical
+screen, despite population AUROC $0.5$ under this data-generating process.
+The bootstrap lower quantile must therefore remain labeled an empirical screen.
+Across shared feasible splits, top-quality screening has almost no incremental
+benefit over unscreened top quality; it frequently prevents a fixed-size ensemble.
+
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/exp_001_mechanisms_v1/certification.pdf}
+\caption{Empirical screening survival by regime. Error bars give the observed
+minimum and maximum over folds/seeds, not confidence intervals.}
+\end{figure}
 
 \section{Real-World Benchmarks}
 No confirmation benchmark has been evaluated. Current benchmark versions and
 baseline requirements will be recorded before locking the study.
 
 \section{Ablations and Analysis}
-The first design compares unfiltered random subspaces, screened random selection,
-screened top quality, screened diversity, quality--diversity, co-error, and forests.
-Further ablations must isolate certification from top-quality selection and pool
-size from retained ensemble size.
+The stored ablations include all required v0 components, signed versus absolute
+residual correlation, prediction correlation, covariance without bias, direct
+squared-loss greedy selection, with-replacement selection, and shrinkage. An
+artifact audit reconstructed loss and test metrics for all selected methods;
+the maximum squared-loss/co-error identity discrepancy was below $10^{-12}$.
+Direct squared-loss and co-error greedy validation objectives agree, confirming
+that their distinction supplies no additional mechanism.
 
+\section{Analysis and Next Discriminating Test}
+Additive regression illustrates the attenuation concern: normalized squared loss
+is \ExpOneAdditiveCoerror{} for unfiltered co-error, versus
+\ExpOneAdditiveForest{} for the unrestricted forest and
+\ExpOneAdditiveCatboost{} for CatBoost. This observation does not establish that
+attenuation is the sole cause. The next development experiment will compare
+the same selected subsets with and without an OOF-fitted aggregate affine
+calibrator, then test selection with the affine loss profiled out. Random and
+top-quality controls are necessary to determine whether a change comes from
+aggregate calibration or a new selection mechanism. Null and dominant-feature
+controls will test increased selection/aggregation overfitting.
