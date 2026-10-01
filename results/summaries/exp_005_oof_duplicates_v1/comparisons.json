@@ -1,0 +1,510 @@
+[
+  {
+    "left": "coerror",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.006997869570363413,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "breast_cancer": 0.006997869570363413
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "top_quality",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.0017849393278438115,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "breast_cancer": -0.0017849393278438115
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 4.375338833139055,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "diabetes": 4.375338833139055
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "top_quality",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -1.973427247740992,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -1.973427247740992
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.09796932135624291,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "diabetes": 0.09796932135624291
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "top_quality",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.03586941050623051,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -0.03586941050623051
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "left": "coerror",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.016797331558101206,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "wine": 0.016797331558101206
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "top_quality",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.07877899399313948,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "wine": -0.07877899399313948
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "identical raw data/specifications/splits/OOF/bootstrap",
+    "unchanged test prediction controls",
+    "first-ID representatives",
+    "eight exact-distinct observed OOF columns and equal weights"
+  ],
+  "development_only": true,
+  "identical_control_prediction_pairs": 108,
+  "identical_pool_fold_pairs": 18,
+  "raw_manifests": {
+    "exp_004_real_f10_v1": "825458d078b9fbff3e2a44925a735bf4c07b2dd761492d110232fc409eb4a706",
+    "exp_005_oof_duplicates_v1": "98e2bdf9b28671664d566458d752c403c0bcc045e1924fe2b66d742d8d3526bd"
+  },
+  "reference_id": "exp_004_real_f10_v1",
+  "report_script_sha256": "c75b5ce391ee4c8c952785675bbd4f709e5fd021ea7b80c2cfe07016dcb1c283",
+  "run_id": "exp_005_oof_duplicates_v1",
+  "unique_subsets_checked": 54
+}

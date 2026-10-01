@@ -79,3 +79,17 @@ support incremental greedy and one-swap updates. The comparison includes affine
 correction of unchanged random, top-quality, and co-error subsets, isolating
 selection from the two new aggregation parameters. This is a stacking-like
 diagnostic and is not claimed as a novel optimizer or equal-output-weight primary method.
+
+\subsection{Observed OOF-Equivalence Control}
+Experiment 005 groups eligible candidates by exact equality of their training
+OOF vectors, retaining the first eligible ID per group before applying the
+unchanged random, quality, or co-error selector. It keeps $K$ fixed and reports
+infeasibility if too few groups remain. This is a mechanism control, not an
+assumed improvement or guarantee of functional/error independence.
+For an observed equivalence class $c$ with common prediction vector $P_c$, an
+equal-specification subset is exactly $\bar P_S=\sum_c w_cP_c$ on the OOF matrix,
+where $w_c=|S\cap c|/K$. These are simplex weights in increments of $1/K$,
+bounded by the class multiplicity divided by $K$. Unique-subset selection
+instead constrains each selected class to weight $1/K$. This elementary
+weighting equivalence holds on observed OOF vectors; subsequent refits need
+not preserve it. No novelty claim is made for deduplication or this identity.

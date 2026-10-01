@@ -61,6 +61,10 @@ Co-error improves over top quality, but RF and logistic/ridge controls do better
 in each task/width mean. Width effects are conditional; duplicate OOF predictions
 expose effective weighting as a confound. These are tiny numerical development
 tasks, not a representative confirmation suite.
+`exp_005_oof_duplicates_v1` tests exact training-OOF duplicate removal (18 folds).
+It removes some quality-control gaps while hurting diabetes co-error performance,
+showing that repeated prediction patterns can provide useful implicit weights.
+Distinct patterns do not establish independent errors or distinct refitted functions.
 
 Bundles in `results/artifacts/` include data, predictions, decisions, config,
 source snapshot, environment, and checksums. Large-run bundles explicitly omit
@@ -75,3 +79,13 @@ uv run --no-sync python scripts/make_affine_report.py exp_002_affine_v1
 
 The complete runs including refitted models can be regenerated with the saved
 YAML configurations. No locked confirmation suite has been evaluated.
+
+After extracting the real-data bundles into `results/runs/`, regenerate their
+paired-control audits, tables and figures with:
+
+```sh
+uv run --no-sync python scripts/make_real_report.py exp_004_real_f10_v1 exp_004_real_f50_v1 --predictions-only
+uv run --no-sync python scripts/make_duplicate_report.py exp_005_oof_duplicates_v1 exp_004_real_f10_v1 --predictions-only
+```
+
+Use `audit_run.py` on each run to reconstruct all stored metrics and loss identities.

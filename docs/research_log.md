@@ -155,3 +155,31 @@ Keep original variants and rerun their predictions as reproducibility controls.
 OOF equality is an observed equivalence relation, not global functional identity;
 deduplication uses training OOF only and supplies no population diversity guarantee.
 This complements the still-pending independent-selection/refit diagnostic.
+
+## exp_005 completed — uniqueness is not a remedy; weighting matters
+
+18 folds, 162 predictions, 54 unique subsets audited. All 18 candidate/OOF/bootstrap
+arrays and 108 original-method/reference predictions match exp_004_f10 exactly.
+No infeasible variants. The 65 tests include exact/near equality, signed zeros,
+eligible-only deduplication, hash-collision resolution and fixed-K behavior.
+
+Diabetes co-error RMSE worsens 60.078 -> 65.978; unique top quality is 65.945,
+so the original quality-control gap vanishes by degrading co-error, not improving
+both methods. Wine's unique primary losses nearly coincide (.237), while co-error
+retains a modest Brier advantage. Cancer's top/co-error effects are unchanged.
+Preserve these negative results and the full split/seed effects. This follows a
+registered mechanism intervention; its explanatory interpretation is exploratory.
+
+Equal specification weights are discrete simplex weights over repeated observed
+OOF classes, bounded by pool multiplicities. Forcing K distinct classes removes
+that useful concentration and forces weak patterns into the average. This is
+ordinary implicit weighting, not a new independence mechanism. Exact OOF equality
+does not prove global equality and may not survive full-training refit.
+
+Next high-information test: compare explicit regularized simplex weights on the
+same canonical OOF patterns against multiplicity-constrained discrete weights,
+and independently selected retained fits versus refits. Separate capacity/search
+cost and representation attenuation; tune only within another training split.
+Do not add more benchmark tasks merely to search for favorable wins. Strong
+linear synthetic/oracle controls, proper certification, tuned modern baselines,
+and locked resource-matched confirmation remain open work.

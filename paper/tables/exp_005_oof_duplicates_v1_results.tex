@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lrrr}
+\toprule
+Method & Cancer AUROC $\uparrow$ & Wine log loss $\downarrow$ & Diabetes RMSE $\downarrow$ \\
+\midrule
+Random subspace & 0.984 & 0.457 & 67.498 \\
+Top quality (unfiltered) & 0.981 & 0.248 & 64.453 \\
+Co-error (unfiltered) & 0.988 & 0.231 & 60.078 \\
+Random subspace (OOF-unique) & 0.986 & 0.411 & 67.536 \\
+Top quality (unfiltered) (OOF-unique) & 0.981 & 0.237 & 65.945 \\
+Co-error (unfiltered) (OOF-unique) & 0.988 & 0.237 & 65.978 \\
+Caruana (frequency weights) & 0.986 & 0.225 & 60.077 \\
+Random Forest (256) & 0.989 & 0.152 & 58.104 \\
+Logistic / ridge & 0.995 & 0.079 & 54.974 \\
+\bottomrule
+\end{tabular}
+\caption{Experiment 005: exact training-OOF duplicate removal at fixed K=8, B=100 and feature fraction .1. Original and OOF-unique selectors share all data, specifications, OOF predictions and splits; unique variants retain first-ID representatives. Six overlapping outer evaluations per task, unscreened. Caruana has eight steps and frequency weights. OOF equality does not imply global function equality. Static forest/linear references have unmatched budgets.}
+\end{table}

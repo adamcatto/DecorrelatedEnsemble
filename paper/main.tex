@@ -24,6 +24,8 @@ OOF loss while usually worsening test loss. Candidate-pool scaling reveals
 conditional gains and increased selection optimism.
 Three real development tasks show gains over quality selection but a gap to
 simple linear baselines, conditional width effects, and duplicate-prediction confounds.
+An OOF-uniqueness control removes some selection gaps while worsening regression,
+implicating effective weighting rather than distinct independent specialists.
 Results remain development evidence; no benchmark superiority or novelty claim is established.
 \end{abstract}
 \input{sections/introduction}
@@ -33,6 +35,8 @@ Results remain development evidence; no benchmark superiority or novelty claim i
 \input{sections/results}
 \input{sections/limitations}
 \clearpage
+\begingroup\small
 \bibliographystyle{plainnat}
 \bibliography{bibliography}
+\endgroup
 \end{document}

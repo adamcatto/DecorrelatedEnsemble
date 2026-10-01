@@ -158,7 +158,7 @@ Equal weights over distinct specifications can thus produce unequal effective
 weights over repeated prediction vectors. OOF equality is not global functional
 identity and does not guarantee identical refits. This confound prevents
 attributing the quality-control gap solely to independent complementary learners.
-The next ablation removes exact OOF duplicates before selection while retaining
+The follow-up ablation removes exact OOF duplicates before selection while retaining
 fixed $K$, comparing top quality, random, and co-error on the same eligible pool.
 
 \begin{figure}[p]
@@ -175,6 +175,45 @@ also limits inference savings relative to tree-count differences. Stored resourc
 measurements and the compute--performance figure preserve these tradeoffs; no
 isolated-process memory or matched-budget advantage is established.
 
+\subsection{Experiment 005: Duplicate Avoidance Versus Implicit Weighting}
+\input{tables/exp_005_oof_duplicates_v1_facts}
+All 18 follow-up folds reuse the narrow Experiment 004 pools exactly; the audit
+verifies identical raw data, specifications, splits, OOF and bootstrap arrays,
+and 108 unchanged-control prediction pairs. All 54 OOF-unique subsets contain
+eight exact-distinct training prediction vectors with equal weights. Screening
+is removed as a confound and all applicable variants are feasible.
+\input{tables/exp_005_oof_duplicates_v1_results}
+
+On diabetes, deduplication worsens co-error RMSE from
+\ExpFiveDiabetesCoerrorOriginal{} to \ExpFiveDiabetesCoerrorUnique{}; unique
+top quality achieves \ExpFiveDiabetesTopUnique{}. The original co-error advantage
+over quality disappears while both unique methods remain weak. Removing
+duplicate concentration is therefore not a remedy: forcing eight observed
+patterns prevents concentrating weight on a few useful univariate predictors.
+The original co-error closely matches the frequency-weighted Caruana reference.
+This supports implicit weighting as an explanation for much of the diabetes
+quality-control gap, rather than eight distinct complementary specialists.
+It does not identify a unique causal mechanism beyond the intervention, because
+representative/refit changes and the hard uniqueness constraint alter the method.
+
+Wine's unique top-quality and co-error log losses are both approximately
+\ExpFiveWineCoerrorUnique{}, versus \ExpFiveWineTopOriginal{} and
+\ExpFiveWineCoerrorOriginal{} originally. The primary-metric gap nearly vanishes;
+a modest Brier advantage remains in the stored secondary metrics. Cancer top
+quality and co-error are unchanged in the reported primary and Brier split
+effects, consistent with its already mostly unique pool. Thus exact duplicate
+structure changes the interpretation of selection gains in some regimes, but
+cannot explain every gain. No significance claim follows from these three
+reused development tasks.
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_005_oof_duplicates_v1/duplicate_intervention.pdf}
+\caption{Exact OOF-equivalence intervention at fixed $K=8$. Task means and
+overlapping split observations. Co-error's diabetes improvement depends on
+allowing repeated observed patterns; restricting to eight unique patterns hurts
+generalization. Uniqueness is neither statistical independence nor a universal
+algorithmic improvement.}
+\end{figure}
+
 \section{Ablations and Analysis}
 The stored ablations include all required v0 components, signed versus absolute
 residual correlation, prediction correlation, covariance without bias, direct
@@ -186,19 +225,13 @@ Direct squared-loss and co-error greedy validation objectives agree, confirming
 that their distinction supplies no additional mechanism.
 
 \section{Analysis and Next Discriminating Test}
-Additive regression illustrates the attenuation concern: normalized squared loss
-is \ExpOneAdditiveCoerror{} for unfiltered co-error, versus
-\ExpOneAdditiveForest{} for the unrestricted forest and
-\ExpOneAdditiveCatboost{} for CatBoost. This observation does not establish that
-attenuation is the sole cause. Experiment 002 confirms modest fixed-subset
-calibration gains while refuting a consistent advantage of profiled selection.
-Experiment 003 distinguishes improved validation fit from improved outer
-performance as search freedom grows. Raw OOF/test loss gaps combine estimation,
-training-size, and sampling effects, so this diagnostic alone cannot identify
-the source of optimism. The next test uses independent selection holdouts,
-comparing retained fitted functions with refitted specifications. Simultaneous
-binary AUROC certification for an independent fixed library is possible using
-a conservative bounded-differences bound \citep{mcdiarmid1989}; it supplies no automatic guarantee
-for OOF scores or subsequent refits. Linear baselines and oracle subspace controls
-are also needed to separate representation mismatch from selection failure on
-the known additive designs.
+OOF/test loss gaps combine selection, training-size, refit and sampling effects;
+they do not uniquely identify optimism. Independent selection holdouts must
+compare retained fitted functions with refitted specifications. A conservative
+bounded-differences bound can simultaneously certify binary AUROC for a fixed
+independent library \citep{mcdiarmid1989}, with no automatic guarantee for OOF
+scores or refits. The duplicate-control result motivates comparing regularized
+simplex weights on canonical prediction patterns with multiplicity-constrained
+discrete weights. Additive synthetic linear/oracle controls remain necessary
+to separate representation mismatch from selection failure. These tests precede
+tuned, resource-matched confirmation.

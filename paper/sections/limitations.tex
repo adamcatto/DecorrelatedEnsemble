@@ -21,14 +21,12 @@ be driven by one mechanism. These restrictions preclude real-world or broad
 algorithm-superiority claims.
 
 \section{Conclusion}
-The first development study does not establish a broadly competitive method.
-It reveals weaknesses in unadjusted bootstrap screening and in sparse-subspace
-aggregation, while co-error offers only modest and conditional gains over quality
-selection. Fixed-subset affine calibration helps some regimes, but profiled
-selection usually worsens test loss despite improving OOF fit. Increasing the
-candidate library has conditional benefits and can amplify this optimism at
-fixed retained size. Independent selection/refit controls remain necessary before
-any locked benchmark evaluation.
-The real development panel confirms conditional selection gains but also exposes
-duplicate-column weighting and a gap to linear models. These findings motivate
-mechanism controls rather than a general tabular-performance claim.
+The development studies do not establish a broadly competitive or novel method.
+Unadjusted OOF screening can fail, equal averaging can attenuate additive signal,
+and co-error gains over quality are conditional. Affine calibration helps some
+fixed subsets, while flexible selection and larger pools can increase optimism.
+Real development tasks favor simple linear controls. Exact OOF deduplication
+eliminates some quality-selection gaps while hurting regression, implicating
+useful implicit weighting rather than independent specialists. Independent
+selection/refit and representation controls, tuned strong baselines, and
+resource-matched confirmation remain necessary.
