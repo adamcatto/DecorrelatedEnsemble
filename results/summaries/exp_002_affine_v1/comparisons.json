@@ -1,0 +1,500 @@
+[
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": 0.0044831129418577515,
+    "ci_upper": 0.020954614549848587,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": 0.012753408432429293,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.015037298001355707,
+      "dominant_regression": 0.0018165637297617259,
+      "mixed_regression": 0.024680803517224348,
+      "null_regression": -0.0016534916026770634,
+      "redundant_regression": 0.011535235395621476,
+      "sparse_regression": 0.025104041553289564
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "left": "top_quality",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": -0.08039615421607459,
+    "ci_upper": -0.017327235165112437,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 5,
+    "mean_advantage": -0.050220671220397695,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.08802801764599537,
+      "dominant_regression": -0.004950604916917327,
+      "mixed_regression": -0.045487268224193245,
+      "null_regression": 0.009947467598987902,
+      "redundant_regression": -0.08336794064652775,
+      "sparse_regression": -0.08943766348774036
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": 0.004473817448987156,
+    "ci_upper": 0.039644627505605046,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "random_subspace_affine",
+    "loss": 1,
+    "mean_advantage": 0.021465850150229216,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_subspace",
+    "task_advantages": {
+      "additive_regression": 0.008196642919648611,
+      "dominant_regression": 0.0589881817733117,
+      "mixed_regression": -0.007244099908298403,
+      "null_regression": 0.0031704297893272635,
+      "redundant_regression": 0.037208131709842274,
+      "sparse_regression": 0.028475814617543855
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": 0.0015309997767503664,
+    "ci_upper": 0.014515247394430669,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "top_no_cert_affine",
+    "loss": 1,
+    "mean_advantage": 0.007754362460117581,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.0054688831396405195,
+      "dominant_regression": 0.004936320167076957,
+      "mixed_regression": 0.006066235288151349,
+      "null_regression": -0.00482449174970484,
+      "redundant_regression": 0.01272170763033568,
+      "sparse_regression": 0.022157520285205828
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": 0.004022168882739665,
+    "ci_upper": 0.03670221203301837,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert_affine",
+    "loss": 1,
+    "mean_advantage": 0.018826863897130976,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "coerror_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.015829958455197784,
+      "dominant_regression": 0.005945630341790409,
+      "mixed_regression": 0.009756897126750727,
+      "null_regression": -0.006672551484545671,
+      "redundant_regression": 0.027232007294951194,
+      "sparse_regression": 0.060869241648641416
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": -0.01310686836675337,
+    "ci_upper": 0.0020655164359334372,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 5,
+    "mean_advantage": -0.0062271181037761225,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "coerror_no_cert_affine",
+    "task_advantages": {
+      "additive_regression": -0.01866679115745447,
+      "dominant_regression": -0.009917578986762562,
+      "mixed_regression": -0.007234244881513178,
+      "null_regression": -0.003238326890620461,
+      "redundant_regression": 0.012430468249737,
+      "sparse_regression": -0.01073623495604307
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": 3.427266881959401e-05,
+    "ci_upper": 0.03535198823969874,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 2,
+    "mean_advantage": 0.017598791765666564,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "top_no_cert_affine",
+    "task_advantages": {
+      "additive_regression": 0.0067315821594584975,
+      "dominant_regression": -0.007091705082287385,
+      "mixed_regression": 0.021137220474310547,
+      "null_regression": -0.006739878228138356,
+      "redundant_regression": 0.03847600330997399,
+      "sparse_regression": 0.053079527960682084
+    },
+    "tie": 0,
+    "win": 4
+  },
+  {
+    "ci_lower": 0.008466242478950127,
+    "ci_upper": 0.16516814057899734,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 1,
+    "mean_advantage": 0.08074551884761504,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_subspace_affine",
+    "task_advantages": {
+      "additive_regression": 0.013445354238061147,
+      "dominant_regression": 0.26307192056161294,
+      "mixed_regression": 0.06173195218497211,
+      "null_regression": -0.018352682271537024,
+      "redundant_regression": 0.006162756496870776,
+      "sparse_regression": 0.15841381187571027
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": -0.06075453775060453,
+    "ci_upper": -0.015303817964567624,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 5,
+    "mean_advantage": -0.03762092542704284,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.09086485034825205,
+      "dominant_regression": -0.008922553561889479,
+      "mixed_regression": -0.0429646159789557,
+      "null_regression": 3.658922382177021e-05,
+      "redundant_regression": -0.043705465101839557,
+      "sparse_regression": -0.03930465679514202
+    },
+    "tie": 1,
+    "win": 0
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": 0.005145324799889315,
+    "ci_upper": 0.02684187529865636,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": 0.01616396707692948,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.0205129098507863,
+      "dominant_regression": 0.002045002361442625,
+      "mixed_regression": 0.03262339778433543,
+      "null_regression": -0.003622204238393415,
+      "redundant_regression": 0.014179572976700713,
+      "sparse_regression": 0.031245123726705237
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "left": "top_quality",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": -0.0993206878616762,
+    "ci_upper": -0.01805048218124122,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 5,
+    "mean_advantage": -0.05994996653377795,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.11546683699913295,
+      "dominant_regression": -0.00466751564001928,
+      "mixed_regression": -0.0582524096435722,
+      "null_regression": 0.02001050970110498,
+      "redundant_regression": -0.09590904971387752,
+      "sparse_regression": -0.10541449690717077
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": 0.005944282108438605,
+    "ci_upper": 0.04907842915056005,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "random_subspace_affine",
+    "loss": 1,
+    "mean_advantage": 0.026475401909227713,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_subspace",
+    "task_advantages": {
+      "additive_regression": 0.011244591014188177,
+      "dominant_regression": 0.07193871654568072,
+      "mixed_regression": -0.009767069946163998,
+      "null_regression": 0.006349047963920218,
+      "redundant_regression": 0.04293443722654219,
+      "sparse_regression": 0.03615268865119897
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": -0.00024368645872838257,
+    "ci_upper": 0.017077071182185852,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "top_no_cert_affine",
+    "loss": 1,
+    "mean_advantage": 0.008618198861922262,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.007392765518203448,
+      "dominant_regression": 0.004803954389693786,
+      "mixed_regression": 0.007914579727999102,
+      "null_regression": -0.00959555381473202,
+      "redundant_regression": 0.014606008574132875,
+      "sparse_regression": 0.026587438776236372
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": 0.0027205804968376095,
+    "ci_upper": 0.04337177861872823,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert_affine",
+    "loss": 1,
+    "mean_advantage": 0.02145148120293564,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "coerror_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.02118745396101666,
+      "dominant_regression": 0.005453803712436321,
+      "mixed_regression": 0.012565641635610358,
+      "null_regression": -0.01350067296434504,
+      "redundant_regression": 0.031698682712851554,
+      "sparse_regression": 0.07130397816004398
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": -0.01705367054858181,
+    "ci_upper": 0.0019948987801155526,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 5,
+    "mean_advantage": -0.008251438296303768,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "coerror_no_cert_affine",
+    "task_advantages": {
+      "additive_regression": -0.02531911448116388,
+      "dominant_regression": -0.009932928492559057,
+      "mixed_regression": -0.009921089153864193,
+      "null_regression": -0.006445821418273471,
+      "redundant_regression": 0.01417514938359817,
+      "sparse_regression": -0.012064825615560179
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": -0.0010134314797982469,
+    "ci_upper": 0.04250540603253597,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 2,
+    "mean_advantage": 0.02074581112163909,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "top_no_cert_affine",
+    "task_advantages": {
+      "additive_regression": 0.00898848381243563,
+      "dominant_regression": -0.007238076808373896,
+      "mixed_regression": 0.027353370538082494,
+      "null_regression": -0.013973144806279906,
+      "redundant_regression": 0.04544739649901756,
+      "sparse_regression": 0.06389683749495267
+    },
+    "tie": 0,
+    "win": 4
+  },
+  {
+    "ci_lower": 0.006765645840085564,
+    "ci_upper": 0.19810660007949818,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 1,
+    "mean_advantage": 0.0954808131087781,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_subspace_affine",
+    "task_advantages": {
+      "additive_regression": 0.01828735545252791,
+      "dominant_regression": 0.2984245521638119,
+      "mixed_regression": 0.0822361047544045,
+      "null_regression": -0.037192972949224634,
+      "redundant_regression": 0.007228180366015117,
+      "sparse_regression": 0.20390165886513367
+    },
+    "tie": 0,
+    "win": 5
+  },
+  {
+    "ci_lower": -0.0782875557504159,
+    "ci_upper": -0.01841932315478084,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 5,
+    "mean_advantage": -0.046749923627146084,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 36,
+    "paired_tasks": 6,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.11959849751928016,
+      "dominant_regression": -0.009146640420142016,
+      "mixed_regression": -0.055607857161826035,
+      "null_regression": 6.401531848646928e-05,
+      "redundant_regression": -0.050035217617427796,
+      "sparse_regression": -0.046175344362686964
+    },
+    "tie": 1,
+    "win": 0
+  }
+]

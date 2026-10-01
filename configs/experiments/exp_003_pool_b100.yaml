@@ -1,0 +1,98 @@
+id: exp_003_pool_b100
+role: development
+seeds:
+- 11
+- 29
+outer_folds: 3
+inner_folds: 3
+candidates:
+  B: 100
+  feature_fractions:
+  - 0.1
+  depths:
+  - 3
+  min_samples_leaf:
+  - 5
+certification:
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+- id: additive_binary
+  regime: additive
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: additive_regression
+  regime: additive
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: null_binary
+  regime: 'null'
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: null_regression
+  regime: 'null'
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+methods:
+- id: random_subspace
+  selector: random
+  K: 8
+  certified: false
+  charge_search: false
+- id: top_no_cert
+  selector: top_quality
+  K: 8
+  certified: false
+- id: coerror_no_cert
+  selector: coerror
+  K: 8
+  certified: false
+  max_swaps: 5
+- id: shrinkage_no_cert
+  selector: shrinkage_coerror
+  K: 8
+  certified: false
+  max_swaps: 5
+  shrinkage: 0.5
+- id: top_quality
+  selector: top_quality
+  K: 8
+  certified: true
+- id: coerror
+  selector: coerror
+  K: 8
+  certified: true
+  max_swaps: 5
+- id: coerror_no_cert_affine
+  selector: coerror
+  K: 8
+  certified: false
+  max_swaps: 5
+  affine_calibration: true
+  tasks:
+  - regression
+- id: affine_profiled
+  selector: affine_profiled
+  K: 8
+  certified: false
+  max_swaps: 5
+  affine_calibration: true
+  tasks:
+  - regression
+baselines:
+- id: random_forest
+  family: random_forest
+  parameters:
+    n_estimators: 256
+hypothesis: Larger B at fixed K can improve OOF fit while worsening outer generalization;
+  bias-preserving shrinkage may reduce this gap.

@@ -42,3 +42,28 @@ certification, selection, ensembles, metrics, and evaluation. Tests include anal
 loss identities and exact tiny-pool references. The source files of an interrupted
 concurrent session are retained in `docs/archive/` for auditability; canonical code
 is exclusively under `src/`.
+
+## Completed development evidence
+
+`exp_001_mechanisms_v1` tests nine synthetic regimes for binary classification
+and regression (108 outer folds). Co-error selection has modest conditional gains;
+the broad performance hypothesis fails against strong static forest/boosting
+baselines at these settings. Screening causes infeasibility and null false survivors.
+`exp_002_affine_v1` tests aggregate attenuation (36 folds). Scalar calibration helps
+unchanged co-error subsets in five of six regimes, but affine-profiled selection
+loses on five of six task means despite improving its training OOF criterion.
+These negative findings are retained in the manuscript and research log.
+
+Bundles in `results/artifacts/` include data, predictions, decisions, config,
+source snapshot, environment, and checksums. Large-run bundles explicitly omit
+serialized models; export JSON files list every omission. To audit an extracted
+prediction bundle, place its run folder in `results/runs/`, then use:
+
+```sh
+uv run --no-sync python scripts/aggregate_results.py exp_002_affine_v1 --predictions-only
+uv run --no-sync python scripts/audit_run.py exp_002_affine_v1 --predictions-only
+uv run --no-sync python scripts/make_affine_report.py exp_002_affine_v1
+```
+
+The complete runs including refitted models can be regenerated with the saved
+YAML configurations. No locked confirmation suite has been evaluated.

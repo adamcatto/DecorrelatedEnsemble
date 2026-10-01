@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+Regime & RS & RS+aff & Top & Top+aff & CoErr & CoErr+aff & APCE \\
+\midrule
+additive & 0.933 & 0.922 & 0.920 & 0.912 & 0.899 & 0.878 & 0.903 \\
+dominant & 0.890 & 0.818 & 0.517 & 0.512 & 0.515 & 0.510 & 0.520 \\
+mixed & 0.974 & 0.984 & 0.937 & 0.929 & 0.904 & 0.892 & 0.902 \\
+null & 1.007 & 1.000 & 1.014 & 1.024 & 1.018 & 1.031 & 1.038 \\
+redundant & 0.691 & 0.648 & 0.701 & 0.687 & 0.687 & 0.655 & 0.641 \\
+sparse & 0.925 & 0.889 & 0.775 & 0.749 & 0.744 & 0.673 & 0.685 \\
+\bottomrule
+\end{tabular}
+\caption{Experiment 002: regression MSE divided by training-mean null MSE, averaged over six outer evaluations per regime. All subsets are unscreened. +aff fits two aggregate parameters on training OOF predictions; APCE also changes selection. B=100 and K=8 are fixed. Lower is better. Development evidence only.}
+\end{table}

@@ -1,5 +1,5 @@
 {
-  "affine_fits_audited": 0,
+  "affine_fits_audited": 16,
   "checks": [
     "artifact hashes",
     "outer disjointness",
@@ -12,9 +12,9 @@
     "training OOF affine fit and profiled loss reconstruction where applicable",
     "same selected subsets for raw/calibrated controls where applicable"
   ],
-  "folds_audited": 108,
+  "folds_audited": 4,
   "maximum_squared_loss_identity_error": 4.440892098500626e-16,
-  "run_id": "exp_001_mechanisms_v1",
+  "run_id": "smoke_affine_001",
   "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel",
-  "test_predictions_audited": 2022
+  "test_predictions_audited": 32
 }

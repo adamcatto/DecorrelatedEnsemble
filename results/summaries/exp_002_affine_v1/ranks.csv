@@ -1,0 +1,14 @@
+method,mean_rank,tasks,task_type
+affine_profiled,8.0,6,regression
+catboost,2.8333333333333335,6,regression
+coerror_no_cert,7.833333333333333,6,regression
+coerror_no_cert_affine,6.166666666666667,6,regression
+extra_trees,3.5,6,regression
+lightgbm,6.166666666666667,6,regression
+random_forest,4.166666666666667,6,regression
+random_subspace,10.833333333333334,6,regression
+random_subspace_affine,9.5,6,regression
+rf_shallow,7.833333333333333,6,regression
+top_no_cert,9.333333333333334,6,regression
+top_no_cert_affine,8.333333333333334,6,regression
+xgboost,6.5,6,regression

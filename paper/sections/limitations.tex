@@ -6,7 +6,7 @@ bootstrap screens do not justify guarantees under overlapping training folds,
 large candidate libraries, grouped observations, or temporal shifts. Sparse
 shallow trees can fail on interactions that need joint feature access. Only two
 generation seeds and one dimensional/sample-size setting have been tested in the
-first study. Static baselines lack tuning and resources are unmatched. Partial
+completed studies. Static baselines lack tuning and resources are unmatched. Partial
 screening feasibility changes the support of comparisons; aggregate effects can
 be driven by one mechanism. These restrictions preclude real-world or broad
 algorithm-superiority claims.
@@ -15,5 +15,7 @@ algorithm-superiority claims.
 The first development study does not establish a broadly competitive method.
 It reveals weaknesses in unadjusted bootstrap screening and in sparse-subspace
 aggregation, while co-error offers only modest and conditional gains over quality
-selection. Follow-up tests isolate aggregate calibration, selection uncertainty,
-and candidate-search effects before any locked benchmark evaluation.
+selection. Fixed-subset affine calibration helps some regimes, but profiled
+selection usually worsens test loss despite improving OOF fit. Follow-up tests
+isolate selection uncertainty and candidate-search effects before any locked
+benchmark evaluation.

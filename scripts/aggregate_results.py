@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from decorrelated_ensemble.evaluation.artifacts import verify_manifest, write_json
+from decorrelated_ensemble.evaluation.artifacts import sha256, verify_manifest, write_json
 from decorrelated_ensemble.statistics import paired_task_comparison
 
 
@@ -41,10 +41,18 @@ def aggregate(run, predictions_only=False):
         ("shrinkage", "coerror"),
         ("coerror", "caruana"),
         ("coerror_no_cert", "random_forest"),
+        ("random_subspace_affine", "random_subspace"),
+        ("top_no_cert_affine", "top_no_cert"),
+        ("coerror_no_cert_affine", "coerror_no_cert"),
+        ("affine_profiled", "coerror_no_cert_affine"),
+        ("affine_profiled", "top_no_cert_affine"),
+        ("affine_profiled", "random_subspace_affine"),
+        ("affine_profiled", "random_forest"),
     ]
     for task, metric, higher in [
         ("binary", "auroc", True),
         ("regression", "rmse", False),
+        ("regression", "normalized_squared_loss", False),
         ("multiclass", "log_loss", False),
     ]:
         subset = records[records.task == task]
@@ -80,6 +88,8 @@ def aggregate(run, predictions_only=False):
             "coverage_warning": "Ranks and paired comparisons can use different task coverage; inspect coverage.csv",
             "development_only": True,
             "models_verified": not predictions_only,
+            "report_script_sha256": sha256(Path(__file__)),
+            "comparison_pairs": pairs,
         },
     )
     return output

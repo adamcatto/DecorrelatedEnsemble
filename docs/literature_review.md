@@ -5,6 +5,7 @@
 | Source | Existing idea | Implication for this project |
 |---|---|---|
 | [Breiman, Bagging Predictors (1996)](https://www.stat.berkeley.edu/~breiman/papers.html) | Aggregation of unstable predictors fitted to perturbed samples | Baseline, not a contribution |
+| [Breiman, Stacked Regressions (1996)](https://statistics.berkeley.edu/sites/default/files/tech-reports/367.pdf) | Cross-validation predictions, nonnegative least squares, and an explicit residual-product quadratic program under simplex weights (Sections 1–2) | The co-error matrix is already a stacking formulation; cardinality/equal weights modify constraints. Affine aggregate calibration is a restricted stacking diagnostic |
 | [Ho, Random Subspace Method (1998)](https://doi.org/10.1109/34.709601) | Fixed randomly sampled feature subspaces for decision forests | Sparse fixed masks are established |
 | [Louppe & Geurts, Random Patches (2012)](https://orbi.uliege.be/bitstream/2268/130099/1/glouppe12.pdf) | Joint feature and row subsampling | Row subsampling requires a random-patches baseline |
 | [Tian & Feng, RaSE (2021)](https://jmlr.org/papers/v22/20-600.html) | Large random subspace search, selected weak learners, iterative signal targeting | Search over sparse subspaces and adaptive generation have direct precedent |
@@ -15,6 +16,8 @@
 | [Liu & Yao (1999)](https://doi.org/10.1016/S0893-6080(99)00073-8) | Joint negative-correlation training of neural network ensembles | Distinguish joint training from post-hoc selection of independently generated models |
 | [Reeve & Brown (2018)](https://arxiv.org/abs/1803.00314) | Diversity penalty related to effective degrees of freedom and regularization | Capacity/regularization is an alternative explanation |
 | [Cannings & Samworth (2017)](https://arxiv.org/abs/1504.04595) | Validation-selected random projection ensembles with theory | Random search, selection, and aggregation are not new mechanisms |
+| [Pérez-Rodríguez, Fernández-Navarro & Ashley (2023)](https://doi.org/10.1016/j.eswa.2023.120462) | Mean–variance ensemble weighting using error covariance, including simplex and unrestricted-sign variants | Portfolio terminology is established. Publisher abstract/preview read; full-text derivation remains to audit |
+| [Chen, Klusowski & Tan, Error Reduction from Stacked Regressions (2023; v3 2024)](https://arxiv.org/html/2309.09880v3) | Nonnegative regularized stacking, adaptive shrinkage, and isotonic optimization for nested least-squares models | Theory requires honest subspaces independent of responses, Gaussian fixed-design noise, and nested models. It does not establish guarantees for our independently fitted non-nested sparse trees |
 
 These are source-grounded connections, not an exhaustive novelty search. Read full
 texts and compare assumptions, selection matrices, certification, and resource
@@ -30,7 +33,7 @@ this adaptive candidate library.
 
 ## Remaining search
 
-Stacking (Wolpert 1992), portfolio-based ensemble pruning/weighting, residual
+Original stacking (Wolpert 1992), portfolio-based ensemble pruning/weighting, residual
 covariance shrinkage, conditional error dependence, OOF uncertainty/multiplicity,
 selective inference, feature bagging, and modern ensemble selection variants.
 Do not claim bias-preserving shrinkage is new before this review is complete.

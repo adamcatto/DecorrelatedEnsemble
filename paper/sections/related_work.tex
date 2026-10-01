@@ -11,11 +11,20 @@ require differentiating any eventual contribution through mechanism, statistical
 procedure, scaling, or a substantiated algorithmic improvement.
 Quadratic pruning with cardinality constraints and SDP relaxations predates this
 study \citep{zhang2006}; the optimization formulation alone is not a contribution.
+Stacked regressions \citep{breiman1996stacked} fit nonnegative coefficients on
+cross-validation predictions and explicitly formulate simplex weighting using
+residual-product quadratic loss. Our co-error matrix and scalar affine diagnostic
+therefore have close stacking precedents; restricting weights to a selected,
+equal-weight subset changes the constraint, not the loss identity.
+Portfolio weighting explicitly uses prediction-error covariances
+\citep{perez2023portfolio}. Stacking shrinkage theory for honest, nested
+least-squares subspaces \citep{chen2023stacking} provides a useful regularization
+connection, but its assumptions do not cover our non-nested fitted sparse trees.
 Negative correlation learning jointly trains interacting networks
 \citep{liu1999}, whereas our current models are generated independently and
 selected afterward. Random-projection ensembles also combine randomized search,
 validation selection, and aggregation \citep{cannings2017}. Diversity penalties
 can change effective capacity \citep{reeve2018}, motivating a regularization
 explanation. Cross-validation uncertainty is subtle under overlapping fits
-\citep{bengio2004,bates2024}. Portfolio-based weighting, stacking, conditional
+\citep{bengio2004,bates2024}. Portfolio-based weighting, conditional
 dependence, and selective inference require further full-text review.

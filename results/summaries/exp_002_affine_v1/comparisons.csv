@@ -1,0 +1,31 @@
+left,right,metric,paired_tasks,paired_splits,mean_advantage,ci_lower,ci_upper,win,tie,loss,interval_scope,multiplicity
+coerror,top_quality,rmse,0,0,,,,,,,,
+coerror,abs_correlation,rmse,0,0,,,,,,,,
+coerror,random_forest,rmse,0,0,,,,,,,,
+coerror_no_cert,top_no_cert,rmse,6,36,0.012753408432429293,0.0044831129418577515,0.020954614549848587,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,rmse,0,0,,,,,,,,
+shrinkage,coerror,rmse,0,0,,,,,,,,
+coerror,caruana,rmse,0,0,,,,,,,,
+coerror_no_cert,random_forest,rmse,6,36,-0.050220671220397695,-0.08039615421607459,-0.017327235165112437,1.0,0.0,5.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+random_subspace_affine,random_subspace,rmse,6,36,0.021465850150229216,0.004473817448987156,0.039644627505605046,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+top_no_cert_affine,top_no_cert,rmse,6,36,0.007754362460117581,0.0015309997767503664,0.014515247394430669,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert_affine,coerror_no_cert,rmse,6,36,0.018826863897130976,0.004022168882739665,0.03670221203301837,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,coerror_no_cert_affine,rmse,6,36,-0.0062271181037761225,-0.01310686836675337,0.0020655164359334372,1.0,0.0,5.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,top_no_cert_affine,rmse,6,36,0.017598791765666564,3.427266881959401e-05,0.03535198823969874,4.0,0.0,2.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,random_subspace_affine,rmse,6,36,0.08074551884761504,0.008466242478950127,0.16516814057899734,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,random_forest,rmse,6,36,-0.03762092542704284,-0.06075453775060453,-0.015303817964567624,0.0,1.0,5.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,top_quality,normalized_squared_loss,0,0,,,,,,,,
+coerror,abs_correlation,normalized_squared_loss,0,0,,,,,,,,
+coerror,random_forest,normalized_squared_loss,0,0,,,,,,,,
+coerror_no_cert,top_no_cert,normalized_squared_loss,6,36,0.01616396707692948,0.005145324799889315,0.02684187529865636,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,normalized_squared_loss,0,0,,,,,,,,
+shrinkage,coerror,normalized_squared_loss,0,0,,,,,,,,
+coerror,caruana,normalized_squared_loss,0,0,,,,,,,,
+coerror_no_cert,random_forest,normalized_squared_loss,6,36,-0.05994996653377795,-0.0993206878616762,-0.01805048218124122,1.0,0.0,5.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+random_subspace_affine,random_subspace,normalized_squared_loss,6,36,0.026475401909227713,0.005944282108438605,0.04907842915056005,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+top_no_cert_affine,top_no_cert,normalized_squared_loss,6,36,0.008618198861922262,-0.00024368645872838257,0.017077071182185852,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert_affine,coerror_no_cert,normalized_squared_loss,6,36,0.02145148120293564,0.0027205804968376095,0.04337177861872823,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,coerror_no_cert_affine,normalized_squared_loss,6,36,-0.008251438296303768,-0.01705367054858181,0.0019948987801155526,1.0,0.0,5.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,top_no_cert_affine,normalized_squared_loss,6,36,0.02074581112163909,-0.0010134314797982469,0.04250540603253597,4.0,0.0,2.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,random_subspace_affine,normalized_squared_loss,6,36,0.0954808131087781,0.006765645840085564,0.19810660007949818,5.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,random_forest,normalized_squared_loss,6,36,-0.046749923627146084,-0.0782875557504159,-0.01841932315478084,0.0,1.0,5.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"

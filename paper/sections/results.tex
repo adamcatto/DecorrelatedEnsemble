@@ -42,6 +42,42 @@ benefit over unscreened top quality; it frequently prevents a fixed-size ensembl
 minimum and maximum over folds/seeds, not confidence intervals.}
 \end{figure}
 
+\subsection{Experiment 002: Attenuation Versus Selection}
+\input{tables/exp_002_affine_v1_facts}
+The follow-up fixes the candidate pools, masks, seeds, splits, and $B/K$ settings
+from Experiment 001. It compares raw versus OOF-affine-calibrated random,
+top-quality, and co-error subsets, plus APCE, on six regression mechanisms.
+All subsets are unscreened to remove infeasibility as a confound. Each affine
+control selects exactly the same learners as its raw counterpart. No aggregation
+hyperparameter is tuned; these are two learned scalar parameters.
+\input{tables/exp_002_affine_v1_regression}
+
+Affine calibration of co-error improves task-mean normalized loss in
+\ExpTwoCalibratedWins{} of six regimes. Additive loss changes from
+\ExpTwoAdditiveRaw{} to \ExpTwoAdditiveAffine{}, and mixed loss from
+\ExpTwoMixedRaw{} to \ExpTwoMixedAffine{}. These improvements leave a large gap
+to the unrestricted forest on additive signal (\ExpTwoAdditiveForest{}).
+The null control worsens from \ExpTwoNullRaw{} to \ExpTwoNullAffine{}.
+Calibration therefore addresses part of the weakness without establishing a
+broadly competitive method or a unique attenuation explanation.
+
+APCE improves or ties calibrated OOF loss relative to affine co-error in all
+\ExpTwoOOFNoWorse{} splits, yet loses on outer normalized loss in
+\ExpTwoProfiledLosses{} of six task means and wins only the redundant regime.
+On additive signal its outer loss is \ExpTwoAdditiveProfiled{}, versus
+\ExpTwoAdditiveAffine{} for calibration of the unchanged co-error subset.
+The additional optimization improves the reused training criterion while usually
+hurting generalization. This is consistent with selection optimism; smaller
+training fits for OOF predictions and the subsequent refit remain alternatives.
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_002_affine_v1/affine_controls.pdf}
+\caption{Affine diagnostic. Top: paired loss changes for unchanged subsets;
+dots show individual outer split effects and bars their means, not confidence
+intervals. Bottom: profiled selection relative to calibrated controls in task
+means. Positive values favor the added step. The null and most profiled co-error
+comparisons supply counterexamples.}
+\end{figure}
+
 \section{Real-World Benchmarks}
 No confirmation benchmark has been evaluated. Current benchmark versions and
 baseline requirements will be recorded before locking the study.
@@ -60,9 +96,12 @@ Additive regression illustrates the attenuation concern: normalized squared loss
 is \ExpOneAdditiveCoerror{} for unfiltered co-error, versus
 \ExpOneAdditiveForest{} for the unrestricted forest and
 \ExpOneAdditiveCatboost{} for CatBoost. This observation does not establish that
-attenuation is the sole cause. The next development experiment will compare
-the same selected subsets with and without an OOF-fitted aggregate affine
-calibrator, then test selection with the affine loss profiled out. Random and
-top-quality controls are necessary to determine whether a change comes from
-aggregate calibration or a new selection mechanism. Null and dominant-feature
-controls will test increased selection/aggregation overfitting.
+attenuation is the sole cause. Experiment 002 confirms modest fixed-subset
+calibration gains while refuting a consistent advantage of profiled selection.
+The next development experiment varies $B\in\{30,100,300\}$ at fixed $K=8$,
+with exact candidate and OOF prefixes, additive/null controls, and shrinkage.
+The predicted distinction is between improved validation fit and improved outer
+performance as search freedom grows. Raw OOF/test loss gaps combine estimation,
+training-size, and sampling effects, so this diagnostic alone cannot identify
+the source of optimism. Independent selection holdouts with unchanged fitted
+models would subsequently distinguish these explanations more directly.

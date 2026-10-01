@@ -57,3 +57,28 @@ subsets plus profiled selection at fixed B/K/masks/folds. Falsification: no cons
 gain on distributed additive signal, or similar/worse gains versus calibration of
 simple selection controls. Null/dominant regimes expose overfitting and unnecessary
 calibration. Keep primary equal-weight results as the original reference.
+
+## exp_002 completed — calibration helps; profiled selection fails
+
+36 folds / 468 method evaluations completed. The extended audit reconstructs all
+test metrics and 144 OOF affine fits, verifies raw/calibrated controls have the
+same selected IDs, and checks profiled loss identities. Co-error affine correction
+improves task-mean loss in five of six regimes (the null worsens); gains are modest
+for additive/mixed signal and larger for sparse/redundant signal. Attenuation is
+therefore a partial explanation, not the only failure mechanism.
+
+APCE loses to calibrated co-error on five of six task means, while its calibrated
+training OOF loss is no worse in every paired split. This pattern is consistent
+with selection optimism or the smaller-fit OOF/refit distribution change. It
+does not establish either cause uniquely. APCE remains a preserved negative result.
+The strong baseline gap remains, and no tuned/matched-budget conclusion is justified.
+
+Next: exp_003 varies B=30/100/300 at fixed K=8 on additive/null binary/regression,
+with exact candidate/OOF prefixes and a shrinkage control. Freeze the configs and
+analysis questions before launching. This reuses development seeds; it is not a
+new confirmation study. Do not add algorithm complexity solely to chase scores.
+
+Literature update: Breiman (1996) explicitly uses cross-validation predictions and
+residual-product quadratic loss for stacking. Portfolio error-covariance weighting
+also has direct precedent. Chen et al.'s nested honest least-squares shrinkage
+theory does not apply automatically to our non-nested data-adaptive trees.
