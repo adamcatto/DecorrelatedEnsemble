@@ -39,11 +39,11 @@ def aggregate_predictions(P, selection):
     return np.tensordot(P[:, selection.ids], selection.weights, axes=(1, 0))
 
 
-def fit_selection(X, y, specs, selection, task, calibration=False, oof_predictions=None):
+def fit_selection(X, y, specs, selection, task, calibration=False, oof_predictions=None, n_jobs=1):
     n_classes = len(np.unique(y)) if task != "regression" else 0
     base = SelectedEnsemble(
         [specs[i] for i in selection.ids], selection.weights, task, n_classes
-    ).fit(X, y)
+    ).fit(X, y, n_jobs=n_jobs)
     if not calibration:
         return base
     if task != "regression" or oof_predictions is None:
@@ -220,6 +220,9 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path, groups=None):
     X, y, task = dataset.X.iloc[train], dataset.y[train], dataset.task
     np.savez_compressed(path / "outer_split.npz", train=train, test=test)
     write_json(path / "candidates.json", [s.to_dict() for s in specs])
+    print(
+        f"{dataset.metadata['id']} seed={seed} fold={fold} OOF B={len(specs)} started", flush=True
+    )
     with ResourceTimer() as search_timer:
         train_groups = None if groups is None else groups[train]
         oof = build_oof(
@@ -242,6 +245,10 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path, groups=None):
             seed + 6000 + fold,
             groups=train_groups,
         )
+    print(
+        f"{dataset.metadata['id']} fold={fold} OOF={search_timer.wall:.1f}s screen={screen_timer.wall:.1f}s",
+        flush=True,
+    )
     np.savez_compressed(
         path / "oof.npz", predictions=oof.predictions, null=oof.null, fold_ids=oof.fold_ids, y=y
     )
@@ -334,6 +341,7 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path, groups=None):
                     task,
                     tuned.get("affine_calibration", False),
                     oof.predictions,
+                    n_jobs=cfg.get("refit_jobs", 1),
                 )
             diag = diagnostics(y, oof.predictions, task, specs, chosen, cert.quality)
             if tuned.get("affine_calibration", False):
@@ -372,6 +380,11 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path, groups=None):
             write_json(method_path / "diagnostics.json", diag)
             write_json(method_path / "resources.json", resource)
             plans.append((method["id"], model, method_path, "selected", diag, resource))
+            if len(plans) % 10 == 0:
+                print(
+                    f"{dataset.metadata['id']} fold={fold} finalized {len(plans)} selections",
+                    flush=True,
+                )
         except ValueError as error:
             if not str(error).startswith("infeasible:"):
                 raise

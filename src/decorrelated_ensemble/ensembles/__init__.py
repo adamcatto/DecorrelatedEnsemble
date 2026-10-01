@@ -1,4 +1,5 @@
 import numpy as np
+from joblib import Parallel, delayed
 
 from decorrelated_ensemble.candidates import MaskedTree
 
@@ -15,8 +16,10 @@ class SelectedEnsemble:
             raise ValueError("Weights must be nonnegative and sum to one")
         self.task, self.n_classes = task, n_classes
 
-    def fit(self, X, y):
-        self.models_ = [MaskedTree(s, self.task, self.n_classes).fit(X, y) for s in self.specs]
+    def fit(self, X, y, n_jobs=1):
+        self.models_ = Parallel(n_jobs=n_jobs, prefer="threads")(
+            delayed(MaskedTree(s, self.task, self.n_classes).fit)(X, y) for s in self.specs
+        )
         return self
 
     def predict(self, X):

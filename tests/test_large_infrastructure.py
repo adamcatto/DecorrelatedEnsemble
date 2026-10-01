@@ -141,3 +141,14 @@ def test_offline_loader_pinning_seed_independent_subset_and_target_exclusion(tmp
     assert a.metadata["source_row_ids"] == a.X.index.tolist()
     with pytest.raises(ValueError, match="hash"):
         load_dataset({**cfg, "sha256": "invalid"}, 11)
+
+
+def test_threaded_selected_refits_equal_serial():
+    from decorrelated_ensemble.ensembles import SelectedEnsemble
+
+    data = synthetic({"regime": "additive", "task": "regression", "n": 90, "p": 10}, 5)
+    specs = generate_candidates(10, {"B": 8, "feature_fractions": [0.2], "depths": [3]}, 1)
+    a = SelectedEnsemble(specs, np.ones(8) / 8, "regression").fit(data.X, data.y)
+    b = SelectedEnsemble(specs, np.ones(8) / 8, "regression").fit(data.X, data.y, n_jobs=2)
+    np.testing.assert_array_equal(a.predict(data.X), b.predict(data.X))
+    assert a.capacity() == b.capacity()

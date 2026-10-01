@@ -59,7 +59,7 @@ def environment(root):
         "logical_cpus": psutil.cpu_count(),
         "memory_bytes": psutil.virtual_memory().total,
         "packages": {d.metadata["Name"]: d.version for d in importlib.metadata.distributions()},
-        "resource_scope": "one process, configured OOF threads; other fits sequential; process CPU includes threads; RSS sampled every 20ms is an observed lower bound",
+        "resource_scope": "one process, configured OOF/refit threads; baselines sequential; process CPU includes threads; RSS sampled every 20ms is an observed lower bound",
     }
 
 

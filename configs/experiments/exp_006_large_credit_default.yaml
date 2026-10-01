@@ -463,3 +463,4 @@ hypothesis: At fixed retained K, increasing balanced nested candidate B improves
   or resource-matched superiority claim.
 oof_jobs: 4
 group_exact_duplicates: true
+refit_jobs: 4

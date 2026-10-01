@@ -105,8 +105,8 @@ XGBoost300 depth6, LightGBM300 leaves31, CatBoost300 depth6, learning rate.05. S
 settings, not tuned competitive baselines. Boosting is deliberately stronger than the
 100-round exp_004 presets. Strong modern neural/AutoML baselines remain a later gate.
 
-OOF fits use four threads in one process, BLAS limited to one; all other phases run
-sequentially. CPU timer includes all threads. Every search-dependent setting is charged
+OOF and selected refits use four threads in one process, BLAS limited to one;
+selectors and baseline phases run sequentially. CPU timer includes all threads. Every search-dependent setting is charged
 the ENTIRE 6,000-spec shared search/screen cost, including smaller prefixes/cells: a
 conservative shared-library cost, not independent prefix training cost. B is the pool
 available to that selector, generated_B=6,000. Report separate search/selection/refit,
