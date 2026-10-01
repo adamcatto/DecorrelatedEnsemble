@@ -267,7 +267,8 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path):
                     "objective": chosen.objective,
                     "trace": chosen.trace,
                     "tuning": tuning,
-                    "eligible_count": int(eligible.sum()),
+                    "eligible_count": len(chosen.trace[0]["eligible_pool_ids"]),
+                    "eligible_count_before_deduplication": int(eligible.sum()),
                 },
             )
             with ResourceTimer() as refit_timer:

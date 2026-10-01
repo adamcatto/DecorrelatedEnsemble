@@ -1,0 +1,79 @@
+id: exp_005_oof_duplicates
+role: development
+seeds:
+- 11
+- 29
+outer_folds: 3
+inner_folds: 3
+candidates:
+  B: 100
+  feature_fractions:
+  - 0.1
+  depths:
+  - 3
+  min_samples_leaf:
+  - 5
+certification:
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+- id: breast_cancer
+  source: sklearn
+  name: breast_cancer
+- id: wine
+  source: sklearn
+  name: wine
+- id: diabetes
+  source: sklearn
+  name: diabetes
+methods:
+- id: random_subspace
+  selector: random
+  certified: false
+  K: 8
+  charge_search: false
+- id: top_no_cert
+  selector: top_quality
+  certified: false
+  K: 8
+- id: coerror_no_cert
+  selector: coerror
+  certified: false
+  K: 8
+  max_swaps: 5
+- id: random_subspace_unique
+  selector: random
+  certified: false
+  K: 8
+  charge_search: true
+  deduplicate_oof: true
+- id: top_no_cert_unique
+  selector: top_quality
+  certified: false
+  K: 8
+  deduplicate_oof: true
+  charge_search: true
+- id: coerror_no_cert_unique
+  selector: coerror
+  certified: false
+  K: 8
+  max_swaps: 5
+  deduplicate_oof: true
+  charge_search: true
+- id: caruana
+  selector: caruana
+  certified: false
+  K: 8
+baselines:
+- id: random_forest
+  family: random_forest
+  parameters:
+    n_estimators: 256
+- id: linear
+  family: linear
+  parameters: {}
+hypothesis: Observed duplicate OOF prediction vectors explain part of the gap between
+  top-quality and co-error selection; exact training-OOF deduplication tests the gap
+  at fixed K. No novelty or guaranteed diversity claim.

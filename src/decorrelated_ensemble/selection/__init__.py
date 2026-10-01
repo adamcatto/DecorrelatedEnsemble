@@ -1,3 +1,4 @@
+import hashlib
 from dataclasses import dataclass
 from itertools import combinations
 from math import comb
@@ -211,8 +212,32 @@ def direct_greedy(y, P, task, k, metric="squared", replacement=False):
     return Selection(ids, counts / k, float(trace[-1]["objective"]), trace)
 
 
+def distinct_prediction_indices(P):
+    """First representative per exact OOF vector; streaming scratch O(N*C).
+
+    Hashing only indexes buckets. Equality is checked to resolve collisions.
+    Signed zeros compare equal; observed equality is not global function equality.
+    """
+    buckets, keep = {}, []
+    for i in range(P.shape[1]):
+        column = np.asarray(P[:, i], dtype=np.float64).reshape(-1)
+        if not np.isfinite(column).all():
+            raise ValueError("OOF deduplication requires finite predictions")
+        canonical = np.where(column == 0, 0.0, column)
+        digest = hashlib.sha256(canonical.tobytes()).digest()
+        matches = buckets.setdefault(digest, [])
+        if any(np.array_equal(column, P[:, j].reshape(-1)) for j in matches):
+            continue
+        keep.append(i)
+        matches.append(i)
+    return np.asarray(keep, dtype=int)
+
+
 def select(y, P, null, task, quality, eligible, cfg, seed):
     ids = np.flatnonzero(eligible)
+    original_ids = ids.copy()
+    if cfg.get("deduplicate_oof", False):
+        ids = ids[distinct_prediction_indices(P[:, ids])]
     k = cfg["K"]
     if k < 1 or len(ids) < k:
         raise ValueError(f"infeasible: {len(ids)} eligible < K={k}")
@@ -273,4 +298,7 @@ def select(y, P, null, task, quality, eligible, cfg, seed):
     result.ids = ids[result.ids]
     # Trace IDs above index the eligible pool; record mapping explicitly.
     result.trace.insert(0, {"eligible_pool_ids": ids.tolist()})
+    if cfg.get("deduplicate_oof", False):
+        result.trace[0]["eligible_pool_ids_before_deduplication"] = original_ids.tolist()
+        result.trace[0]["equivalence"] = "exact training OOF equality; first eligible ID retained"
     return result
