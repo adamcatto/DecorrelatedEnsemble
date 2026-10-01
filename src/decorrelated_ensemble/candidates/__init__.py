@@ -1,4 +1,5 @@
 from dataclasses import asdict, dataclass
+from itertools import product
 
 import numpy as np
 from sklearn.pipeline import Pipeline
@@ -27,9 +28,14 @@ def generate_candidates(p: int, config: dict, seed: int) -> list[CandidateSpec]:
     if p < 1 or config["B"] < 1:
         raise ValueError("Positive feature count and candidate count required")
     specs = []
+    grid = list(product(config["feature_fractions"], config["depths"]))
     for b in range(config["B"]):
         rng = np.random.default_rng(np.random.SeedSequence([seed, b]))
-        fraction = float(rng.choice(config["feature_fractions"]))
+        if config.get("balanced_grid", False):
+            fraction, depth = grid[b % len(grid)]
+        else:
+            fraction, depth = float(rng.choice(config["feature_fractions"])), None
+        fraction = float(fraction)
         row_fraction = float(rng.choice(config.get("row_fractions", [1.0])))
         if not 0 < fraction <= 1 or not 0 < row_fraction <= 1:
             raise ValueError("Feature and row fractions must be in (0,1]")
@@ -40,7 +46,7 @@ def generate_candidates(p: int, config: dict, seed: int) -> list[CandidateSpec]:
                 b,
                 features,
                 fraction,
-                int(rng.choice(config["depths"])),
+                int(depth if depth is not None else rng.choice(config["depths"])),
                 int(rng.choice(config.get("min_samples_leaf", [5]))),
                 row_fraction,
                 int(rng.integers(0, 2**31 - 1)),

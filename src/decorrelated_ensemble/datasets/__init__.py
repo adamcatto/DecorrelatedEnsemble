@@ -1,10 +1,13 @@
 import hashlib
+import json
 from dataclasses import dataclass
 from importlib.metadata import version
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from sklearn import datasets as skdata
+from sklearn.model_selection import train_test_split
 
 
 @dataclass
@@ -91,6 +94,44 @@ def synthetic(config: dict, seed: int) -> Dataset:
 
 
 def load_dataset(config: dict, seed: int) -> Dataset:
+    if config.get("source") == "cached_public":
+        from decorrelated_ensemble.evaluation.artifacts import sha256
+
+        path = Path(config["path"])
+        if sha256(path) != config["sha256"]:
+            raise ValueError("Public data cache hash differs from pinned experiment config")
+        data = pd.read_pickle(path)
+        X, y = data["X"], np.asarray(data["y"])
+        metadata = json.loads(path.with_suffix(".json").read_text())
+        rows = np.arange(len(y))
+        limit = config.get("max_samples", len(y))
+        if limit < len(y):
+            rows, _ = train_test_split(
+                rows,
+                train_size=limit,
+                random_state=config["subsample_seed"],
+                stratify=y if metadata["task"] == "binary" else None,
+            )
+            rows = np.sort(rows)
+        X, y = X.iloc[rows].copy(), y[rows]
+        return Dataset(
+            X,
+            y,
+            metadata["task"],
+            {
+                **metadata,
+                **config,
+                "n": len(y),
+                "p": X.shape[1],
+                "seed": seed,
+                "role": "development",
+                "sampling_structure": "iid",
+                "source_row_ids": rows.tolist(),
+                "feature_names": list(X.columns),
+                "feature_dtypes": [str(t) for t in X.dtypes],
+                "sampling_assumption": "Independent feature-vector groups assumed; geographic/material/survey dependence is not resolved",
+            },
+        )
     if config.get("source", "synthetic") == "synthetic":
         return synthetic(config, seed)
     if config["source"] == "sklearn":

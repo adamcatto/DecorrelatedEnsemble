@@ -54,7 +54,7 @@ def fit_selection(X, y, specs, selection, task, calibration=False, oof_predictio
     return AffineAggregate(base, fit_affine(y, aggregate_predictions(oof_predictions, selection)))
 
 
-def nested_tune(X, y, specs, task, cert_config, method, inner_folds, seed, path=None):
+def nested_tune(X, y, specs, task, cert_config, method, inner_folds, seed, path=None, groups=None):
     """Regenerate base fits inside each tuning fold; never slice global OOF fits."""
     options = method.get("tuning_grid", [])
     if not options:
@@ -63,10 +63,27 @@ def nested_tune(X, y, specs, task, cert_config, method, inner_folds, seed, path=
     scores = np.zeros(len(options))
     trace = []
     for fold, (train, valid) in enumerate(
-        make_splits(y, task, method.get("tuning_folds", 3), seed)
+        make_splits(y, task, method.get("tuning_folds", 3), seed, groups)
     ):
-        oof = build_oof(X.iloc[train], y[train], specs, task, inner_folds, seed + 100 + fold)
-        cert = certify(y[train], oof.predictions, oof.null, task, cert_config, seed + 200 + fold)
+        inner_groups = None if groups is None else groups[train]
+        oof = build_oof(
+            X.iloc[train],
+            y[train],
+            specs,
+            task,
+            inner_folds,
+            seed + 100 + fold,
+            groups=inner_groups,
+        )
+        cert = certify(
+            y[train],
+            oof.predictions,
+            oof.null,
+            task,
+            cert_config,
+            seed + 200 + fold,
+            groups=inner_groups,
+        )
         if path is not None:
             np.savez_compressed(
                 path / f"tuning_fold_{fold}.npz",
@@ -80,7 +97,9 @@ def nested_tune(X, y, specs, task, cert_config, method, inner_folds, seed, path=
                 bootstrap=cert.bootstrap,
             )
         for j, candidate in enumerate(candidates):
-            eligible = eligibility(cert, task, cert_config, candidate)
+            eligible = eligibility(cert, task, cert_config, candidate) & candidate_pool_mask(
+                specs, candidate
+            )
             try:
                 chosen = select(
                     y[train],
@@ -141,6 +160,21 @@ def eligibility(cert, task, cert_config, method):
     return cert.lower > threshold
 
 
+def candidate_pool_mask(specs, method):
+    """Fixed config-defined restriction, evaluated before seeing test scores."""
+    pool = method.get("candidate_pool", {})
+    mask = np.ones(len(specs), dtype=bool)
+    if "prefix" in pool:
+        mask &= np.arange(len(specs)) < pool["prefix"]
+    for key in ["feature_fraction", "max_depth"]:
+        if key in pool:
+            mask &= np.array([getattr(s, key) == pool[key] for s in specs])
+    if "limit" in pool:
+        ids = np.flatnonzero(mask)
+        mask[ids[pool["limit"] :]] = False
+    return mask
+
+
 def diagnostics(y, P, task, specs, chosen, quality):
     E = residual_matrix(y, P[:, chosen.ids], task)
     R = correlation_matrix(E)
@@ -181,15 +215,33 @@ def measure_inference(model, X, predict):
     }
 
 
-def run_fold(dataset, specs, cfg, seed, fold, train, test, path):
+def run_fold(dataset, specs, cfg, seed, fold, train, test, path, groups=None):
     path.mkdir(parents=True)
     X, y, task = dataset.X.iloc[train], dataset.y[train], dataset.task
     np.savez_compressed(path / "outer_split.npz", train=train, test=test)
     write_json(path / "candidates.json", [s.to_dict() for s in specs])
     with ResourceTimer() as search_timer:
-        oof = build_oof(X, y, specs, task, cfg["inner_folds"], seed + 5000 + fold)
+        train_groups = None if groups is None else groups[train]
+        oof = build_oof(
+            X,
+            y,
+            specs,
+            task,
+            cfg["inner_folds"],
+            seed + 5000 + fold,
+            n_jobs=cfg.get("oof_jobs", 1),
+            groups=train_groups,
+        )
     with ResourceTimer() as screen_timer:
-        cert = certify(y, oof.predictions, oof.null, task, cfg["certification"], seed + 6000 + fold)
+        cert = certify(
+            y,
+            oof.predictions,
+            oof.null,
+            task,
+            cfg["certification"],
+            seed + 6000 + fold,
+            groups=train_groups,
+        )
     np.savez_compressed(
         path / "oof.npz", predictions=oof.predictions, null=oof.null, fold_ids=oof.fold_ids, y=y
     )
@@ -245,8 +297,10 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path):
                     cfg["inner_folds"],
                     seed + 7000 + fold,
                     method_path,
+                    train_groups,
                 )
-            eligible = eligibility(cert, task, cfg["certification"], tuned)
+            pool_mask = candidate_pool_mask(specs, tuned)
+            eligible = eligibility(cert, task, cfg["certification"], tuned) & pool_mask
             with ResourceTimer() as selection_timer:
                 chosen = select(
                     y,
@@ -387,6 +441,15 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path):
         }
         if kind == "baseline":
             row.update(B=None, certified_count=None, certification_rate=None)
+        else:
+            method_cfg = next(m for m in cfg["methods"] if m["id"] == name)
+            pool = candidate_pool_mask(specs, method_cfg)
+            row.update(
+                generated_B=len(specs),
+                B=int(pool.sum()),
+                certified_count=int(cert.passed[pool].sum()),
+                certification_rate=float(cert.passed[pool].mean()),
+            )
         rows.append(row)
         write_json(method_path / "test_metrics.json", metrics)
     write_json(path / "records.json", rows)
@@ -418,7 +481,11 @@ def run_experiment(config_path, root=None, run_id=None):
                     dataset.X.to_pickle(task_path / "X.pkl")
                     np.save(task_path / "y.npy", dataset.y)
                     write_json(task_path / "metadata.json", dataset.metadata)
-                    splits = make_splits(dataset.y, dataset.task, cfg["outer_folds"], seed)
+                    groups = None
+                    if cfg.get("group_exact_duplicates", False):
+                        groups = pd.util.hash_pandas_object(dataset.X, index=False).to_numpy()
+                        np.save(task_path / "groups.npy", groups)
+                    splits = make_splits(dataset.y, dataset.task, cfg["outer_folds"], seed, groups)
                     for fold, (train, test) in enumerate(splits):
                         specs = generate_candidates(
                             dataset.X.shape[1], cfg["candidates"], seed + 1000 + fold
@@ -433,6 +500,7 @@ def run_experiment(config_path, root=None, run_id=None):
                                 train,
                                 test,
                                 task_path / f"fold_{fold}",
+                                groups,
                             )
                         )
                         pd.DataFrame(records).to_csv(path / "records.csv", index=False)

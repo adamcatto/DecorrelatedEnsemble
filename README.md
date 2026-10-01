@@ -89,3 +89,19 @@ uv run --no-sync python scripts/make_duplicate_report.py exp_005_oof_duplicates_
 ```
 
 Use `audit_run.py` on each run to reconstruct all stored metrics and loss identities.
+
+### Larger public-data development sweeps (exp_006)
+
+Download pinned public sources once into the ignored offline cache:
+
+```bash
+python scripts/prepare_large_data.py
+python scripts/run_experiment.py configs/experiments/smoke_large.yaml --run-id smoke_large_001
+python scripts/run_experiment.py configs/experiments/exp_006_large_higgs.yaml --run-id exp_006_large_higgs_v1
+```
+
+Repeat the last command for credit_default, miniboone, superconductivity and
+california_housing task configs. Each generates 6,000 specs per fold and evaluates
+52 fixed selection settings plus nine static baseline settings on 20,000 rows.
+See `experiments/exp_006_large/protocol.md` for pool/size/width/depth controls,
+exact-feature group splits, source attributions, caps and resource limitations.

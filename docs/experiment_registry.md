@@ -8,3 +8,15 @@
 | exp_003 | Increasing B at fixed K can amplify selection optimism; shrinkage may mitigate it | `configs/experiments/exp_003_pool_b{30,100,300}.yaml` | complete: exp_003_pool_b{30,100,300}_v1 | 72 folds; exact OOF/bootstrap prefixes; binary additive gains, non-monotone regression, profiled selection optimism and increased null screen survivors; shrinkage .5 gives no consistent remedy |
 | exp_004 | Co-error beats quality on real development tasks; increasing mask width separates representation restriction from selector weakness | `configs/experiments/exp_004_real_f{10,50}.yaml` | complete: exp_004_real_f{10,50}_v1 | 36 folds, 936 audited predictions; co-error improves over top-quality but trails RF/linear controls in all task/width means; wider masks help wine/diabetes but hurt cancer AUROC; duplicate OOF columns confound selection gains |
 | exp_005 | Duplicate OOF columns explain part of quality-versus-co-error gains; uniqueness at fixed K isolates concentration | `configs/experiments/exp_005_oof_duplicates.yaml` | complete: exp_005_oof_duplicates_v1 | 18 folds / 162 audited predictions; exact unchanged pools and 108 controls; dedup worsens diabetes co-error RMSE and eliminates its quality gap, wine log-loss gap nearly vanishes, cancer effects unchanged; investigate explicit weights/refit shift |
+
+## exp_006 — larger real tasks and thousand-tree libraries (registered)
+
+- **Hypothesis:** At fixed K, library expansion adds useful complementarity beyond
+  quality selection; matched B width/depth cells distinguish representation effects.
+- **Protocol:** `experiments/exp_006_large/protocol.md`; five task-specific
+  `configs/experiments/exp_006_large_*.yaml`, 6,000 candidates per outer fold,
+  3 binary/2 regression tasks, 20,000 rows, 3 outer/2 OOF folds, one seed.
+- **Status:** Infrastructure smoke/analytic tests; main sweep not yet scored.
+- **Anchor:** Unscreeened co-error B6,000,K64; full sweep retained, no best-test tuning.
+- **Interpretation/follow-up:** Pending. These are chosen development tasks with
+  exact-feature group holdouts, not a locked representative confirmation benchmark.

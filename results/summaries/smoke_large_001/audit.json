@@ -1,0 +1,22 @@
+{
+  "affine_fits_audited": 0,
+  "checks": [
+    "artifact hashes",
+    "outer disjointness",
+    "outer/inner partitions and OOF coverage",
+    "outer/inner feature-group separation where configured",
+    "selected IDs within recorded eligible pool",
+    "OOF and test label row mapping",
+    "test prediction row mapping",
+    "stored metric reconstruction",
+    "weighted co-error identity",
+    "direct/greedy squared objective identity",
+    "training OOF affine fit and profiled loss reconstruction where applicable",
+    "same selected subsets for raw/calibrated controls where applicable"
+  ],
+  "folds_audited": 10,
+  "maximum_squared_loss_identity_error": 5.684341886080802e-14,
+  "run_id": "smoke_large_001",
+  "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel",
+  "test_predictions_audited": 70
+}

@@ -183,3 +183,16 @@ cost and representation attenuation; tune only within another training split.
 Do not add more benchmark tasks merely to search for favorable wins. Strong
 linear synthetic/oracle controls, proper certification, tuned modern baselines,
 and locked resource-matched confirmation remain open work.
+
+### 2026-10-01 — exp_006 larger-data request, before scores
+
+User requested larger/harder mainly classification tasks, more parameter sweeps,
+and thousands of weak estimators. Registered five public development datasets;
+source hashes/row caps/feature definitions and every considered exclusion documented.
+Superconductivity's many repeated vectors motivate exact-feature group separation in
+both CV levels and cluster bootstrap, added before scoring. MiniBooNE raw source is
+130,064 rows vs web catalog130,065; header agreement verified, sentinels retained.
+Weighted-multiplicity screening, threaded OOF, balanced nested candidate grids,
+config-defined pool restrictions and matrix-free correlation/Caruana acceleration
+match literal/dense references in unit tests. Prior variants retain default behavior.
+AUC0.70-0.80 is an intended difficulty region, not an observed-score inclusion gate.

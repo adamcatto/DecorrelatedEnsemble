@@ -19,12 +19,13 @@ class Selection:
 class CoError:
     """Matrix-free second moment with optional bias-preserving shrinkage."""
 
-    def __init__(self, E, shrinkage=0.0, n_classes=None):
+    def __init__(self, E, shrinkage=0.0, n_classes=None, cache_columns=False):
         if not 0 <= shrinkage <= 1:
             raise ValueError("shrinkage must lie in [0,1]")
         self.E = np.asarray(E, dtype=float)
         self.n, self.b = self.E.shape
         self.alpha = shrinkage
+        self.cache = {} if cache_columns else None
         self.mu = self.E.mean(axis=0)
         self.bias = (
             self.E.reshape(-1, n_classes, self.b).mean(axis=0) / np.sqrt(n_classes)
@@ -35,9 +36,13 @@ class CoError:
         self.diag = np.mean(self.E**2, axis=0)
 
     def column(self, j):
+        if self.cache is not None and j in self.cache:
+            return self.cache[j]
         raw = self.E.T @ self.E[:, j] / self.n
         col = (1 - self.alpha) * raw + self.alpha * (self.bias.T @ self.bias[:, j])
         col[j] = self.diag[j]
+        if self.cache is not None:
+            self.cache[j] = col
         return col
 
     def dense(self):
@@ -124,6 +129,45 @@ def correlation_matrix(E):
     R[:, constant] = 1.0
     np.fill_diagonal(R, 1.0)
     return R
+
+
+class CorrelationColumns:
+    """Exact column access without allocating or forming a B-by-B matrix."""
+
+    def __init__(self, E, absolute=False):
+        centered = E - E.mean(axis=0)
+        norms = np.linalg.norm(centered, axis=0)
+        self.normalized = centered / np.maximum(norms, 1e-15)
+        self.constant = norms <= 1e-12
+        self.absolute, self.cache = absolute, {}
+
+    def __getitem__(self, key):
+        if isinstance(key, tuple):
+            rows, cols = key
+            return np.column_stack([self[int(c)][rows.ravel()] for c in cols.ravel()])
+        j = int(key)
+        if j not in self.cache:
+            column = np.clip(self.normalized.T @ self.normalized[:, j], -1, 1)
+            column[self.constant] = 1
+            if self.constant[j]:
+                column[:] = 1
+            column[j] = 1
+            self.cache[j] = np.abs(column) if self.absolute else column
+        return self.cache[j]
+
+
+def caruana_coerror(oracle, k):
+    """Squared-loss forward selection with replacement, using Gram columns."""
+    sums, total, sequence, trace = np.zeros(oracle.b), 0.0, [], []
+    for t in range(k):
+        values = (total + 2 * sums + oracle.diag) / (t + 1) ** 2
+        j = int(np.argmin(values))
+        total += 2 * sums[j] + oracle.diag[j]
+        sequence.append(j)
+        sums += oracle.column(j)
+        trace.append({"step": "add", "id": j, "objective": float(total / (t + 1) ** 2)})
+    ids, counts = np.unique(sequence, return_counts=True)
+    return Selection(ids, counts / k, oracle.objective(sequence), trace)
 
 
 def pair_objective(ids, R, quality, kind, lam):
@@ -251,17 +295,30 @@ def select(y, P, null, task, quality, eligible, cfg, seed):
     elif kind == "top_quality":
         chosen = np.argsort(-q, kind="stable")[:k]
         result = Selection(chosen, np.full(k, 1 / k), -float(q[chosen].mean()), [])
-    elif kind in {"coerror", "shrinkage_coerror", "exact_coerror", "covariance_only"}:
+    elif kind in {
+        "coerror",
+        "shrinkage_coerror",
+        "exact_coerror",
+        "covariance_only",
+        "caruana_coerror",
+    }:
         if kind == "covariance_only":
             if task == "multiclass":
                 structured = E.reshape(-1, P.shape[2], E.shape[1])
                 E = (structured - structured.mean(axis=0)).reshape(E.shape)
             else:
                 E = E - E.mean(axis=0)
-        oracle = CoError(E, cfg.get("shrinkage", 0.0), P.shape[2] if task == "multiclass" else None)
+        oracle = CoError(
+            E,
+            cfg.get("shrinkage", 0.0),
+            P.shape[2] if task == "multiclass" else None,
+            cfg.get("cache_columns", False),
+        )
         result = (
             exact_coerror(oracle, k, cfg.get("max_combinations", 200_000))
             if kind == "exact_coerror"
+            else caruana_coerror(oracle, k)
+            if kind == "caruana_coerror"
             else coerror_greedy(oracle, k, swaps)
         )
     elif kind in {
@@ -271,7 +328,7 @@ def select(y, P, null, task, quality, eligible, cfg, seed):
         "quality_diversity",
         "prediction_correlation",
     }:
-        if len(ids) > cfg.get("max_dense_candidates", 4000):
+        if not cfg.get("matrix_free", False) and len(ids) > cfg.get("max_dense_candidates", 4000):
             raise ValueError("Dense correlation selector exceeds explicit memory budget")
         if kind == "prediction_correlation":
             source = (
@@ -279,9 +336,12 @@ def select(y, P, null, task, quality, eligible, cfg, seed):
             )
         else:
             source = E
-        R = correlation_matrix(source)
-        if kind != "signed_correlation":
-            R = np.abs(R)
+        if cfg.get("matrix_free", False):
+            R = CorrelationColumns(source, kind != "signed_correlation")
+        else:
+            R = correlation_matrix(source)
+            if kind != "signed_correlation":
+                R = np.abs(R)
         objective_kind = kind if kind in {"minimax", "quality_diversity"} else "mean"
         result = pair_greedy(R, q, k, objective_kind, cfg.get("lambda", 0.1), seed, swaps)
     elif kind in {"direct_squared", "direct_auroc", "caruana"}:

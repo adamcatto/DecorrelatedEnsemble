@@ -24,6 +24,13 @@ def audit(run_id, predictions_only=False):
         if set(indices["train"]) & set(indices["test"]):
             raise ValueError("Outer split overlap")
         data_y = np.load(fold.parent / "y.npy")
+        groups_path = fold.parent / "groups.npy"
+        groups = np.load(groups_path) if groups_path.exists() else None
+        if (
+            groups is not None
+            and np.intersect1d(groups[indices["train"]], groups[indices["test"]]).size
+        ):
+            raise ValueError("Outer feature-group overlap")
         if sorted(np.r_[indices["train"], indices["test"]].tolist()) != list(range(len(data_y))):
             raise ValueError("Outer split is not a partition")
         if not np.array_equal(y, data_y[indices["train"]]):
@@ -31,6 +38,10 @@ def audit(run_id, predictions_only=False):
         coverage = np.zeros(len(y), dtype=int)
         for j, split in enumerate(json.loads((fold / "inner_splits.json").read_text())):
             train, valid = np.array(split["train"]), np.array(split["valid"])
+            if groups is not None:
+                outer_groups = groups[indices["train"]]
+                if np.intersect1d(outer_groups[train], outer_groups[valid]).size:
+                    raise ValueError("Inner feature-group overlap")
             if set(train) & set(valid) or sorted(np.r_[train, valid].tolist()) != list(
                 range(len(y))
             ):
@@ -43,6 +54,9 @@ def audit(run_id, predictions_only=False):
         for selected in fold.glob("*/selection.json"):
             config = json.loads(selected.read_text())
             ids, weights = np.array(config["ids"]), np.array(config["weights"])
+            eligible = np.array(config["trace"][0]["eligible_pool_ids"])
+            if not np.isin(ids, eligible).all():
+                raise ValueError("Selected candidate outside recorded eligible pool")
             prediction = np.tensordot(P[:, ids], weights, axes=(1, 0))
             E = residual_matrix(y, P[:, ids], task)
             G = E.T @ E / len(E)
@@ -112,6 +126,8 @@ def audit(run_id, predictions_only=False):
             "artifact hashes",
             "outer disjointness",
             "outer/inner partitions and OOF coverage",
+            "outer/inner feature-group separation where configured",
+            "selected IDs within recorded eligible pool",
             "OOF and test label row mapping",
             "test prediction row mapping",
             "stored metric reconstruction",
