@@ -1,0 +1,467 @@
+id: exp_006_large_musk2
+role: development
+seeds:
+- 11
+outer_folds: 3
+inner_folds: 2
+candidates:
+  B: 6000
+  balanced_grid: true
+  feature_fractions:
+  - 0.05
+  - 0.2
+  - 0.5
+  depths:
+  - 3
+  - 6
+  min_samples_leaf:
+  - 10
+certification:
+  engine: weighted
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+- id: musk2
+  source: cached_public
+  path: results/data_sources/musk2.pkl
+  sha256: d986458ca9339f42cf3fafbe3fad3587441d8e9140d383313470e32aaca5f1fb
+methods:
+- id: random_b1000_k16
+  selector: random
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: top_quality_b1000_k16
+  selector: top_quality
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: coerror_b1000_k16
+  selector: coerror
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: random_b1000_k64
+  selector: random
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: top_quality_b1000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: coerror_b1000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: random_b1000_k128
+  selector: random
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: top_quality_b1000_k128
+  selector: top_quality
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: coerror_b1000_k128
+  selector: coerror
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 1000
+- id: random_b3000_k16
+  selector: random
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: top_quality_b3000_k16
+  selector: top_quality
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: coerror_b3000_k16
+  selector: coerror
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: random_b3000_k64
+  selector: random
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: top_quality_b3000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: coerror_b3000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: random_b3000_k128
+  selector: random
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: top_quality_b3000_k128
+  selector: top_quality
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: coerror_b3000_k128
+  selector: coerror
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 3000
+- id: random_b6000_k16
+  selector: random
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: top_quality_b6000_k16
+  selector: top_quality
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: coerror_b6000_k16
+  selector: coerror
+  K: 16
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: random_b6000_k64
+  selector: random
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: top_quality_b6000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: coerror_b6000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: random_b6000_k128
+  selector: random
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: top_quality_b6000_k128
+  selector: top_quality
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: coerror_b6000_k128
+  selector: coerror
+  K: 128
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 6000
+- id: top_quality_b300_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 300
+- id: coerror_b300_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    prefix: 300
+- id: random_cert_b6000_k64
+  selector: random
+  K: 64
+  certified: true
+  cache_columns: true
+  certification_threshold: null
+- id: top_quality_cert_b6000_k64
+  selector: top_quality
+  K: 64
+  certified: true
+  cache_columns: true
+  certification_threshold: null
+- id: coerror_cert_b6000_k64
+  selector: coerror
+  K: 64
+  certified: true
+  cache_columns: true
+  certification_threshold: null
+- id: abs_correlation_b6000_k64
+  selector: abs_correlation
+  K: 64
+  certified: false
+  cache_columns: true
+  matrix_free: true
+- id: signed_correlation_b6000_k64
+  selector: signed_correlation
+  K: 64
+  certified: false
+  cache_columns: true
+  matrix_free: true
+- id: quality_diversity_l002_b6000_k64
+  selector: quality_diversity
+  K: 64
+  certified: false
+  cache_columns: true
+  matrix_free: true
+  lambda: 0.02
+- id: quality_diversity_l01_b6000_k64
+  selector: quality_diversity
+  K: 64
+  certified: false
+  cache_columns: true
+  matrix_free: true
+  lambda: 0.1
+- id: quality_diversity_l05_b6000_k64
+  selector: quality_diversity
+  K: 64
+  certified: false
+  cache_columns: true
+  matrix_free: true
+  lambda: 0.5
+- id: caruana_b6000_k64
+  selector: caruana_coerror
+  K: 64
+  certified: false
+  cache_columns: true
+- id: coerror_swap_b6000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  max_swaps: 1
+- id: coerror_b6000_k256
+  selector: coerror
+  K: 256
+  certified: false
+  cache_columns: true
+- id: top_quality_f05_d3_b1000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.05
+    max_depth: 3
+    limit: 1000
+- id: coerror_f05_d3_b1000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.05
+    max_depth: 3
+    limit: 1000
+- id: top_quality_f05_d6_b1000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.05
+    max_depth: 6
+    limit: 1000
+- id: coerror_f05_d6_b1000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.05
+    max_depth: 6
+    limit: 1000
+- id: top_quality_f20_d3_b1000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.2
+    max_depth: 3
+    limit: 1000
+- id: coerror_f20_d3_b1000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.2
+    max_depth: 3
+    limit: 1000
+- id: top_quality_f20_d6_b1000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.2
+    max_depth: 6
+    limit: 1000
+- id: coerror_f20_d6_b1000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.2
+    max_depth: 6
+    limit: 1000
+- id: top_quality_f50_d3_b1000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.5
+    max_depth: 3
+    limit: 1000
+- id: coerror_f50_d3_b1000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.5
+    max_depth: 3
+    limit: 1000
+- id: top_quality_f50_d6_b1000_k64
+  selector: top_quality
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.5
+    max_depth: 6
+    limit: 1000
+- id: coerror_f50_d6_b1000_k64
+  selector: coerror
+  K: 64
+  certified: false
+  cache_columns: true
+  candidate_pool:
+    feature_fraction: 0.5
+    max_depth: 6
+    limit: 1000
+baselines:
+- id: random_forest
+  family: random_forest
+  parameters:
+    n_estimators: 256
+- id: extra_trees
+  family: extra_trees
+  parameters:
+    n_estimators: 256
+- id: xgboost
+  family: xgboost
+  parameters:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+- id: lightgbm
+  family: lightgbm
+  parameters:
+    n_estimators: 300
+    num_leaves: 31
+    learning_rate: 0.05
+- id: catboost
+  family: catboost
+  parameters:
+    iterations: 300
+    depth: 6
+    learning_rate: 0.05
+- id: linear
+  family: linear
+  parameters: {}
+- id: rf_leaf5
+  family: random_forest
+  parameters:
+    n_estimators: 256
+    min_samples_leaf: 5
+- id: rf_shallow64
+  family: random_forest
+  parameters:
+    n_estimators: 64
+    max_depth: 6
+    min_samples_leaf: 10
+- id: random_patches64
+  family: random_patches
+  parameters:
+    n_estimators: 64
+    max_depth: 6
+    min_samples_leaf: 10
+    feature_fraction: 0.2
+    row_fraction: 0.5
+hypothesis: At fixed retained K, increasing balanced nested candidate B improves outer
+  performance; feature width/depth at matched cell B tests representation. All sweep
+  outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning
+  or resource-matched superiority claim.
+oof_jobs: 4
+group_exact_duplicates: false
+refit_jobs: 4
+source_groups: true
+sampling_structure: clustered
+group_aggregation: max

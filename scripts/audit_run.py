@@ -5,13 +5,19 @@ from pathlib import Path
 import numpy as np
 
 from decorrelated_ensemble.evaluation.artifacts import verify_manifest, write_json
-from decorrelated_ensemble.metrics import evaluate_metrics, residual_matrix, squared_loss
+from decorrelated_ensemble.metrics import (
+    evaluate_binary_groups,
+    evaluate_metrics,
+    residual_matrix,
+    squared_loss,
+)
 from decorrelated_ensemble.selection.profiled import ProfiledLoss, fit_affine
 
 
 def audit(run_id, predictions_only=False):
     root = Path("results/runs") / run_id
     verify_manifest(root, allow_missing_models=predictions_only)
+    run_cfg = json.loads((root / "config.json").read_text())
     checks = []
     max_difference = 0.0
     test_predictions_audited, affine_fits_audited = 0, 0
@@ -88,6 +94,15 @@ def audit(run_id, predictions_only=False):
             if not np.array_equal(test["y"], data_y[indices["test"]]):
                 raise ValueError("Test label row mapping mismatch")
             actual = evaluate_metrics(test["y"], test["prediction"], task)
+            if run_cfg.get("group_aggregation"):
+                actual.update(
+                    evaluate_binary_groups(
+                        test["y"],
+                        test["prediction"],
+                        groups[test["rows"]],
+                        run_cfg["group_aggregation"],
+                    )
+                )
             null = (
                 np.tile(np.mean(y), len(test["y"]))
                 if task != "multiclass"

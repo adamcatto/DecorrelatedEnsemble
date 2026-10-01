@@ -1,0 +1,28 @@
+{
+  "VECLIB_MAXIMUM_THREADS": null,
+  "interpretation": "NumPy uses Apple Accelerate, not exposed by threadpoolctl here. A requested limit of 1 does not establish actual BLAS concurrency. Process CPU includes all actual threads. No matched wall/CPU-budget claim.",
+  "numerical_build": {
+    "blas": {
+      "detection method": "system",
+      "found": true,
+      "include directory": "unknown",
+      "lib directory": "unknown",
+      "name": "accelerate",
+      "openblas configuration": "unknown",
+      "pc file directory": "unknown",
+      "version": "unknown"
+    },
+    "lapack": {
+      "detection method": "system",
+      "found": true,
+      "include directory": "unknown",
+      "lib directory": "unknown",
+      "name": "accelerate",
+      "openblas configuration": "unknown",
+      "pc file directory": "unknown",
+      "version": "unknown"
+    }
+  },
+  "numpy_version": "2.5.3",
+  "threadpoolctl_visible_pools": []
+}

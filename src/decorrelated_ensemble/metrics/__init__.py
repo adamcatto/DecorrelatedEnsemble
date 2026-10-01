@@ -105,3 +105,23 @@ def selection_loss(y, prediction, task, metric="squared"):
     if metric == "log_loss" and task != "regression":
         return evaluate_metrics(y, prediction, task)["log_loss"]
     raise ValueError(f"Selection metric {metric} unavailable for task {task}")
+
+
+def evaluate_binary_groups(y, prediction, groups, aggregation="max"):
+    """Fixed multiple-instance diagnostic; group IDs never enter the predictors."""
+    if aggregation not in {"max", "mean"}:
+        raise ValueError("Unknown binary group aggregation")
+    targets, scores = [], []
+    for group in np.unique(groups):
+        mask = groups == group
+        labels = np.unique(y[mask])
+        if len(labels) != 1:
+            raise ValueError("Group metric requires one target label per group")
+        targets.append(labels[0])
+        scores.append(
+            np.max(prediction[mask]) if aggregation == "max" else np.mean(prediction[mask])
+        )
+    return {
+        "group_" + k: v
+        for k, v in evaluate_metrics(np.asarray(targets), np.asarray(scores), "binary").items()
+    }

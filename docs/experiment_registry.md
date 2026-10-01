@@ -16,7 +16,21 @@
 - **Protocol:** `experiments/exp_006_large/protocol.md`; five task-specific
   `configs/experiments/exp_006_large_*.yaml`, 6,000 candidates per outer fold,
   3 binary/2 regression tasks, 20,000 rows, 3 outer/2 OOF folds, one seed.
-- **Status:** Infrastructure smoke/analytic tests; main sweep not yet scored.
-- **Anchor:** Unscreeened co-error B6,000,K64; full sweep retained, no best-test tuning.
-- **Interpretation/follow-up:** Pending. These are chosen development tasks with
+- **Status:** Three classification tasks complete/audited (549 test predictions);
+  superconductivity, California housing and Musk extension pending.
+- **Anchor:** Unscreened co-error B6,000,K64; full sweep retained, no best-test tuning.
+- **Partial result:** Anchor AUROC .779/.764/.970 on credit/HIGGS/MiniBooNE;
+  exceeds top quality on each but beats RF only on credit, trails at least one
+  boosting reference on each. B6000 does not improve B3000 at K64 on credit/HIGGS.
+- **Interpretation/follow-up:** Conditional development evidence. These are chosen tasks with
   exact-feature group holdouts, not a locked representative confirmation benchmark.
+
+### exp_006 Musk extension (registered before Musk scores)
+
+`experiments/exp_006_large/musk_extension.md`:6598 rows,166 features,102 molecules;
+52 same sweep settings and9 baselines; molecule groups in both folds/bootstrap;
+fixed max-over-conformation molecule AUROC primary. Added after credit default
+completed, to test higher dimensionality. Training/selection row objectives differ
+from the group-max primary; preserve both and do not call this optimized MIL.
+Bioresponse deferred because preexisting descriptor-normalization provenance is
+unspecified. No primary data exclusion based on observed performance.

@@ -1,0 +1,14 @@
+{
+  "datasets": [
+    "credit_default",
+    "higgs",
+    "miniboone"
+  ],
+  "remaining": [
+    "superconductivity",
+    "california_housing",
+    "musk2"
+  ],
+  "report_script_sha256": "273e65baf66cc07aefefe7961e28022dd64a0535ee961668b52c275083a9168f",
+  "scope": "Partial registered development panel; not final confirmation; task means of three overlapping outer folds; no intervals or best-test tuning"
+}

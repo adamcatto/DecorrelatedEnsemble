@@ -28,3 +28,9 @@ can change effective capacity \citep{reeve2018}, motivating a regularization
 explanation. Cross-validation uncertainty is subtle under overlapping fits
 \citep{bengio2004,bates2024}. Portfolio-based weighting, conditional
 dependence, and selective inference require further full-text review.
+
+Musk introduces a multiple-instance task: a molecule has many conformations and
+its label need not describe every conformation. This distinction is established
+in \citet{dietterich1997mil}. Our max-pooled molecule score is a fixed diagnostic
+of inherited-label tree training, not a proposed multiple-instance algorithm.
+Entire-molecule holdouts are necessary to interpret generalization to new molecules.

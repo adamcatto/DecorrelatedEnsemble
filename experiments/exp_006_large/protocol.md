@@ -105,8 +105,12 @@ XGBoost300 depth6, LightGBM300 leaves31, CatBoost300 depth6, learning rate.05. S
 settings, not tuned competitive baselines. Boosting is deliberately stronger than the
 100-round exp_004 presets. Strong modern neural/AutoML baselines remain a later gate.
 
-OOF and selected refits use four threads in one process, BLAS limited to one;
-selectors and baseline phases run sequentially. CPU timer includes all threads. Every search-dependent setting is charged
+OOF and selected refits use four threads in one process; selectors and baseline
+phases run sequentially. A BLAS limit of one is REQUESTED through threadpoolctl.
+Runtime audit on this host found NumPy Apple Accelerate is not exposed through
+that interface, so actual BLAS concurrency is unknown and single-thread BLAS is
+not asserted. This correction was made independently of scores; numerical
+thread environment/settings were not changed across the panel. See runtime_backend_audit.json. CPU timer includes all threads. Every search-dependent setting is charged
 the ENTIRE 6,000-spec shared search/screen cost, including smaller prefixes/cells: a
 conservative shared-library cost, not independent prefix training cost. B is the pool
 available to that selector, generated_B=6,000. Report separate search/selection/refit,

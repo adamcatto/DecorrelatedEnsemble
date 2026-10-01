@@ -1,0 +1,5 @@
+{
+  "reason": "Group IDs stored as NumPy object array require pickle on load; auditor correctly rejected them",
+  "resolution": "Loader now canonicalizes object string identifiers to Unicode and rejects missing IDs. Original run preserved; rerun smoke_musk_002 before main Musk.",
+  "status": "audit_failed"
+}

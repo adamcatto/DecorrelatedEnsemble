@@ -214,6 +214,36 @@ generalization. Uniqueness is neither statistical independence nor a universal
 algorithmic improvement.}
 \end{figure}
 
+\subsection{Experiment 006: Larger Classification Panel (Partial Checkpoint)}
+\input{tables/exp_006_classification_partial/facts}
+The first three registered tasks are complete: 549 test-prediction records,
+three outer folds per task, and 6,000 candidates per fold. Artifact audits
+reconstruct all metrics and the row squared-loss identity, with maximum
+discrepancy below $1.1\times10^{-14}$. Regression and molecule-level extension
+results remain pending at this checkpoint.
+\input{tables/exp_006_classification_partial/anchor}
+
+Credit default lies in the requested harder baseline region: the fixed forest
+achieves AUROC \ExpSixPartialCreditDefaultRF{} and logistic regression
+\ExpSixPartialCreditDefaultLinear{}. The predesignated co-error anchor reaches
+\ExpSixPartialCreditDefaultCo{}, exceeding top quality
+(\ExpSixPartialCreditDefaultTop{}) and the forest, but trailing CatBoost.
+On HIGGS, co-error improves over top quality
+(\ExpSixPartialHiggsCo{} versus \ExpSixPartialHiggsTop{}) yet trails the forest
+(\ExpSixPartialHiggsRF{}) and all three boosting references. MiniBooNE is easier
+for these baselines than the requested AUC region; it remains in the panel.
+Its anchor also trails the forest and boosting references despite improving
+over top quality. These conditional observations establish neither broad
+superiority nor an independent diversity mechanism.
+
+Increasing the nested library from $B=3,000$ to $6,000$ at fixed $K=64$ slightly
+worsens co-error task-mean AUROC on both credit default and HIGGS. Thus more
+candidate search does not monotonically improve generalization even on these
+larger tasks. All 52 registered settings and nine static baselines are retained;
+no outer-test winner is substituted for the anchor. Costs include the entire
+shared library and are unmatched across methods. This partial panel supplies
+descriptive development evidence, not a dataset-population uncertainty estimate.
+
 \section{Ablations and Analysis}
 The stored ablations include all required v0 components, signed versus absolute
 residual correlation, prediction correlation, covariance without bias, direct

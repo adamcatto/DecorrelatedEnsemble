@@ -16,6 +16,7 @@ class Dataset:
     y: np.ndarray
     task: str
     metadata: dict
+    groups: np.ndarray | None = None
 
 
 def synthetic(config: dict, seed: int) -> Dataset:
@@ -114,6 +115,11 @@ def load_dataset(config: dict, seed: int) -> Dataset:
             )
             rows = np.sort(rows)
         X, y = X.iloc[rows].copy(), y[rows]
+        source_groups = np.asarray(data["groups"])[rows] if "groups" in data else None
+        if source_groups is not None and source_groups.dtype.kind == "O":
+            if pd.isna(source_groups).any():
+                raise ValueError("Missing source group identifier")
+            source_groups = source_groups.astype(str)
         return Dataset(
             X,
             y,
@@ -125,12 +131,15 @@ def load_dataset(config: dict, seed: int) -> Dataset:
                 "p": X.shape[1],
                 "seed": seed,
                 "role": "development",
-                "sampling_structure": "iid",
+                "sampling_structure": "clustered" if "groups" in data else "iid",
                 "source_row_ids": rows.tolist(),
                 "feature_names": list(X.columns),
                 "feature_dtypes": [str(t) for t in X.dtypes],
-                "sampling_assumption": "Independent feature-vector groups assumed; geographic/material/survey dependence is not resolved",
+                "sampling_assumption": "Independent source molecules assumed; scaffold dependence not controlled"
+                if "groups" in data
+                else "Independent feature-vector groups assumed; geographic/material/survey dependence is not resolved",
             },
+            groups=source_groups,
         )
     if config.get("source", "synthetic") == "synthetic":
         return synthetic(config, seed)

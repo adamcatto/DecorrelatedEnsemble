@@ -152,3 +152,42 @@ def test_threaded_selected_refits_equal_serial():
     b = SelectedEnsemble(specs, np.ones(8) / 8, "regression").fit(data.X, data.y, n_jobs=2)
     np.testing.assert_array_equal(a.predict(data.X), b.predict(data.X))
     assert a.capacity() == b.capacity()
+
+
+def test_group_max_metric_known_answers_and_labels():
+    from decorrelated_ensemble.metrics import evaluate_binary_groups
+
+    y = np.array([0, 0, 1, 1, 0, 1])
+    groups = np.array(["a", "a", "b", "b", "c", "d"])
+    p = np.array([0.1, 0.2, 0.3, 0.8, 0.4, 0.9])
+    result = evaluate_binary_groups(y, p, groups, "max")
+    assert result["group_auroc"] == 1
+    assert result["group_brier"] == pytest.approx((0.2**2 + 0.2**2 + 0.4**2 + 0.1**2) / 4)
+    with pytest.raises(ValueError, match="one target"):
+        evaluate_binary_groups(np.array([0, 1, 1, 1, 0, 1]), p, groups)
+
+
+def test_cached_source_groups_are_retained_and_not_predictors(tmp_path):
+    path = tmp_path / "grouped.pkl"
+    X = pd.DataFrame({"f1": np.arange(60)})
+    y = np.arange(60) % 2
+    groups = np.repeat(np.arange(20), 3)
+    pd.to_pickle({"X": X, "y": y, "groups": groups}, path)
+    path.with_suffix(".json").write_text(json.dumps({"task": "binary"}))
+    data = load_dataset({"source": "cached_public", "path": str(path), "sha256": sha256(path)}, 11)
+    np.testing.assert_array_equal(data.groups, groups)
+    assert list(data.X.columns) == ["f1"] and data.metadata["sampling_structure"] == "clustered"
+
+
+def test_string_group_ids_store_without_pickle(tmp_path):
+    path = tmp_path / "grouped.pkl"
+    X = pd.DataFrame({"f1": np.arange(60)})
+    y = np.arange(60) % 2
+    groups = np.array(["molecule_" + str(i // 3) for i in range(60)], dtype=object)
+    pd.to_pickle({"X": X, "y": y, "groups": groups}, path)
+    path.with_suffix(".json").write_text(json.dumps({"task": "binary"}))
+    data = load_dataset({"source": "cached_public", "path": str(path), "sha256": sha256(path)}, 11)
+    assert data.groups.dtype.kind == "U"
+    destination = tmp_path / "groups.npy"
+    np.save(destination, data.groups)
+    np.testing.assert_array_equal(np.load(destination, allow_pickle=False), groups.astype(str))

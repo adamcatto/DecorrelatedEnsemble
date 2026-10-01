@@ -37,3 +37,15 @@ Original stacking (Wolpert 1992), portfolio-based ensemble pruning/weighting, re
 covariance shrinkage, conditional error dependence, OOF uncertainty/multiplicity,
 selective inference, feature bagging, and modern ensemble selection variants.
 Do not claim bias-preserving shrinkage is new before this review is complete.
+
+## Molecule-group extension
+
+Dietterich, Lathrop, and Lozano-Perez (1997), *Solving the multiple instance problem
+with axis-parallel rectangles*, Artificial Intelligence89:31-71,
+https://doi.org/10.1016/S0004-3702(96)00034-3. Publisher abstract and UCI Musk
+metadata establish inherited conformation labels differ from the molecule-level
+ANY-conformation prediction task. The proposed method is not a MIL contribution;
+fixed max-pooled molecule AUROC is a diagnostic. Group holdouts and row-objective
+versus bag-score mismatch must be reported. Full original paper is available from
+https://lis.csail.mit.edu/pubs/tlp/multiple-instance-aij.pdf; not used for detailed
+numerical algorithm comparisons here.

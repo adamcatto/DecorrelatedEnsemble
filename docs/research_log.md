@@ -196,3 +196,47 @@ Weighted-multiplicity screening, threaded OOF, balanced nested candidate grids,
 config-defined pool restrictions and matrix-free correlation/Caruana acceleration
 match literal/dense references in unit tests. Prior variants retain default behavior.
 AUC0.70-0.80 is an intended difficulty region, not an observed-score inclusion gate.
+
+### 2026-10-01 — higher-dimensional extension registration
+
+Musk v2 adds166 features with6598 conformations from102 molecules. Source molecule
+IDs are excluded from predictors and supplied to both CV levels/bootstrap. Primary
+molecule-max AUROC is a fixed source-motivated diagnostic, distinct from the row
+Brier/row-quality selection objective. Added after credit default completion, before
+Musk scores. Bioresponse was considered but deferred for unspecified preexisting
+normalization provenance, preserving that exclusion and its original metadata.
+First main five-task jobs continue with unchanged prediction algorithms; source-group
+and group-metric API defaults are inert for those tasks. New APIs must pass tests
+before the extension run. Final analysis will expose all52 sweep settings, not
+select a best test-score setting and report it as independently tuned performance.
+
+### 2026-10-01 — runtime scope correction before regression/Musk phases
+
+NumPy2.5.3 on this host uses Apple Accelerate; threadpoolctl exposes no Accelerate
+pool, so the runner's requested BLAS limit1 cannot establish actual concurrency.
+Recorded build/backend audit and corrected protocol wording; no numerical-thread
+environment changes or score-dependent reruns. Process CPU accounting already
+includes all threads. This limits wall-time/thread-count claims; no matched resource
+claim has been made. New environment artifacts include numerical build/pool metadata.
+
+### 2026-10-01 — larger classification checkpoint and storage failure preserved
+
+Credit default, HIGGS and MiniBooNE complete: 549 audited test-prediction records,
+36,000 OOF base fits per task. Fixed B6000,K64 co-error AUROC means .779/.764/.970,
+versus RF .767/.785/.976 and logistic .728/.689/.932. Co-error improves over top
+quality on all three task means but trails a boosting reference on each. MiniBooNE
+is retained despite easier baseline performance than the requested difficulty.
+At K64, B6000 slightly worsens co-error versus B3000 on credit/HIGGS. Preserve the
+negative scaling result; no best-test setting or matched-resource claim.
+
+Musk smoke001 completed training but failed audit because object-typed molecule
+IDs could not be read with safe NumPy loading. Preserve the original failed-audit
+bundle; canonicalize nonmissing string IDs to Unicode at cache load. Smoke002
+then passes group/metric/Gram audits (14 predictions). Added tests verify safe
+round trips, whole-molecule holdouts and fixed max aggregation. Both smokes are
+engineering checks; no primary configuration was tuned from their scores.
+
+Lossless column-major OOF exports preserve every value/dtype and both manifests;
+48MiB ordered archive parts retain all prediction/decision artifacts, omitting
+only fitted models. Original complete runs/models remain local. Paper partial
+results are generated from verified artifacts; remaining tasks continue unchanged.

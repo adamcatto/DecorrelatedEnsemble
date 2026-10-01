@@ -1,0 +1,78 @@
+id: smoke_musk
+role: development
+seeds:
+- 11
+outer_folds: 2
+inner_folds: 2
+candidates:
+  B: 24
+  balanced_grid: true
+  feature_fractions:
+  - 0.05
+  - 0.2
+  - 0.5
+  depths:
+  - 3
+  - 6
+  min_samples_leaf:
+  - 10
+certification:
+  engine: weighted
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+- id: musk2
+  source: cached_public
+  path: results/data_sources/musk2.pkl
+  sha256: d986458ca9339f42cf3fafbe3fad3587441d8e9140d383313470e32aaca5f1fb
+methods:
+- id: random
+  selector: random
+  K: 4
+  certified: false
+  matrix_free: true
+  cache_columns: true
+- id: top_quality
+  selector: top_quality
+  K: 4
+  certified: false
+  matrix_free: true
+  cache_columns: true
+- id: coerror
+  selector: coerror
+  K: 4
+  certified: false
+  matrix_free: true
+  cache_columns: true
+- id: abs_correlation
+  selector: abs_correlation
+  K: 4
+  certified: false
+  matrix_free: true
+  cache_columns: true
+- id: caruana_coerror
+  selector: caruana_coerror
+  K: 4
+  certified: false
+  matrix_free: true
+  cache_columns: true
+baselines:
+- id: random_forest
+  family: random_forest
+  parameters:
+    n_estimators: 8
+- id: linear
+  family: linear
+  parameters: {}
+hypothesis: At fixed retained K, increasing balanced nested candidate B improves outer
+  performance; feature width/depth at matched cell B tests representation. All sweep
+  outcomes reported; coerror_b6000_k64 is predesignated anchor. No test-based tuning
+  or resource-matched superiority claim.
+oof_jobs: 4
+group_exact_duplicates: false
+refit_jobs: 4
+source_groups: true
+sampling_structure: clustered
+group_aggregation: max

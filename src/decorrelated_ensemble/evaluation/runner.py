@@ -22,7 +22,12 @@ from decorrelated_ensemble.evaluation.artifacts import (
     write_json,
 )
 from decorrelated_ensemble.evaluation.oof import build_oof, make_splits
-from decorrelated_ensemble.metrics import evaluate_metrics, residual_matrix, squared_loss
+from decorrelated_ensemble.metrics import (
+    evaluate_binary_groups,
+    evaluate_metrics,
+    residual_matrix,
+    squared_loss,
+)
 from decorrelated_ensemble.selection import correlation_matrix, select
 
 
@@ -431,6 +436,12 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path, groups=None):
             model.predict(Xtest) if kind == "selected" else predict_baseline(model, Xtest, task)
         )
         metrics = evaluate_metrics(ytest, prediction, task)
+        if cfg.get("group_aggregation"):
+            if task != "binary" or groups is None:
+                raise ValueError("Binary group metric requires provided group IDs")
+            metrics.update(
+                evaluate_binary_groups(ytest, prediction, groups[test], cfg["group_aggregation"])
+            )
         np.savez_compressed(
             method_path / "test_predictions.npz", prediction=prediction, y=ytest, rows=test
         )
@@ -474,7 +485,7 @@ def run_experiment(config_path, root=None, run_id=None):
     cfg = yaml.safe_load(Path(config_path).read_text())
     if cfg.get("role", "development") != "development":
         raise ValueError("Confirmation runner is locked until a reviewed manifest exists")
-    if cfg.get("sampling_structure", "iid") != "iid":
+    if cfg.get("sampling_structure", "iid") not in {"iid", "clustered"}:
         raise ValueError("Grouped/temporal tasks require explicit split and bootstrap support")
     run_id = run_id or cfg["id"] + "_" + datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
     path = root / "results" / "runs" / run_id
@@ -495,9 +506,17 @@ def run_experiment(config_path, root=None, run_id=None):
                     np.save(task_path / "y.npy", dataset.y)
                     write_json(task_path / "metadata.json", dataset.metadata)
                     groups = None
-                    if cfg.get("group_exact_duplicates", False):
+                    if cfg.get("source_groups", False):
+                        if dataset.groups is None:
+                            raise ValueError("Registered source groups are absent")
+                        groups = dataset.groups
+                    elif cfg.get("group_exact_duplicates", False):
                         groups = pd.util.hash_pandas_object(dataset.X, index=False).to_numpy()
                         np.save(task_path / "groups.npy", groups)
+                    if cfg.get("source_groups", False):
+                        np.save(task_path / "groups.npy", groups)
+                    if cfg.get("sampling_structure") == "clustered" and groups is None:
+                        raise ValueError("Clustered evaluation requires supplied group identifiers")
                     splits = make_splits(dataset.y, dataset.task, cfg["outer_folds"], seed, groups)
                     for fold, (train, test) in enumerate(splits):
                         specs = generate_candidates(

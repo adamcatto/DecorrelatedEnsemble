@@ -12,3 +12,5 @@ paper/*.log
 paper/*.out
 paper/*.bbl
 paper/*.blg
+# exp_006 publishes size-limited archive parts; combined archives stay local.
+results/artifacts/exp_006_large_*.tar.gz

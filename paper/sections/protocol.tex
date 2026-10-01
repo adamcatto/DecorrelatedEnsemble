@@ -47,8 +47,10 @@ this panel with one dataset per task type. Split effects are descriptive and
 their overlapping observations are not independent uncertainty replicates.
 
 \subsection{Larger Development Sweep (Registered Experiment 006)}
-A predeclared follow-up uses credit default, the OpenML 23512 version-2 HIGGS
-subset, MiniBooNE, superconductivity, and California housing. Each is capped
+A predeclared follow-up uses credit default \citep{credit2009}, the OpenML 23512
+version-2 HIGGS subset \citep{higgs2014data,baldi2014}, MiniBooNE
+\citep{miniboone2005}, superconductivity \citep{supercon2018}, and California
+housing \citep{pace1997}. Each is capped
 at 20,000 rows with fixed seed 7321, stratified for binary classification.
 Feature counts are 23, 28, 50, 81, and 8 respectively. The requested harder
 classification emphasis motivates the panel; observed baseline AUC is not an
@@ -71,4 +73,19 @@ Cluster-bootstrap multiplicities and matrix-free selector columns accelerate
 computations while matching literal-resampling and dense toy references.
 All settings are charged the complete shared-library search cost, a conservative
 accounting convention rather than a matched independent-training budget.
-The registered plan and smoke audit precede main scoring; results are pending.
+The registered plan and smoke audit precede main scoring. The three binary tasks
+are complete at this checkpoint; the two regressions and extension are pending.
+
+A later extension, registered after credit default completed but before its own
+scores, adds Musk v2 \citep{musk1994}: 6,598 conformations, 166 features, and
+102 molecules. Both CV levels and bootstrap hold out/resample entire molecules;
+identifiers are excluded from every predictor. A fixed max over conformations
+after the row ensemble gives molecule AUROC, while row losses are also retained.
+Training and selection use inherited row labels and row Brier; they do not optimize
+the nonlinear molecule score, and the Gram identity is not claimed for that score.
+The extension is explicit development exploration, not independent confirmation.
+
+The runner requests one BLAS thread, but NumPy uses Apple Accelerate on this
+host and threadpoolctl does not expose its thread counts. Actual numerical
+concurrency is therefore not asserted. Process CPU accounting includes all
+threads; matched wall-time budgets would require a separately verified runtime.

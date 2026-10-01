@@ -10,6 +10,7 @@ from pathlib import Path
 
 import numpy as np
 import psutil
+from threadpoolctl import threadpool_info
 
 
 def json_value(value):
@@ -59,6 +60,9 @@ def environment(root):
         "logical_cpus": psutil.cpu_count(),
         "memory_bytes": psutil.virtual_memory().total,
         "packages": {d.metadata["Name"]: d.version for d in importlib.metadata.distributions()},
+        "numerical_build": np.show_config(mode="dicts")["Build Dependencies"],
+        "threadpoolctl_visible_pools": threadpool_info(),
+        "numerical_threads_scope": "Runner requests BLAS limit 1; libraries such as Apple Accelerate may not expose/control counts through threadpoolctl; actual concurrency is not assumed",
         "resource_scope": "one process, configured OOF/refit threads; baselines sequential; process CPU includes threads; RSS sampled every 20ms is an observed lower bound",
     }
 

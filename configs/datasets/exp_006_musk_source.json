@@ -1,0 +1,20 @@
+{
+  "adaptation": "Molecule/conformation names excluded from X; molecule names retained only as group IDs; physical distance features unchanged",
+  "cache_sha256": "d986458ca9339f42cf3fafbe3fad3587441d8e9140d383313470e32aaca5f1fb",
+  "citation": "Chapman and Jain (1994), UCI Musk version 2",
+  "content_sha256": "bfdd99b3effbbda5c95c8ae69fa81e702e45b5101a3dd9b8d557872421e938ba",
+  "doi": "10.24432/C51608",
+  "exact_duplicate_feature_rows": 17,
+  "groups_full": 102,
+  "license": "CC-BY-4.0",
+  "missing_values": 0,
+  "n_full": 6598,
+  "name": "musk2",
+  "p": 166,
+  "positive_groups": 39,
+  "raw_file": "musk2.csv",
+  "raw_sha256": "029e743e24b4e58f35338021def28e12da9b0aeb866bbf86751b7b0d58f5232e",
+  "source_url": "https://archive.ics.uci.edu/static/public/75/data.csv",
+  "target_definition": "1=musk molecule, 0=non-musk; row targets inherited from molecule",
+  "task": "binary"
+}

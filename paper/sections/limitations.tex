@@ -6,8 +6,11 @@ bootstrap screens do not justify guarantees under overlapping training folds,
 large candidate libraries, grouped observations, or temporal shifts. Sparse
 shallow trees can fail on interactions that need joint feature access. Only two
 generation seeds and one dimensional/sample-size setting have been tested in the
-completed synthetic studies. The three real tasks are small numerical development
-datasets, with only one dataset per task type and repeated splits of the same rows.
+completed synthetic studies. The initial three real tasks are small numerical
+development datasets; the larger three-task classification checkpoint adds only
+one seed and chosen tasks. Repeated folds of the same rows are not independent
+scientific replicates. Exact-vector groups control duplicate leakage but do not
+establish temporal, geographic, or chemical-scaffold generalization.
 Duplicate OOF columns can make equal specification weights into effective frequency
 weights, and flattened multiclass correlation includes classwise bias. Static
 baselines lack tuning and resources are unmatched.
@@ -25,7 +28,9 @@ The development studies do not establish a broadly competitive or novel method.
 Unadjusted OOF screening can fail, equal averaging can attenuate additive signal,
 and co-error gains over quality are conditional. Affine calibration helps some
 fixed subsets, while flexible selection and larger pools can increase optimism.
-Real development tasks favor simple linear controls. Exact OOF deduplication
+The initial small real panel favors linear controls; the larger classification
+checkpoint favors boosting references and gives a forest win only on credit.
+Exact OOF deduplication
 eliminates some quality-selection gaps while hurting regression, implicating
 useful implicit weighting rather than independent specialists. Independent
 selection/refit and representation controls, tuned strong baselines, and
