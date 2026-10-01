@@ -1,0 +1,16 @@
+left,right,metric,paired_tasks,paired_splits,mean_advantage,ci_lower,ci_upper,win,tie,loss,interval_scope,multiplicity
+coerror,top_quality,log_loss,1,2,-0.03852057014745594,-0.03852057014745594,-0.03852057014745594,0.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,abs_correlation,log_loss,1,2,0.01953720249025062,0.01953720249025062,0.01953720249025062,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,random_forest,log_loss,1,2,-0.11426001595792645,-0.11426001595792645,-0.11426001595792645,0.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,top_no_cert,log_loss,1,2,-0.03852057014745594,-0.03852057014745594,-0.03852057014745594,0.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,log_loss,1,2,0.0,0.0,0.0,0.0,1.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+shrinkage,coerror,log_loss,1,2,0.022304722200070848,0.022304722200070848,0.022304722200070848,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,caruana,log_loss,1,2,-0.06414494325132275,-0.06414494325132275,-0.06414494325132275,0.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,random_forest,log_loss,1,2,-0.11426001595792645,-0.11426001595792645,-0.11426001595792645,0.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+random_subspace_affine,random_subspace,log_loss,0,0,,,,,,,,
+top_no_cert_affine,top_no_cert,log_loss,0,0,,,,,,,,
+coerror_no_cert_affine,coerror_no_cert,log_loss,0,0,,,,,,,,
+affine_profiled,coerror_no_cert_affine,log_loss,0,0,,,,,,,,
+affine_profiled,top_no_cert_affine,log_loss,0,0,,,,,,,,
+affine_profiled,random_subspace_affine,log_loss,0,0,,,,,,,,
+affine_profiled,random_forest,log_loss,0,0,,,,,,,,

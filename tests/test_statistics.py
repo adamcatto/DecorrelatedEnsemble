@@ -23,3 +23,8 @@ def test_dataset_not_row_or_fold_is_unit():
     assert result["paired_tasks"] == 2 and result["paired_splits"] == 10
     assert result["mean_advantage"] == pytest.approx(0)
     assert result["win"] == result["loss"] == 1
+    single = paired_task_comparison(
+        pd.DataFrame(rows).query("dataset == 'a'"), "left", "right", "auc", True
+    )
+    assert single["paired_splits"] == 5 and single["paired_tasks"] == 1
+    assert single["ci_lower"] is None and single["ci_upper"] is None

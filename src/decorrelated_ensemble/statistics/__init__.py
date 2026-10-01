@@ -30,8 +30,13 @@ def paired_task_comparison(
             "paired_splits": 0,
         }
     values = means.to_numpy()
-    rng = np.random.default_rng(seed)
-    draws = values[rng.integers(0, len(values), size=(bootstrap_reps, len(values)))].mean(axis=1)
+    interval = (None, None)
+    if len(values) > 1:
+        rng = np.random.default_rng(seed)
+        draws = values[rng.integers(0, len(values), size=(bootstrap_reps, len(values)))].mean(
+            axis=1
+        )
+        interval = tuple(float(np.quantile(draws, q)) for q in (0.025, 0.975))
     return {
         "left": left,
         "right": right,
@@ -39,12 +44,14 @@ def paired_task_comparison(
         "paired_tasks": len(values),
         "paired_splits": len(paired),
         "mean_advantage": float(values.mean()),
-        "ci_lower": float(np.quantile(draws, 0.025)),
-        "ci_upper": float(np.quantile(draws, 0.975)),
+        "ci_lower": interval[0],
+        "ci_upper": interval[1],
         "win": int(np.sum(values > tolerance)),
         "tie": int(np.sum(np.abs(values) <= tolerance)),
         "loss": int(np.sum(values < -tolerance)),
         "task_advantages": means.to_dict(),
-        "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+        "interval_scope": "task bootstrap over observed development tasks; no population guarantee"
+        if len(values) > 1
+        else "not estimated: only one paired dataset; repeated folds do not supply new task units",
         "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
     }

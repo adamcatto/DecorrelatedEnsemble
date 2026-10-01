@@ -1,0 +1,195 @@
+[
+  {
+    "ci_lower": -0.03852057014745594,
+    "ci_upper": -0.03852057014745594,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.03852057014745594,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "top_quality",
+    "task_advantages": {
+      "wine": -0.03852057014745594
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": 0.01953720249025062,
+    "ci_upper": 0.01953720249025062,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.01953720249025062,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "abs_correlation",
+    "task_advantages": {
+      "wine": 0.01953720249025062
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": -0.11426001595792645,
+    "ci_upper": -0.11426001595792645,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.11426001595792645,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "wine": -0.11426001595792645
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": -0.03852057014745594,
+    "ci_upper": -0.03852057014745594,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.03852057014745594,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "wine": -0.03852057014745594
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": 0.0,
+    "ci_upper": 0.0,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "top_quality",
+    "loss": 0,
+    "mean_advantage": 0.0,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "wine": 0.0
+    },
+    "tie": 1,
+    "win": 0
+  },
+  {
+    "ci_lower": 0.022304722200070848,
+    "ci_upper": 0.022304722200070848,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "shrinkage",
+    "loss": 0,
+    "mean_advantage": 0.022304722200070848,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "coerror",
+    "task_advantages": {
+      "wine": 0.022304722200070848
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": -0.06414494325132275,
+    "ci_upper": -0.06414494325132275,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.06414494325132275,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "caruana",
+    "task_advantages": {
+      "wine": -0.06414494325132275
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": -0.11426001595792645,
+    "ci_upper": -0.11426001595792645,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.11426001595792645,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 2,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "wine": -0.11426001595792645
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  }
+]

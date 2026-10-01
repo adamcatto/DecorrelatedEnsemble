@@ -120,3 +120,10 @@ Metadata now records source/attribution, package copy/version, class convention,
 loader arguments and content hashes. This resolves the loader issue prospectively;
 no previous scored builtin run exists. The larger independent-selection study
 remains pending. No confirmation access or dataset exclusion occurs here.
+
+Wine smoke: two complete outer folds, 50 test-prediction artifacts reconstructed,
+multiclass Brier/co-error discrepancy 1.11e-16. The 60 infrastructure tests pass.
+The statistical reporter now suppresses a degenerate task bootstrap interval
+when there is only one paired dataset; overlapping CV folds cannot repair that
+missing scientific replication. Real-panel reporting preserves paired feasible
+support, width effects and all secondary/resource metrics without pooled ranks.
