@@ -1,0 +1,11 @@
+{
+  "datasets": [
+    "superconductivity",
+    "california_housing"
+  ],
+  "remaining": [
+    "musk2"
+  ],
+  "scope": "Separate regression partial report; no population interval or test-based settings",
+  "script_sha256": "2913f5a07b956083436e03172abd7310dc12d494e32b1bd191a39ec135f1c05c"
+}

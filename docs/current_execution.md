@@ -3,15 +3,15 @@
 2026-10-01 17:34 UTC: The owned dataset-loop parent PID81143 was resumed with
 SIGCONT after the classification audit/push barrier. Tool session56031 owns the
 loop. Credit default, HIGGS and MiniBooNE are complete and audited/exported; their
-bundles passed fresh reconstruction audits. Superconductivity is running, then
-California housing is queued. The parent is not intentionally stopped now.
+bundles passed fresh reconstruction audits. Superconductivity and California housing are complete/audited/exported;
+the original five-task loop has ended. The parent is not intentionally stopped now.
 If process signals become necessary, verify create_time from
 /private/tmp/de-large-orchestrator.json. Do not kill the training jobs.
 
-Main algorithms for the original five tasks have not changed. All88 tests pass;
-latest pushed commit b2029ad. The separately registered Musk main job has not
+Main algorithms for the original five tasks have not changed. All94 tests and the loss-alignment OOF-only refit check pass;
+latest pushed registration commit b2122cb. The separately registered Musk main job has not
 started. A count-only molecule diagnostic was additionally registered before
-that main job to probe bag-cardinality effects; its script awaits small tests and
+that main job to probe bag-cardinality effects; its script has passed small tests and awaits
 main-run completion. Source-group/max APIs are opt-in and inert for the five tasks.
 
 After the original loop completes, audit/export the two regressions while no ML

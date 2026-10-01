@@ -190,6 +190,21 @@ def test_direct_squared_equals_coerror_greedy():
     assert greedy.objective == pytest.approx(direct.objective)
 
 
+def test_binary_coerror_sign_and_bias_cancellation_counterexample():
+    y = np.array([0, 1])
+    P = np.array([[0.7, 0.1], [0.9, 0.3]])
+    E = residual_matrix(y, P, "binary")
+    G = E.T @ E / len(y)
+    np.testing.assert_allclose(G, [[0.25, 0.07], [0.07, 0.25]])
+    np.testing.assert_allclose(correlation_matrix(E), np.ones((2, 2)))
+    np.testing.assert_allclose(E.mean(axis=0), [-0.3, 0.3])
+    assert squared_loss(y, P.mean(axis=1), "binary") == pytest.approx(0.16)
+    rng = np.random.default_rng(912)
+    y_random = rng.integers(0, 2, 100)
+    residuals = residual_matrix(y_random, rng.random((100, 20)), "binary")
+    assert np.all(residuals.T @ residuals >= 0)
+
+
 def test_negative_correlation_and_constant_convention():
     E = np.array([[1, -1, 1], [-1, 1, 1], [2, -2, 1.0]])
     R = correlation_matrix(E)
@@ -281,3 +296,44 @@ def test_nested_tuning_rebuilds_inside_validation_boundary(monkeypatch):
     for indices, (_, valid) in zip(seen, make_splits(data.y, "binary", 3, 7)):
         assert indices.isdisjoint(valid)
     assert "chosen_option" in trace[-1]
+
+
+def test_top_squared_is_quality_independent_and_stable_on_ties():
+    y = np.array([0, 1])
+    P = np.array([[0.4, 0.1, 0.1], [0.6, 0.9, 0.9]])
+    quality = np.array([0.99, 0.7, 0.6])
+    selection = select(
+        y,
+        P,
+        np.array([0.5, 0.5]),
+        "binary",
+        quality,
+        np.array([True, True, True]),
+        {"selector": "top_squared", "K": 2},
+        11,
+    )
+    np.testing.assert_array_equal(selection.ids, [1, 2])
+    assert selection.objective == pytest.approx(0.01)
+    selected_only = select(
+        y,
+        P,
+        np.array([0.5, 0.5]),
+        "binary",
+        quality,
+        np.array([True, False, True]),
+        {"selector": "top_squared", "K": 1},
+        11,
+    )
+    np.testing.assert_array_equal(selected_only.ids, [2])
+
+
+def test_pooled_oof_auc_can_distort_a_grouped_null_predictor():
+    y = np.array([0, 0, 0, 1, 0, 1, 1, 1])
+    X = pd.DataFrame({"constant": np.zeros(8)})
+    groups = np.array([0, 0, 0, 0, 1, 1, 1, 1])
+    spec = CandidateSpec(0, (0,), 1.0, 1, 1, 1.0, 11, "default")
+    oof = build_oof(X, y, [spec], "binary", 2, 11, groups=groups)
+    np.testing.assert_array_equal(oof.predictions[:, 0], oof.null)
+    assert roc_auc_score(y, oof.null) == pytest.approx(0.25)
+    for _, valid in oof.splits:
+        assert roc_auc_score(y[valid], oof.null[valid]) == pytest.approx(0.5)

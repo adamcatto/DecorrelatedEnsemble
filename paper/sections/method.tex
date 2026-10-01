@@ -2,7 +2,8 @@
 Candidate $b$ has a fixed raw-feature mask $F_b$, tree depth, leaf-size constraint,
 row-sampling fraction, and seed, specified before fitting. Fold-local preprocessing
 and the tree see only $F_b$. Inner cross-fitting yields predictions $P_{nb}$.
-Binary screening uses a stratified empirical bootstrap lower AUROC quantile;
+Binary screening uses an empirical bootstrap lower AUROC quantile, stratified
+by class for IID rows or resampling complete groups when configured;
 regression uses cross-fitted null-relative squared-error skill. We retain this as
 a heuristic screen, not a familywise certificate.
 
@@ -18,6 +19,29 @@ $G=C+\mu\mu^\top$. Correlation removes marginal scale and mean; covariance
 alone removes bias. Neither equals squared ensemble loss. Statistical independence
 does not follow from zero correlation. Prediction correlation, error correlation,
 and useful ensemble complementarity are distinct.
+
+For binary labels and valid probabilities, all residuals on a given example
+have the same sign: $y=1$ gives $e_i\ge0$ and $y=0$ gives $e_i\le0$.
+Consequently $G_{ij}\ge0$; negative uncentered co-error is impossible in this
+setting. Centered covariance/correlation does not have the same sign constraint.
+Even perfect residual correlation need not preclude a loss improvement through
+bias cancellation. On two equally weighted examples with $y=(0,1)$, let
+$p_1=(.7,.9)$ and $p_2=(.1,.3)$. Both have Brier loss $.25$ and residual
+correlation $1$, but their equal average has Brier loss $.16$:
+$G_{11}=G_{22}=.25$, $G_{12}=.07$, and residual means are $-.3$ and $.3$.
+This is an algebraic counterexample about squared loss, not empirical evidence
+of independence, new algorithmic novelty, or an AUROC gain.
+
+For fixed fitted functions evaluated on a fresh observation, write
+$\eta(X)=\mathbb E[Y\mid X]$ and $\tau^2=\mathbb E[\operatorname{Var}(Y\mid X)]$.
+Conditional-mean orthogonality gives the population identity
+$\mathbb E[e_i e_j]=\tau^2+\mathbb E[(\eta-p_i)(\eta-p_j)]$.
+The common noise term is constant under simplex aggregation. Bayes-optimal
+predictors can have identical, highly correlated residuals; forcing small raw
+correlation is therefore not a population optimality principle. Empirical OOF
+cross-terms and adaptive selection need not retain this orthogonality, motivating
+future synthetic controls using the known conditional mean to separate
+approximation complementarity from selection on realized noise.
 
 For multiclass probabilities, define vector residuals $r_{ni}=u_{y_n}-p_{ni}$,
 where $u_y$ is one-hot. We use $G_{ij}=N^{-1}\sum_n r_{ni}^\top r_{nj}$,

@@ -37,13 +37,14 @@ TABLE_METHODS = [
     "top_quality_b6000_k64",
     "caruana_b6000_k64",
     "random_forest",
+    "rf_leaf5",
     "extra_trees",
     "xgboost",
     "lightgbm",
     "catboost",
     "linear",
 ]
-TABLE_LABELS = ["Co-error", "Top", "Caruana", "RF", "ET", "XGB", "LGB", "Cat", "Linear"]
+TABLE_LABELS = ["Co-error", "Top", "Caruana", "RF", "RF leaf5", "ET", "XGB", "LGB", "Cat", "Linear"]
 
 
 def paired_effect(frame, left, right, metric, higher):
@@ -79,8 +80,14 @@ def normalized_protocol(cfg):
     )
     if name not in NAMES or len(c["datasets"]) != 1:
         raise ValueError("Unregistered dataset in panel")
+    defaults = {
+        "source_groups": False,
+        "sampling_structure": "iid",
+        "group_exact_duplicates": False,
+        "group_aggregation": None,
+    }
     for key, value in expected.items():
-        if c.get(key, value) != value:
+        if c.get(key, defaults[key]) != value:
             raise ValueError(f"Registered group protocol changed: {name} {key}")
         c.pop(key, None)
     c.pop("id")

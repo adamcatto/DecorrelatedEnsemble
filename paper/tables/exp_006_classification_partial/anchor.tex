@@ -1,13 +1,13 @@
 \begin{table}[t]
 \centering\small
-\begin{tabular}{lrrrrrr}
+\begin{tabular}{lrrrrrrr}
 \toprule
-Task & Co-error & Top & RF & Logistic & CatBoost & LightGBM \\
+Task & Co-error & Top & RF & RF leaf5 & Logistic & CatBoost & LightGBM \\
 \midrule
-Credit default & 0.779 & 0.776 & 0.767 & 0.728 & 0.784 & 0.775 \\
-HIGGS & 0.764 & 0.746 & 0.785 & 0.689 & 0.793 & 0.794 \\
-MiniBooNE & 0.970 & 0.963 & 0.976 & 0.932 & 0.981 & 0.982 \\
+Credit default & 0.779 & 0.776 & 0.767 & 0.779 & 0.728 & 0.784 & 0.775 \\
+HIGGS & 0.764 & 0.746 & 0.785 & 0.786 & 0.689 & 0.793 & 0.794 \\
+MiniBooNE & 0.970 & 0.963 & 0.976 & 0.975 & 0.932 & 0.981 & 0.982 \\
 \bottomrule
 \end{tabular}
-\caption{Partial experiment 006 classification panel: fixed $B=6,000,K=64$ co-error anchor and static references, three outer feature-group folds and one seed. Remaining registered tasks are pending. No test-based configuration selection or resource matching.}
+\caption{Experiment 006 classification checkpoint: fixed $B=6,000,K=64$ co-error anchor and static references, three outer feature-group folds and one seed. Regression tasks are reported separately. No test-based configuration selection or resource matching.}
 \end{table}

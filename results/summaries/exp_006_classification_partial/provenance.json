@@ -4,11 +4,11 @@
     "higgs",
     "miniboone"
   ],
-  "remaining": [
+  "outside_this_classification_report": [
     "superconductivity",
     "california_housing",
     "musk2"
   ],
-  "report_script_sha256": "f03b8877ed0d2dae0430b60208ce40d26f858c14de78dff7a3d091b6782f6623",
+  "report_script_sha256": "2913f5a07b956083436e03172abd7310dc12d494e32b1bd191a39ec135f1c05c",
   "scope": "Partial registered development panel; not final confirmation; task means of three overlapping outer folds; no intervals or best-test tuning"
 }

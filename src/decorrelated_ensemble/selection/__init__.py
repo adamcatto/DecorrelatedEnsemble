@@ -295,6 +295,10 @@ def select(y, P, null, task, quality, eligible, cfg, seed):
     elif kind == "top_quality":
         chosen = np.argsort(-q, kind="stable")[:k]
         result = Selection(chosen, np.full(k, 1 / k), -float(q[chosen].mean()), [])
+    elif kind == "top_squared":
+        loss = np.mean(np.ascontiguousarray(E) ** 2, axis=0)
+        chosen = np.argsort(loss, kind="stable")[:k]
+        result = Selection(chosen, np.full(k, 1 / k), float(loss[chosen].mean()), [])
     elif kind in {
         "coerror",
         "shrinkage_coerror",

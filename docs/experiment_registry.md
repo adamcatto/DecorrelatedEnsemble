@@ -16,11 +16,12 @@
 - **Protocol:** `experiments/exp_006_large/protocol.md`; five task-specific
   `configs/experiments/exp_006_large_*.yaml`, 6,000 candidates per outer fold,
   3 binary/2 regression tasks, 20,000 rows, 3 outer/2 OOF folds, one seed.
-- **Status:** Three classification tasks complete/audited (549 test predictions);
-  superconductivity, California housing and Musk extension pending.
+- **Status:** Original five tasks complete/audited (915 test predictions);
+  Musk extension pending.
 - **Anchor:** Unscreened co-error B6,000,K64; full sweep retained, no best-test tuning.
 - **Partial result:** Anchor AUROC .779/.764/.970 on credit/HIGGS/MiniBooNE;
-  exceeds top quality on each but beats RF only on credit, trails at least one
+  exceeds top quality on each but beats default RF only on credit; RF leaf5 matches
+  credit co-error at .779. Trails at least one
   boosting reference on each. B6000 does not improve B3000 at K64 on credit/HIGGS.
 - **Interpretation/follow-up:** Conditional development evidence. These are chosen tasks with
   exact-feature group holdouts, not a locked representative confirmation benchmark.

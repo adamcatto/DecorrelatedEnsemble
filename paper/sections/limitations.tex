@@ -3,11 +3,18 @@ This draft does not establish a novel algorithm or strong benchmark performance.
 OOF selection risks overfitting to a reused training prediction matrix. Refitting
 changes the fitted functions and may change their error dependence. IID row
 bootstrap screens do not justify guarantees under overlapping training folds,
-large candidate libraries, grouped observations, or temporal shifts. Sparse
+large candidate libraries, grouped observations, or temporal shifts.
+Pooled OOF AUROC compares outputs from different fitted functions and can be
+distorted by calibration/prevalence shifts: in a constructed two-group example
+with fold positive rates $1/4$ and $3/4$, cross-fitted null predictions give
+pooled AUROC $.25$ while each held-out fold gives $.5$. Outer-test metrics use
+one fixed refit per fold; the current pooled OOF quality/screen remains an
+explicit estimation limitation. Independent fixed-function validation and
+same-fit ranking controls are future work. Sparse
 shallow trees can fail on interactions that need joint feature access. Only two
 generation seeds and one dimensional/sample-size setting have been tested in the
 completed synthetic studies. The initial three real tasks are small numerical
-development datasets; the larger three-task classification checkpoint adds only
+development datasets; the larger five-task checkpoint adds only
 one seed and chosen tasks. Repeated folds of the same rows are not independent
 scientific replicates. Exact-vector groups control duplicate leakage but do not
 establish temporal, geographic, or chemical-scaffold generalization.

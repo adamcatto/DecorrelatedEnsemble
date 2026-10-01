@@ -219,15 +219,19 @@ algorithmic improvement.}
 The first three registered tasks are complete: 549 test-prediction records,
 three outer folds per task, and 6,000 candidates per fold. Artifact audits
 reconstruct all metrics and the row squared-loss identity, with maximum
-discrepancy below $1.1\times10^{-14}$. Regression and molecule-level extension
-results remain pending at this checkpoint.
+discrepancy below $1.1\times10^{-14}$. The regression checkpoint follows below;
+the molecule-level extension remains pending.
 \input{tables/exp_006_classification_partial/anchor}
 
 Credit default lies in the requested harder baseline region: the fixed forest
 achieves AUROC \ExpSixPartialCreditDefaultRF{} and logistic regression
 \ExpSixPartialCreditDefaultLinear{}. The predesignated co-error anchor reaches
 \ExpSixPartialCreditDefaultCo{}, exceeding top quality
-(\ExpSixPartialCreditDefaultTop{}) and the forest, but trailing CatBoost.
+(\ExpSixPartialCreditDefaultTop{}) and the default forest, but trailing CatBoost.
+The predeclared forest with minimum leaf size five reaches
+\ExpSixPartialCreditDefaultLeafFive{}, nearly identical to co-error at displayed
+precision. The apparent default-forest gain is therefore not a gain over the
+forest family or evidence beyond ordinary regularization.
 On HIGGS, co-error improves over top quality
 (\ExpSixPartialHiggsCo{} versus \ExpSixPartialHiggsTop{}) yet trails the forest
 (\ExpSixPartialHiggsRF{}) and all three boosting references. MiniBooNE is easier
@@ -243,6 +247,20 @@ larger tasks. All 52 registered settings and nine static baselines are retained;
 no outer-test winner is substituted for the anchor. Costs include the entire
 shared library and are unmatched across methods. This partial panel supplies
 descriptive development evidence, not a dataset-population uncertainty estimate.
+
+\subsection{Experiment 006: Regression Checkpoint}
+\input{tables/exp_006_regression_partial/facts}
+The two regression runs complete the initial five-task panel: all 366 additional
+predictions are audited, with maximum squared-loss identity error below
+$2.9\times10^{-13}$. Co-error improves over quality selection, but remains weaker
+than the forest: superconductivity RMSE is \ExpSixRegSuperconductivityCo{}
+versus \ExpSixRegSuperconductivityTop{} and \ExpSixRegSuperconductivityRF{};
+California RMSE is \ExpSixRegCaliforniaHousingCo{} versus
+\ExpSixRegCaliforniaHousingTop{} and \ExpSixRegCaliforniaHousingRF{}.
+Both tasks show modest task-mean improvement as $B$ grows from 1,000 to 6,000
+at fixed $K=64$, unlike the nonmonotone credit/HIGGS endpoints. No resource
+matching or independent confirmation follows from these chosen development tasks.
+\input{tables/exp_006_regression_partial/anchor}
 
 \section{Ablations and Analysis}
 The stored ablations include all required v0 components, signed versus absolute

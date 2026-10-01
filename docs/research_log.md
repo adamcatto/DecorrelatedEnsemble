@@ -240,3 +240,22 @@ Lossless column-major OOF exports preserve every value/dtype and both manifests;
 48MiB ordered archive parts retain all prediction/decision artifacts, omitting
 only fitted models. Original complete runs/models remain local. Paper partial
 results are generated from verified artifacts; remaining tasks continue unchanged.
+
+### 2026-10-01 — regression checkpoint and analytical metric controls
+
+Both original regressions complete/audited: 366 test predictions. Co-error K64,
+B6000 RMSE is13.807 on superconductivity vs14.038 quality and10.206 RF; California
+.594 vs.633 quality and.508 RF. Both show modest task-mean improvement across
+B1000/3000/6000; preserve the contrasting classification negative scaling. All
+original five tasks and915 predictions are now complete; Musk remains pending.
+
+The94 tests include new top-squared diagonal selection, source-group count control,
+storage-order-independent exact array hashes, and two analytic cautions. Binary
+uncentered co-error is nonnegative; residual correlation1 can coexist with improved
+Brier through bias cancellation. A grouped two-fold null predictor gives pooled
+OOF AUROC .25 while each held-out fold AUROC is .5: different fitted calibrations
+can distort pooled ranking. This is a constructed counterexample, not an observed
+explanation of our gains. Preserve the initial pooled-AUC protocol; record the
+limitation and investigate independent fixed-function/same-fit ranking next.
+The independently registered loss-aligned control addresses a separate quality
+criterion confound, not every OOF estimation issue. No confirmation access.

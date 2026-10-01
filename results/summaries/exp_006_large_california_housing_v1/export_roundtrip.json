@@ -1,0 +1,30 @@
+{
+  "archive_sha256": "139eee8fd7b086ced9e207c3e5dd8d5a0a7134f3120dd3e8d8707e800dfe9af3",
+  "audit": {
+    "affine_fits_audited": 0,
+    "checks": [
+      "artifact hashes",
+      "outer disjointness",
+      "outer/inner partitions and OOF coverage",
+      "outer/inner feature-group separation where configured",
+      "selected IDs within recorded eligible pool",
+      "OOF and test label row mapping",
+      "test prediction row mapping",
+      "stored metric reconstruction",
+      "weighted co-error identity",
+      "direct/greedy squared objective identity",
+      "training OOF affine fit and profiled loss reconstruction where applicable",
+      "same selected subsets for raw/calibrated controls where applicable"
+    ],
+    "folds_audited": 3,
+    "maximum_squared_loss_identity_error": 3.1086244689504383e-15,
+    "run_id": "exp_006_large_california_housing_v1",
+    "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel",
+    "test_predictions_audited": 183
+  },
+  "export_metadata_sha256": "019184328e100d3bce7d7cc500808ef038f41faac7f1328cc9c3596394290f8f",
+  "parts_verified": 5,
+  "run_id": "exp_006_large_california_housing_v1",
+  "scope": "Fresh temporary reconstruction from published ordered parts; exported manifest and every stored test metric/OOF squared-loss identity verified; only fitted models may be absent",
+  "verification_script_sha256": "cfc60abf6bb6ddebc04a6d9aa16e5d53fc2ea7ed2ff76a49fe41dc99816b1fd9"
+}

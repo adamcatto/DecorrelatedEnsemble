@@ -18,6 +18,10 @@ def test_large_report_rejects_changed_group_protocol():
     cfg["group_aggregation"] = "mean"
     with pytest.raises(ValueError, match="Registered group protocol changed"):
         module.normalized_protocol(cfg)
+    cfg["group_aggregation"] = "max"
+    cfg.pop("source_groups")
+    with pytest.raises(ValueError, match="Registered group protocol changed"):
+        module.normalized_protocol(cfg)
 
 
 def test_large_paired_effect_directions_and_infeasible_support():
@@ -88,3 +92,19 @@ def test_lossless_oof_repacking_preserves_every_array(tmp_path):
             np.testing.assert_array_equal(result[key], value)
             assert result[key].dtype == value.dtype
         assert result["predictions"].flags.f_contiguous
+
+
+def test_followup_array_digest_is_storage_independent_and_value_sensitive():
+    import numpy as np
+
+    spec = importlib.util.spec_from_file_location(
+        "alignment", Path("scripts/run_quality_alignment.py")
+    )
+    aligned = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(aligned)
+    values = np.arange(40, dtype=np.float64).reshape(10, 4)
+    assert aligned.array_digest(values) == aligned.array_digest(np.asfortranarray(values))
+    altered = values.copy()
+    altered[0, 0] = np.nextafter(0.0, 1.0)
+    assert aligned.array_digest(values) != aligned.array_digest(altered)
+    assert aligned.array_digest(values) != aligned.array_digest(values.astype(np.float32))
