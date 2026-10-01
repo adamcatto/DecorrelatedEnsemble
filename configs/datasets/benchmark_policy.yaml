@@ -1,0 +1,46 @@
+checked_date: '2026-10-01'
+phase: development_only
+primary_candidate_suite: TabArena
+leaderboard_snapshot: TabArena-v0.1.9.3
+leaderboard_snapshot_date: '2026-09-28'
+successor_candidate_suite: BeyondArena
+sources:
+  - https://github.com/autogluon/tabarena
+  - https://huggingface.co/spaces/TabArena/leaderboard/raw/main/website_texts.py
+  - https://arxiv.org/abs/2506.16791
+  - https://arxiv.org/abs/2606.30410
+confirmation_locked: false
+confirmation_evaluations: 0
+development:
+  - synthetic-v1
+  - sklearn-breast-cancer
+  - sklearn-diabetes
+  - sklearn-wine
+confirmation: []
+exclusions: []
+required_classical_baselines:
+  - random_forest
+  - extra_trees
+  - random_subspace
+  - random_patches
+  - xgboost
+  - lightgbm
+  - catboost
+  - direct_ensemble_selection
+modern_baselines_to_scope_before_lock:
+  - TabM
+  - RealMLP
+  - TabPFN-3.5
+  - TabICL
+  - TabDPT-1.3
+  - AutoGluon
+gates_before_confirmation:
+  - benchmark runner integration and exact dataset/split/version manifest
+  - task-appropriate grouped/temporal splits if BeyondArena used
+  - licensing and exclusion audit
+  - leak and determinism tests pass
+  - tuned classical and modern baselines with recorded budgets
+  - locked algorithm/config and analysis plan
+  - resource comparisons and no silent failures
+  - append confirmation ledger before computation
+

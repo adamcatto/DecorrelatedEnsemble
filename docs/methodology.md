@@ -42,7 +42,10 @@ No fallback or reduction of K is permitted.
 
 For residual columns, `G=E.T@E/N`. Binary Brier and regression MSE equal
 `1.T@G[S,S]@1/K^2`. Multiclass residuals concatenate sample/class coordinates;
-the sum-over-classes Brier convention divides by N, not N*C.
+the sum-over-classes Brier convention divides by N, not N*C. Internally the
+flattened residual matrix is scaled by sqrt(C), so averaging over N*C coordinates
+gives that convention. Multiclass shrinkage preserves the sum of outer products
+of the separate class residual means; flattening must not erase class-specific bias.
 Correlation centers residuals; covariance drops bias if used alone;
 G includes bias. Zero-variance residual columns have undefined correlation and
 receive conservative pairwise dependence 1 in correlation-based selection.
@@ -83,4 +86,3 @@ locked dataset/split/method manifest and an explicit milestone label; every
 access is appended to a ledger before computation. No confirmation run yet.
 Results from failed/partial runs are never silently deleted or pooled with
 completed runs. Aggregate scripts require explicit run identifiers.
-

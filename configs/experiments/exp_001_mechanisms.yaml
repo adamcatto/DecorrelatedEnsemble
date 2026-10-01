@@ -1,0 +1,261 @@
+id: exp_001_mechanisms
+role: development
+seeds:
+- 11
+- 29
+outer_folds: 3
+inner_folds: 3
+candidates:
+  B: 100
+  feature_fractions:
+  - 0.1
+  depths:
+  - 3
+  min_samples_leaf:
+  - 5
+certification:
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+- id: additive_binary
+  regime: additive
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: additive_regression
+  regime: additive
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: redundant_binary
+  regime: redundant
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: redundant_regression
+  regime: redundant
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: sparse_binary
+  regime: sparse
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: sparse_regression
+  regime: sparse
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: correlated_blocks_binary
+  regime: correlated_blocks
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: correlated_blocks_regression
+  regime: correlated_blocks
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: dominant_binary
+  regime: dominant
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: dominant_regression
+  regime: dominant
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: xor_binary
+  regime: xor
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: xor_regression
+  regime: xor
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: parity_binary
+  regime: parity
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: parity_regression
+  regime: parity
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: mixed_binary
+  regime: mixed
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: mixed_regression
+  regime: mixed
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+- id: null_binary
+  regime: 'null'
+  task: binary
+  n: 600
+  p: 40
+  noise: 1.0
+- id: null_regression
+  regime: 'null'
+  task: regression
+  n: 600
+  p: 40
+  noise: 1.0
+methods:
+- id: random_subspace
+  selector: random
+  certified: false
+  K: 8
+  charge_search: false
+- id: certified_random
+  selector: random
+  certified: true
+  K: 8
+- id: top_quality
+  selector: top_quality
+  certified: true
+  K: 8
+- id: top_no_cert
+  selector: top_quality
+  certified: false
+  K: 8
+- id: abs_correlation
+  selector: abs_correlation
+  certified: true
+  K: 8
+  max_swaps: 3
+- id: signed_correlation
+  selector: signed_correlation
+  certified: true
+  K: 8
+  max_swaps: 3
+- id: minimax
+  selector: minimax
+  certified: true
+  K: 8
+  max_swaps: 3
+- id: quality_diversity
+  selector: quality_diversity
+  certified: true
+  K: 8
+  lambda: 0.1
+  max_swaps: 3
+- id: prediction_correlation
+  selector: prediction_correlation
+  certified: true
+  K: 8
+  max_swaps: 3
+- id: coerror_greedy
+  selector: coerror
+  certified: true
+  K: 8
+- id: direct_squared
+  selector: direct_squared
+  certified: true
+  K: 8
+- id: coerror
+  selector: coerror
+  certified: true
+  K: 8
+  max_swaps: 5
+- id: coerror_no_cert
+  selector: coerror
+  certified: false
+  K: 8
+  max_swaps: 5
+- id: covariance_only
+  selector: covariance_only
+  certified: true
+  K: 8
+  max_swaps: 5
+- id: shrinkage
+  selector: shrinkage_coerror
+  certified: true
+  K: 8
+  shrinkage: 0.5
+  max_swaps: 5
+- id: caruana
+  selector: caruana
+  certified: false
+  K: 8
+- id: direct_auroc
+  selector: direct_auroc
+  certified: false
+  K: 8
+  tasks:
+  - binary
+baselines:
+- id: rf_shallow
+  family: random_forest
+  parameters:
+    n_estimators: 8
+    max_depth: 3
+    min_samples_leaf: 5
+- id: et_shallow
+  family: extra_trees
+  parameters:
+    n_estimators: 8
+    max_depth: 3
+    min_samples_leaf: 5
+- id: random_patches
+  family: random_patches
+  parameters:
+    n_estimators: 8
+    max_depth: 3
+    min_samples_leaf: 5
+    feature_fraction: 0.1
+    row_fraction: 0.5
+- id: random_forest
+  family: random_forest
+  parameters:
+    n_estimators: 256
+- id: extra_trees
+  family: extra_trees
+  parameters:
+    n_estimators: 256
+- id: xgboost
+  family: xgboost
+  parameters:
+    n_estimators: 100
+    max_depth: 4
+    learning_rate: 0.05
+- id: lightgbm
+  family: lightgbm
+  parameters:
+    n_estimators: 100
+    num_leaves: 15
+    learning_rate: 0.05
+- id: catboost
+  family: catboost
+  parameters:
+    iterations: 100
+    depth: 4
+    learning_rate: 0.05
+hypothesis: At fixed B,K,feature fraction,depth, loss-aligned co-error outperforms
+  correlation screens; sparse shallow trees fail on interactions.

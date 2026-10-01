@@ -1,0 +1,28 @@
+id: smoke
+role: development
+seeds: [11]
+outer_folds: 2
+inner_folds: 2
+candidates:
+  B: 12
+  feature_fractions: [0.1, 0.5]
+  depths: [2, 3]
+  min_samples_leaf: [3]
+certification:
+  bootstrap_reps: 100
+  alpha: 0.05
+  auc_threshold: 0.51
+  regression_threshold: 0.01
+datasets:
+  - {id: additive_binary, regime: additive, task: binary, n: 120, p: 10}
+  - {id: sparse_regression, regime: sparse, task: regression, n: 120, p: 10}
+methods:
+  - {id: random_subspace, selector: random, K: 4, certified: false, charge_search: false}
+  - {id: top_quality, selector: top_quality, K: 4, certified: false}
+  - {id: certified_random, selector: random, K: 4, certified: true}
+  - {id: coerror, selector: coerror, K: 4, certified: false, max_swaps: 3}
+  - {id: shrinkage, selector: shrinkage_coerror, K: 4, certified: false, shrinkage: 0.5}
+  - {id: abs_correlation, selector: abs_correlation, K: 4, certified: false, max_swaps: 2}
+baselines:
+  - {id: random_forest, family: random_forest, parameters: {n_estimators: 8, max_depth: 3}}
+  - {id: extra_trees, family: extra_trees, parameters: {n_estimators: 8, max_depth: 3}}
