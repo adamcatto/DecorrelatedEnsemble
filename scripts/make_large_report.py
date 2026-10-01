@@ -258,6 +258,42 @@ def plot_sweeps(means, figure_dir):
         plt.close(fig)
 
 
+def control_equivalences(roots):
+    rows = []
+    pairs = [
+        ("coerror_b6000_k64", "coerror_cert_b6000_k64"),
+        ("top_quality_b6000_k64", "top_quality_cert_b6000_k64"),
+        ("abs_correlation_b6000_k64", "signed_correlation_b6000_k64"),
+    ]
+    for root in roots:
+        for oof_path in sorted(root.rglob("oof.npz")):
+            fold = oof_path.parent
+            metadata = json.loads((fold.parent / "metadata.json").read_text())
+            for left, right in pairs:
+                a_path, b_path = fold / left / "selection.json", fold / right / "selection.json"
+                if not a_path.exists() or not b_path.exists():
+                    continue
+                a, b = json.loads(a_path.read_text()), json.loads(b_path.read_text())
+                with (
+                    np.load(fold / left / "test_predictions.npz") as x,
+                    np.load(fold / right / "test_predictions.npz") as y,
+                ):
+                    same_test = np.array_equal(x["prediction"], y["prediction"])
+                rows.append(
+                    {
+                        "dataset": metadata["id"],
+                        "seed": int(fold.parent.name.split("_")[-1]),
+                        "fold": int(fold.name.split("_")[-1]),
+                        "left": left,
+                        "right": right,
+                        "same_ids": a["ids"] == b["ids"],
+                        "same_weights": a["weights"] == b["weights"],
+                        "same_test_predictions": same_test,
+                    }
+                )
+    return pd.DataFrame(rows)
+
+
 def report(run_ids, predictions_only=False):
     roots = [Path("results/runs") / r for r in run_ids]
     frames, checks, screening, configs, resources = [], [], [], [], []
@@ -306,6 +342,7 @@ def report(run_ids, predictions_only=False):
     pd.DataFrame(checks).to_csv(output / "pool_selection_audit.csv", index=False)
     pd.DataFrame(screening).to_csv(output / "screening_by_cell.csv", index=False)
     pd.DataFrame(resources).to_csv(output / "run_resources.csv", index=False)
+    control_equivalences(roots).to_csv(output / "control_equivalences.csv", index=False)
     effects = []
     comparisons = [
         (ANCHOR, x)
@@ -314,7 +351,19 @@ def report(run_ids, predictions_only=False):
             "random_b6000_k64",
             "caruana_b6000_k64",
             "random_forest",
+            "extra_trees",
+            "xgboost",
+            "lightgbm",
+            "catboost",
+            "rf_leaf5",
+            "rf_shallow64",
+            "random_patches64",
             "linear",
+            "abs_correlation_b6000_k64",
+            "signed_correlation_b6000_k64",
+            "quality_diversity_l002_b6000_k64",
+            "quality_diversity_l01_b6000_k64",
+            "quality_diversity_l05_b6000_k64",
             "coerror_cert_b6000_k64",
             "coerror_b1000_k64",
             "coerror_b3000_k64",

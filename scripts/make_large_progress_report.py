@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import pandas as pd
+from make_large_report import control_equivalences
 
 from decorrelated_ensemble.evaluation.artifacts import sha256, verify_manifest, write_json
 
@@ -27,6 +28,9 @@ means = (
     .reset_index()
 )
 means.to_csv(output / "per_task.csv", index=False)
+control_equivalences([Path("results/runs") / f"exp_006_large_{n}_v1" for n in names]).to_csv(
+    output / "control_equivalences.csv", index=False
+)
 tables = Path("paper/tables/exp_006_classification_partial")
 tables.mkdir(parents=True, exist_ok=True)
 methods = [

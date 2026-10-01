@@ -105,3 +105,21 @@ california_housing task configs. Each generates 6,000 specs per fold and evaluat
 52 fixed selection settings plus nine static baseline settings on 20,000 rows.
 See `experiments/exp_006_large/protocol.md` for pool/size/width/depth controls,
 exact-feature group splits, source attributions, caps and resource limitations.
+
+The separately registered higher-dimensional extension is Musk v2: 6,598 rows,
+166 features and 102 molecules. Its IDs are excluded from features, entire
+molecules are held out at both CV levels, and fixed molecule-max AUROC is primary.
+Training/selection still optimize inherited row labels and row losses. See
+`experiments/exp_006_large/musk_extension.md` for this distinction.
+
+```bash
+python scripts/prepare_musk_data.py
+python scripts/run_experiment.py configs/experiments/exp_006_large_musk2.yaml --run-id exp_006_large_musk2_v1
+python scripts/make_large_report.py exp_006_large_credit_default_v1 exp_006_large_higgs_v1 exp_006_large_miniboone_v1 exp_006_large_superconductivity_v1 exp_006_large_california_housing_v1 exp_006_large_musk2_v1
+```
+
+Published archive parts retain every prediction and decision artifact; only
+fitted models are omitted. Run `python scripts/verify_export.py <run_id>` to
+reconstruct parts in a fresh temporary directory, verify hashes, and rerun the
+metric/split/Gram audit. See `results/artifacts/README.md` for manual restoration
+and `--predictions-only` reporting on restored exports. Full models remain local.

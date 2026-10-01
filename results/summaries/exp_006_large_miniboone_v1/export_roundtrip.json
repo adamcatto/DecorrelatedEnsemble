@@ -1,0 +1,30 @@
+{
+  "archive_sha256": "b6f48997a9f352567d601f8215cc717c528177895abba847586ef2ba6f5c4068",
+  "audit": {
+    "affine_fits_audited": 0,
+    "checks": [
+      "artifact hashes",
+      "outer disjointness",
+      "outer/inner partitions and OOF coverage",
+      "outer/inner feature-group separation where configured",
+      "selected IDs within recorded eligible pool",
+      "OOF and test label row mapping",
+      "test prediction row mapping",
+      "stored metric reconstruction",
+      "weighted co-error identity",
+      "direct/greedy squared objective identity",
+      "training OOF affine fit and profiled loss reconstruction where applicable",
+      "same selected subsets for raw/calibrated controls where applicable"
+    ],
+    "folds_audited": 3,
+    "maximum_squared_loss_identity_error": 6.189493362285248e-15,
+    "run_id": "exp_006_large_miniboone_v1",
+    "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel",
+    "test_predictions_audited": 183
+  },
+  "export_metadata_sha256": "cf0a89b842933dd78a0f25a0c266b4c05ed950ce90730f88e20beff6fe28e120",
+  "parts_verified": 6,
+  "run_id": "exp_006_large_miniboone_v1",
+  "scope": "Fresh temporary reconstruction from published ordered parts; exported manifest and every stored test metric/OOF squared-loss identity verified; only fitted models may be absent",
+  "verification_script_sha256": "cfc60abf6bb6ddebc04a6d9aa16e5d53fc2ea7ed2ff76a49fe41dc99816b1fd9"
+}
