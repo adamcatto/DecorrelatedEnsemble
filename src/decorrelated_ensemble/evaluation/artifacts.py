@@ -113,9 +113,11 @@ def finalize_manifest(path):
     write_json(path / "manifest.json", {"schema_version": 1, "sha256": files})
 
 
-def verify_manifest(path):
+def verify_manifest(path, allow_missing_models=False):
     recorded = json.loads((path / "manifest.json").read_text())["sha256"]
     for name, expected in recorded.items():
+        if allow_missing_models and name.endswith("/model.joblib") and not (path / name).exists():
+            continue
         if sha256(path / name) != expected:
             raise ValueError(f"Artifact hash mismatch: {name}")
     return True

@@ -48,12 +48,18 @@ def make_tables(run_id):
             r"\midrule",
         ]
         for name, row in table.iterrows():
-            text.append(
-                escape(name.replace("_" + task, ""))
-                + " & "
-                + " & ".join("--" if pd.isna(v) else f"{v:.3f}" for v in row)
-                + r" \\"
-            )
+            cells = []
+            for method, value in row.items():
+                if pd.isna(value):
+                    cells.append("--")
+                    continue
+                coverage = data[(data.dataset == name) & (data.method == method)].iloc[0]
+                partial = (
+                    "completed_splits" in coverage
+                    and coverage.completed_splits < coverage.expected_splits
+                )
+                cells.append(f"{value:.3f}" + (r"$^{\dagger}$" if partial else ""))
+            text.append(escape(name.replace("_" + task, "")) + " & " + " & ".join(cells) + r" \\")
         text.extend(
             [
                 r"\bottomrule",
@@ -64,7 +70,7 @@ def make_tables(run_id):
                 + task
                 + ", "
                 + escape(metric)
-                + ". Means over completed outer folds and seeds. Missing entries indicate fixed-K infeasibility; full coverage is stored separately. Static baselines, unmatched compute; development only.}",
+                + ". Means over completed outer folds and seeds. --: fixed-K infeasible in every split; $\\dagger$: partial feasibility. Full coverage is stored separately. Static baselines, unmatched compute; development only.}",
                 r"\end{table}",
             ]
         )

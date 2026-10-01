@@ -11,5 +11,7 @@ local `results/runs/` directory and can be reproduced from the bundled inputs.
 The original manifest records hashes of both included and omitted files.
 
 Unpack a bundle under `results/runs/` to inspect decision artifacts. Aggregation
-requires the full run manifest; use the stored generated summaries for an export
-without models, or reproduce models/rerun to create a new full manifest.
+verifies the full run manifest by default. For an export without models, run
+`python scripts/aggregate_results.py <run_id> --predictions-only`, which verifies
+every included decision/prediction file and allows only missing `model.joblib`
+files. The export metadata includes the archive SHA256 for download validation.

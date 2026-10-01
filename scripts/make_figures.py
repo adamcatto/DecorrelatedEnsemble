@@ -41,7 +41,7 @@ def make_figures(run_id):
         "catboost",
     ]
     methods = [m for m in methods if m in data.method.unique()]
-    fig, axes = plt.subplots(1, 2, figsize=(12, 4.2), layout="constrained")
+    fig, axes = plt.subplots(2, 1, figsize=(7.3, 8.5), layout="constrained")
     for ax, task, metric in zip(
         axes, ["binary", "regression"], ["auroc", "normalized_squared_loss"]
     ):
@@ -64,7 +64,7 @@ def make_figures(run_id):
                     "—" if np.isnan(value) else f"{value:.2f}",
                     ha="center",
                     va="center",
-                    fontsize=6,
+                    fontsize=7.5,
                     color="black" if np.isnan(value) else "white",
                 )
         ax.set_xticks(range(len(methods)), methods, rotation=65, ha="right", fontsize=7)

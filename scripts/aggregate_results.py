@@ -8,8 +8,8 @@ from decorrelated_ensemble.evaluation.artifacts import verify_manifest, write_js
 from decorrelated_ensemble.statistics import paired_task_comparison
 
 
-def aggregate(run):
-    verify_manifest(run)
+def aggregate(run, predictions_only=False):
+    verify_manifest(run, allow_missing_models=predictions_only)
     status = json.loads((run / "status.json").read_text())
     if status["state"] != "complete":
         raise ValueError("Refusing to aggregate an incomplete/failed run")
@@ -22,6 +22,14 @@ def aggregate(run):
     completed = records[records.status == "complete"]
     numeric = completed.select_dtypes("number").columns.difference(["seed", "fold"])
     means = completed.groupby(["dataset", "task", "method"])[numeric].mean().reset_index()
+    counts = completed.groupby(["dataset", "task", "method"]).size().rename("completed_splits")
+    means = means.merge(counts.reset_index(), on=["dataset", "task", "method"])
+    expected = (
+        records.groupby("dataset")
+        .apply(lambda group: len(group[["seed", "fold"]].drop_duplicates()), include_groups=False)
+        .rename("expected_splits")
+    )
+    means = means.merge(expected.reset_index(), on="dataset")
     means.to_csv(output / "per_task.csv", index=False)
     comparisons = []
     pairs = [
@@ -71,6 +79,7 @@ def aggregate(run):
             "raw_manifest": json.loads((run / "manifest.json").read_text()),
             "coverage_warning": "Ranks and paired comparisons can use different task coverage; inspect coverage.csv",
             "development_only": True,
+            "models_verified": not predictions_only,
         },
     )
     return output
@@ -79,5 +88,10 @@ def aggregate(run):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("run_id")
+    parser.add_argument(
+        "--predictions-only",
+        action="store_true",
+        help="Allow explicitly omitted model.joblib files; verify all decision/prediction artifacts",
+    )
     args = parser.parse_args()
-    print(aggregate(Path("results/runs") / args.run_id))
+    print(aggregate(Path("results/runs") / args.run_id, args.predictions_only))
