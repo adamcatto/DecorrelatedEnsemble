@@ -1,0 +1,82 @@
+[
+  {
+    "B": 60,
+    "dataset": "credit_default",
+    "no_test_metrics": true,
+    "oof_resources": {
+      "cpu_seconds": 2.021356,
+      "observed_peak_rss_bytes": 204898304,
+      "wall_seconds": 1.0421988749876618
+    },
+    "screen_resources": {
+      "cpu_seconds": 0.9962499999999999,
+      "observed_peak_rss_bytes": 248168448,
+      "wall_seconds": 0.9980509579181671
+    },
+    "training_rows": 13333
+  },
+  {
+    "B": 60,
+    "dataset": "higgs",
+    "no_test_metrics": true,
+    "oof_resources": {
+      "cpu_seconds": 2.53439,
+      "observed_peak_rss_bytes": 276709376,
+      "wall_seconds": 0.9969817500095814
+    },
+    "screen_resources": {
+      "cpu_seconds": 0.951041,
+      "observed_peak_rss_bytes": 283295744,
+      "wall_seconds": 0.9504049581009895
+    },
+    "training_rows": 13333
+  },
+  {
+    "B": 60,
+    "dataset": "miniboone",
+    "no_test_metrics": true,
+    "oof_resources": {
+      "cpu_seconds": 4.259952,
+      "observed_peak_rss_bytes": 353157120,
+      "wall_seconds": 1.4426106249447912
+    },
+    "screen_resources": {
+      "cpu_seconds": 0.9803119999999996,
+      "observed_peak_rss_bytes": 363659264,
+      "wall_seconds": 0.9796068749856204
+    },
+    "training_rows": 13333
+  },
+  {
+    "B": 60,
+    "dataset": "superconductivity",
+    "no_test_metrics": true,
+    "oof_resources": {
+      "cpu_seconds": 4.435261000000001,
+      "observed_peak_rss_bytes": 415318016,
+      "wall_seconds": 1.230916874948889
+    },
+    "screen_resources": {
+      "cpu_seconds": 0.6074389999999994,
+      "observed_peak_rss_bytes": 415055872,
+      "wall_seconds": 0.6080469160806388
+    },
+    "training_rows": 13177
+  },
+  {
+    "B": 60,
+    "dataset": "california_housing",
+    "no_test_metrics": true,
+    "oof_resources": {
+      "cpu_seconds": 0.922031999999998,
+      "observed_peak_rss_bytes": 415498240,
+      "wall_seconds": 0.37614149996079504
+    },
+    "screen_resources": {
+      "cpu_seconds": 0.767707999999999,
+      "observed_peak_rss_bytes": 415203328,
+      "wall_seconds": 0.7674127500504255
+    },
+    "training_rows": 13333
+  }
+]

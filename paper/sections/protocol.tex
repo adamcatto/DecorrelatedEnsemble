@@ -45,3 +45,30 @@ standardization. No hyperparameter tuning is performed. Primary metrics remain
 task-specific; no pooled ranking or task-population interval is reported for
 this panel with one dataset per task type. Split effects are descriptive and
 their overlapping observations are not independent uncertainty replicates.
+
+\subsection{Larger Development Sweep (Registered Experiment 006)}
+A predeclared follow-up uses credit default, the OpenML 23512 version-2 HIGGS
+subset, MiniBooNE, superconductivity, and California housing. Each is capped
+at 20,000 rows with fixed seed 7321, stratified for binary classification.
+Feature counts are 23, 28, 50, 81, and 8 respectively. The requested harder
+classification emphasis motivates the panel; observed baseline AUC is not an
+inclusion filter. California supplies a larger low-dimensional regression control.
+Exact repeated raw feature vectors are grouped in both outer and OOF folds.
+This controls duplicate-row leakage, particularly in superconductivity, but
+supplies neither geographic nor unseen-composition extrapolation evidence.
+Public-source hashes, original row IDs, categorical conventions, source-count
+mismatches, licenses, and every scope restriction accompany the protocol.
+
+Each outer fold generates 6,000 fixed-mask trees, balanced across fractions
+$\{.05,.20,.50\}$ and depths $\{3,6\}$, minimum leaf size 10. Prefix pools
+$B=1,000/3,000/6,000$ are crossed independently with $K=16/64/128$ for random,
+quality, and co-error selection. Six homogeneous cells each have exactly
+$B=1,000,K=64$; additional controls include screening, correlation objectives,
+with-replacement selection, and one swap. The unscreened $B=6,000,K=64$ co-error
+setting is the predesignated anchor. One seed, three outer folds and two OOF
+folds are exploratory; no best outer-test setting is presented as a tuned model.
+Cluster-bootstrap multiplicities and matrix-free selector columns accelerate
+computations while matching literal-resampling and dense toy references.
+All settings are charged the complete shared-library search cost, a conservative
+accounting convention rather than a matched independent-training budget.
+The registered plan and smoke audit precede main scoring; results are pending.
