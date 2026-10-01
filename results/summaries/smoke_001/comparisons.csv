@@ -1,0 +1,17 @@
+left,right,metric,paired_tasks,paired_splits,mean_advantage,ci_lower,ci_upper,win,tie,loss,interval_scope,multiplicity
+coerror,top_quality,auroc,1,2,0.0,0.0,0.0,0.0,1.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,abs_correlation,auroc,1,2,0.07868303571428575,0.07868303571428575,0.07868303571428575,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,random_forest,auroc,1,2,-0.012276785714285698,-0.012276785714285698,-0.012276785714285698,0.0,0.0,1.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,top_no_cert,auroc,0,0,,,,,,,,
+top_quality,top_no_cert,auroc,0,0,,,,,,,,
+shrinkage,coerror,auroc,1,2,0.0016741071428571508,0.0016741071428571508,0.0016741071428571508,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,caruana,auroc,0,0,,,,,,,,
+coerror_no_cert,random_forest,auroc,0,0,,,,,,,,
+coerror,top_quality,rmse,1,2,0.002097379971149782,0.002097379971149782,0.002097379971149782,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,abs_correlation,rmse,1,2,0.02784067048242056,0.02784067048242056,0.02784067048242056,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,random_forest,rmse,1,2,0.043233368781033676,0.043233368781033676,0.043233368781033676,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,top_no_cert,rmse,0,0,,,,,,,,
+top_quality,top_no_cert,rmse,0,0,,,,,,,,
+shrinkage,coerror,rmse,1,2,0.005057316285561275,0.005057316285561275,0.005057316285561275,1.0,0.0,0.0,task bootstrap over observed development tasks; no population guarantee,"exploratory intervals, unadjusted; no significance declarations"
+coerror,caruana,rmse,0,0,,,,,,,,
+coerror_no_cert,random_forest,rmse,0,0,,,,,,,,

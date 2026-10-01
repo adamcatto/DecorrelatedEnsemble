@@ -1,0 +1,16 @@
+method,mean_rank,tasks,task_type
+abs_correlation,7.0,1,binary
+certified_random,2.0,1,binary
+coerror,5.5,1,binary
+extra_trees,1.0,1,binary
+random_forest,3.0,1,binary
+random_subspace,8.0,1,binary
+shrinkage,4.0,1,binary
+top_quality,5.5,1,binary
+abs_correlation,6.0,1,regression
+coerror,3.0,1,regression
+extra_trees,4.0,1,regression
+random_forest,7.0,1,regression
+random_subspace,5.0,1,regression
+shrinkage,1.0,1,regression
+top_quality,2.0,1,regression

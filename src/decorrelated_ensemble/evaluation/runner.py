@@ -261,6 +261,10 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path):
             joblib.dump(model, raw_model, compress=0)
             search_cost = 1 if method.get("charge_search", True) else 0
             resource = {
+                "requested_K": method["K"],
+                "aggregation": "equal"
+                if np.allclose(chosen.weights, 1 / len(chosen.weights))
+                else "frequency_weighted",
                 "search": search_timer.to_dict(),
                 "screen": screen_timer.to_dict(),
                 "tuning": tuning_timer.to_dict(),
@@ -349,6 +353,8 @@ def run_fold(dataset, specs, cfg, seed, fold, train, test, path):
             **{k: v for k, v in diag.items() if k != "residual_eigenvalues"},
             **{k: v for k, v in resource.items() if not isinstance(v, dict)},
         }
+        if kind == "baseline":
+            row.update(B=None, certified_count=None, certification_rate=None)
         rows.append(row)
         write_json(method_path / "test_metrics.json", metrics)
     write_json(path / "records.json", rows)

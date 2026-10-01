@@ -1,4 +1,4 @@
-import numpy as np
+from pandas.api.types import is_numeric_dtype
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
@@ -7,8 +7,8 @@ from sklearn.preprocessing import OneHotEncoder
 
 def make_preprocessor(X):
     """Called on training rows after applying a candidate's raw feature mask."""
-    numerical = list(X.select_dtypes(include=np.number).columns)
-    categorical = [c for c in X.columns if c not in numerical]
+    numerical = [j for j, dtype in enumerate(X.dtypes) if is_numeric_dtype(dtype)]
+    categorical = [j for j in range(X.shape[1]) if j not in numerical]
     return ColumnTransformer(
         [
             ("numerical", SimpleImputer(strategy="median", keep_empty_features=True), numerical),
