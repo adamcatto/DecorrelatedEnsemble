@@ -1,0 +1,17 @@
+\section{Experimental Protocol}
+All initial settings are fixed before each run. Outer folds remain unused during
+candidate screening and selection; selected specifications are refitted on the
+full outer training fold. Any future tuning regenerates the complete pipeline
+inside an additional tuning split, rather than slicing a globally fitted OOF
+matrix. All baselines share outer splits and fold-local preprocessing.
+Development synthetic regimes are separate from any locked real-world confirmation
+suite. Binary AUROC and regression RMSE are primary; multiclass log loss is primary.
+Brier loss is additionally central to the mechanism analysis. Bootstrap intervals
+over fixed OOF rows omit training instability, and unadjusted candidate screens
+omit multiplicity. These limitations prohibit interpreting them as simultaneous
+statistical certification.
+Shared candidate-search cost is charged to every standalone selector. Capacity
+and inference measurements accompany accuracy; matched-budget claims require
+dedicated experiments. Paired task-level analyses average folds and seeds before
+resampling tasks. No row-level significance claims across tasks are permitted.
+

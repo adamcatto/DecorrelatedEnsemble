@@ -1,0 +1,29 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,graphicx,booktabs,hyperref,natbib}
+\title{Selection of Feature-Sparse Ensembles: Co-Error, Certification, and Generalization}
+\author{Research draft}
+\date{Living development manuscript; not a submission-ready evaluation}
+\begin{document}
+\maketitle
+\begin{abstract}
+We investigate ensembles selected from large populations of feature-sparse weak
+predictors. The study asks whether empirical skill screening and explicit error
+complementarity improve generalization beyond random subspaces and ordinary
+validation-based ensemble selection. Squared-error and binary Brier losses admit
+an exact residual second-moment objective, whereas correlation-based diversity
+discards scale and can penalize useful negative dependence. The protocol reserves
+outer test folds, compares methods on shared candidate populations, and records
+selection and computational costs. Initial experiments are development studies;
+no benchmark superiority or novelty claim is established.
+\end{abstract}
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/method}
+\input{sections/protocol}
+\input{sections/results}
+\input{sections/limitations}
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+\end{document}
+

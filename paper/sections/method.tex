@@ -1,0 +1,35 @@
+\section{Method}
+Candidate $b$ has a fixed raw-feature mask $F_b$, tree depth, leaf-size constraint,
+row-sampling fraction, and seed, specified before fitting. Fold-local preprocessing
+and the tree see only $F_b$. Inner cross-fitting yields predictions $P_{nb}$.
+Binary screening uses a stratified empirical bootstrap lower AUROC quantile;
+regression uses cross-fitted null-relative squared-error skill. We retain this as
+a heuristic screen, not a familywise certificate.
+
+\subsection{Theoretical Motivation}
+Let $E_{nb}=y_n-P_{nb}$ and $G=E^\top E/N$. For an equal-weight subset $S$ of
+cardinality $K$,
+\begin{equation}
+\widehat L_{\mathrm{sq}}(S)=K^{-2}\sum_{i,j\in S}G_{ij}.
+\end{equation}
+This is an algebraic identity for regression MSE and binary Brier loss, not a
+generalization bound. Writing $\mu=N^{-1}E^\top\mathbf 1$ gives
+$G=C+\mu\mu^\top$. Correlation removes marginal scale and mean; covariance
+alone removes bias. Neither equals squared ensemble loss. Statistical independence
+does not follow from zero correlation. Prediction correlation, error correlation,
+and useful ensemble complementarity are distinct.
+
+We compare random selection, empirical quality, absolute and signed error
+correlation, minimax dependence, quality--dependence tradeoffs, and greedy
+co-error followed by improving one-swaps. Direct squared-loss selection without
+replacement is exactly the same greedy objective, so it supplies a verification
+baseline rather than a separate contribution. A with-replacement Caruana-style
+baseline yields nonuniform weights and is labeled separately.
+
+\subsection{Bias-Preserving Shrinkage Variant}
+We additionally test $G_\alpha=(1-\alpha)C+\alpha\operatorname{diag}(C)+\mu\mu^\top$.
+Shrinkage could reduce noisy cross-moment exploitation as the pool grows. It can
+also suppress genuine complementarity. The falsifying experiment holds $K$ fixed,
+varies $B/N$, and measures outer loss and selection optimism. This regularizer
+has no established novelty or superiority claim.
+
