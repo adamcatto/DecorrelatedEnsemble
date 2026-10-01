@@ -34,3 +34,16 @@ completed, to test higher dimensionality. Training/selection row objectives diff
 from the group-max primary; preserve both and do not call this optimized MIL.
 Bioresponse deferred because preexisting descriptor-normalization provenance is
 unspecified. No primary data exclusion based on observed performance.
+
+## exp_007 — loss-aligned quality-only control (registered; pending)
+
+- **Hypothesis:** Co-error versus AUROC-quality differences partly reflect loss
+  alignment rather than cross-error optimization.
+- **Protocol/config:** `experiments/exp_007_quality_alignment/protocol.md` and
+  `configs/experiments/exp_007_quality_alignment.yaml`.
+- **Fixed:** Entire six-task exp_006 data/OOF/specifications/partitions; B6000,K64,
+  unscreened equal weights. No repeated search or new tuning.
+- **Change:** Select K minimum individual OOF squared losses (G diagonal).
+- **Status:** Registered after the three larger classification results, before
+  this control's predictions. Development reuse is explicit; regression is an
+  expected unchanged-selection check. Main exp_006 settings remain unchanged.

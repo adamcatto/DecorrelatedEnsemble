@@ -103,3 +103,21 @@ locked dataset/split/method manifest and an explicit milestone label; every
 access is appended to a ledger before computation. No confirmation run yet.
 Results from failed/partial runs are never silently deleted or pooled with
 completed runs. Aggregate scripts require explicit run identifiers.
+
+## Grouped evaluation extension v1 (exp_006)
+
+The v0 IID-only restriction above describes the original implementation. The
+verified extension supports exact-feature-vector and supplied source groups in
+both CV levels and complete-group bootstrap resampling. Temporal splitting remains
+unsupported. Group bootstrap is not automatically a valid population bound for
+reused OOF fits or an adaptively selected large library. Classification groups may
+contain mixed row labels; resampling groups is unstratified across groups and binary
+bootstrap metrics require both classes. Preserving groups takes priority over row
+class-count preservation. Source groups must exist when clustered evaluation is
+requested; molecule labels must be constant within groups for molecule metrics.
+
+Exp_006 uses four threads for OOF/refits. Requested numerical pool limits do not
+establish Apple Accelerate's actual thread count; build metadata and process CPU
+are recorded. Shared-library costs, all-method phase RSS, and raw serialized model
+artifact sizes remain explicit and unmatched. Raw model artifacts include fit-row
+provenance arrays, so their bytes are not an optimized deployment footprint.

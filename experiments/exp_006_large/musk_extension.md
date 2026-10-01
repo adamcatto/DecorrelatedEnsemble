@@ -27,3 +27,25 @@ loss identity remains about row Brier, not the nonlinear group-max metric.
 With only102 molecules, fold variability may be substantial. No population
 confidence intervals or selection based on best test configuration. This extension
 is development, registered later than the initial panel, and reported explicitly.
+
+## Auxiliary bag-size control (registered before the main Musk run)
+
+2026-10-01, after the small engineering smokes but before the main Musk run:
+max pooling may reflect bag cardinality as well as conformation signal. A separate
+auxiliary diagnostic will reuse the immutable main outer partitions, fit logistic
+regression (C=1, training-only standardization) on log(1+number of conformations)
+with one training observation per molecule, then evaluate molecule AUROC once.
+No distance features or identifier values enter this control. Record all group
+sizes, predictions and fitted coefficients. This is an explanation control,
+not another tuned candidate or a replacement for the predesignated anchor.
+A strong count-only score would weaken claims about chemical feature signal;
+a weak score would not rule out every pooling/cardinality interaction. It adds
+structural bag information that max pooling also uses, so it is not a matched
+row-feature learner. No main settings, scores or split definitions are changed.
+
+The null thought experiment is exact: if conformation scores were independent
+Uniform(0,1), a bag of size m has max-score CDF t^m. Larger bags then receive
+stochastically larger scores without any feature skill. The independence/uniform
+assumptions are illustrative, not asserted for fitted tree scores. The trained
+count control tests task-specific predictive structure rather than treating that
+illustration as empirical proof.

@@ -1,0 +1,16 @@
+id: exp_007_quality_alignment
+role: development
+reference_runs:
+- exp_006_large_credit_default_v1
+- exp_006_large_higgs_v1
+- exp_006_large_miniboone_v1
+- exp_006_large_superconductivity_v1
+- exp_006_large_california_housing_v1
+- exp_006_large_musk2_v1
+method:
+  id: top_squared_b6000_k64
+  selector: top_squared
+  K: 64
+  certified: false
+refit_jobs: 4
+hypothesis: Co-error versus AUROC-quality gains partly reflect the quality metric; top individual OOF squared loss is the loss-aligned control. Reuse immutable development data/pools/splits, preserve all outcomes, no test tuning.

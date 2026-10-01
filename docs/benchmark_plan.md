@@ -23,3 +23,18 @@ TabArena **system** where appropriate; calling it a single untuned tree estimato
 would misrepresent its compute. Under a shared tuning protocol, all extra nested
 fits must count against the resource budget. Current synthetic static configurations
 do not satisfy tuned, resource-matched benchmark comparisons.
+
+## Baseline scope recheck during exp_006 (no benchmark scoring)
+
+The official repository still distinguishes system-owned search from a shared
+model protocol and recommends TabArena before BeyondArena. Its current core extra
+lists TabPFN, TabICL, EBM, RealMLP, TabDPT and TabM. Rechecked the current
+[leaderboard source](https://huggingface.co/spaces/TabArena/leaderboard/raw/main/website_texts.py)
+and [TabPFN-3 technical report v2](https://arxiv.org/abs/2605.13986v2).
+The report discusses substantially larger scales than older TabPFN versions;
+its author-reported ranking is not our independent result. Do not use an old
+small-N eligibility rule to omit current versions. The live leaderboard can
+postdate that report; freeze exact checkpoints, code, access mode and resource
+limits before confirmation. AutoGluon, competitive foundation/neural methods and
+tuned boosting remain gates, not satisfied by exp_006's static classical controls.
+No confirmation tasks or cached prediction arrays have been accessed.
