@@ -72,11 +72,22 @@ run has a SHA256 artifact manifest. Incomplete runs are retained with failure st
 Training costs include OOF search, screening, selector, and refit. Shared pool
 cost is charged in full to each standalone selection method; wall time and CPU
 time are recorded. Memory measurements must state their scope.
+The current runner retains fitted plans for all methods until scoring. Its
+per-phase peak RSS includes shared OOF arrays, imported runtimes, and preceding
+models; it is a process high-water measurement, not isolated standalone model
+memory. A resource-matched study must use separate worker processes for that
+comparison. Search-charged methods conservatively include the common bootstrap
+screen even when their selection is unfiltered. Random-subspace diagnostics
+piggyback on the pool, while its intrinsic no-search cost is labeled separately.
 
 Dataset-level paired bootstrap averages repeated folds/seeds before sampling
 tasks. Synthetic task means are descriptive; do not manufacture independent
 datasets from folds or rows. Confidence intervals across a few deliberately
 chosen synthetic regimes are not real-world generalization guarantees.
+Regimes reuse generation seeds for controlled comparisons and can share raw
+features/noise. Resampling these chosen regime labels does not resolve dependence
+between them. The reported exploratory intervals are descriptive and must not
+be interpreted as calibrated confidence coverage or significance tests.
 
 ## Confirmation protection
 

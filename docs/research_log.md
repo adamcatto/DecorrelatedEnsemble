@@ -82,3 +82,29 @@ Literature update: Breiman (1996) explicitly uses cross-validation predictions a
 residual-product quadratic loss for stacking. Portfolio error-covariance weighting
 also has direct precedent. Chen et al.'s nested honest least-squares shrinkage
 theory does not apply automatically to our non-nested data-adaptive trees.
+
+## exp_003 completed — pool scale helps conditionally and increases optimism
+
+72 outer evaluations completed across B=30/100/300 with K=8. All 48 adjacent-pool
+fold comparisons have exactly identical candidate, OOF, and bootstrap prefixes;
+the forest reference has unchanged predictions. Generated summaries preserve
+coverage and all paired split/seed effects.
+
+Unfiltered co-error gains binary additive AUROC with a larger pool, but additive
+regression is non-monotone with a small endpoint benefit. APCE additive OOF loss
+improves strongly as B grows while its outer endpoint performance worsens. The
+same flexible-search failure appears on null regression. This pattern supports
+investigating selection optimism, but it does not distinguish smaller OOF fits
+from refit shift or selection reuse. Alpha=.5 shrinkage provides no consistent
+outer benefit. Increasing B is not a monotone improvement mechanism at fixed K.
+
+Binary null screening survivors grow with the library; regression null screening
+retains zero candidates at these settings. These distinct failure/power patterns
+must not be pooled into a blanket certification conclusion. All results use two
+generation seeds and reused development tasks; no confirmation access occurred.
+
+Next discriminating design: independently fitted library with a disjoint selection
+sample, comparing retained fits and refitted specifications on the same outer
+test. `docs/independent_certification_design.md` derives a conservative simultaneous
+binary AUROC bound for fixed functions and records what it cannot certify. Also
+inspect exact tiny-pool optimization gaps before attributing all failure to statistics.

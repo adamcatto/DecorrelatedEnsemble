@@ -78,6 +78,42 @@ means. Positive values favor the added step. The null and most profiled co-error
 comparisons supply counterexamples.}
 \end{figure}
 
+\subsection{Experiment 003: Candidate Search at Fixed Ensemble Size}
+\input{tables/exp_003_pool_scaling_v1_facts}
+We vary $B\in\{30,100,300\}$ at fixed $K=8$ on additive and null mechanisms
+for both tasks, holding all other settings fixed. Across the 48 adjacent-pool
+fold comparisons, masks, OOF predictions, and bootstrap columns agree exactly
+on their prefixes; the fixed forest also gives identical predictions. Larger
+pools improve binary additive co-error performance, while additive regression
+is non-monotone: normalized co-error loss is
+\ExpThreeAdditiveCoerrorBThirty{}, \ExpThreeAdditiveCoerrorBHundred{}, and
+\ExpThreeAdditiveCoerrorBThreeHundred{}, respectively.
+
+The flexible profiled selector exposes increasing optimism. Its additive
+training OOF MSE decreases from \ExpThreeAdditiveProfiledOOFBThirty{} through
+\ExpThreeAdditiveProfiledOOFBHundred{} to \ExpThreeAdditiveProfiledOOFBThreeHundred{},
+while outer normalized loss changes from \ExpThreeAdditiveProfiledBThirty{} to
+\ExpThreeAdditiveProfiledBHundred{} and \ExpThreeAdditiveProfiledBThreeHundred{}.
+The endpoint deterioration occurs for both generation seeds in additive and null
+regression. Fixed $\alpha=0.5$ shrinkage supplies no consistent outer remedy.
+Thus a larger library improves the reused criterion without a monotone
+generalization benefit for these selectors.
+
+Binary null survivors rise from \ExpThreeNullBinaryBThirtyMin{}--\ExpThreeNullBinaryBThirtyMax{}
+at $B=30$ to \ExpThreeNullBinaryBThreeHundredMin{}--\ExpThreeNullBinaryBThreeHundredMax{}
+at $B=300$. Regression null screening retains no candidates at any pool size.
+This separates multiplicity-related false survival from the regression screen's
+low feasibility/power. It does not estimate familywise coverage from six splits.
+All comparisons reuse development seeds and remain descriptive.
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_003_pool_scaling_v1/performance_vs_B.pdf}
+\caption{Candidate-pool scaling at fixed $K=8$. Task means over six paired outer
+evaluations. Forest capacity is larger and budgets are unmatched; its unchanged
+predictions serve as a reference. Larger pools help binary additive co-error,
+but affine/profiled regression does not improve monotonically. Full split and
+generation-seed effects are stored with the artifacts.}
+\end{figure}
+
 \section{Real-World Benchmarks}
 No confirmation benchmark has been evaluated. Current benchmark versions and
 baseline requirements will be recorded before locking the study.
@@ -98,10 +134,13 @@ is \ExpOneAdditiveCoerror{} for unfiltered co-error, versus
 \ExpOneAdditiveCatboost{} for CatBoost. This observation does not establish that
 attenuation is the sole cause. Experiment 002 confirms modest fixed-subset
 calibration gains while refuting a consistent advantage of profiled selection.
-The next development experiment varies $B\in\{30,100,300\}$ at fixed $K=8$,
-with exact candidate and OOF prefixes, additive/null controls, and shrinkage.
-The predicted distinction is between improved validation fit and improved outer
+Experiment 003 distinguishes improved validation fit from improved outer
 performance as search freedom grows. Raw OOF/test loss gaps combine estimation,
 training-size, and sampling effects, so this diagnostic alone cannot identify
-the source of optimism. Independent selection holdouts with unchanged fitted
-models would subsequently distinguish these explanations more directly.
+the source of optimism. The next test uses independent selection holdouts,
+comparing retained fitted functions with refitted specifications. Simultaneous
+binary AUROC certification for an independent fixed library is possible using
+a conservative bounded-differences bound \citep{mcdiarmid1989}; it supplies no automatic guarantee
+for OOF scores or subsequent refits. Linear baselines and oracle subspace controls
+are also needed to separate representation mismatch from selection failure on
+the known additive designs.

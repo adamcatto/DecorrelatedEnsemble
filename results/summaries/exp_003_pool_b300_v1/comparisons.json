@@ -1,0 +1,497 @@
+[
+  {
+    "ci_lower": -0.005090999899909942,
+    "ci_upper": 0.034696563616996655,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": 0.014802781858543355,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 11,
+    "paired_tasks": 2,
+    "right": "top_quality",
+    "task_advantages": {
+      "additive_binary": 0.034696563616996655,
+      "null_binary": -0.005090999899909942
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "coerror",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "ci_lower": -0.09903097254319905,
+    "ci_upper": 0.027430828745871272,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.03580007189866389,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 11,
+    "paired_tasks": 2,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_binary": -0.09903097254319905,
+      "null_binary": 0.027430828745871272
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": 0.01393245504287193,
+    "ci_upper": 0.034696563616996655,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.024314509329934293,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_binary": 0.034696563616996655,
+      "null_binary": 0.01393245504287193
+    },
+    "tie": 0,
+    "win": 2
+  },
+  {
+    "ci_lower": 0.0,
+    "ci_upper": 0.004049999999999998,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "top_quality",
+    "loss": 0,
+    "mean_advantage": 0.002024999999999999,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 11,
+    "paired_tasks": 2,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_binary": 0.0,
+      "null_binary": 0.004049999999999998
+    },
+    "tie": 1,
+    "win": 1
+  },
+  {
+    "left": "shrinkage",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": -0.09903097254319905,
+    "ci_upper": 0.03252102141927737,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.033254975561960845,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_binary": -0.09903097254319905,
+      "null_binary": 0.03252102141927737
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": 0.0029092622719431582,
+    "ci_upper": 0.019943363344694376,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.011426312808318767,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.019943363344694376,
+      "null_regression": 0.0029092622719431582
+    },
+    "tie": 0,
+    "win": 2
+  },
+  {
+    "left": "top_quality",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": -0.09053773926010289,
+    "ci_upper": 0.014137833214664977,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.038199953022718953,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.09053773926010289,
+      "null_regression": 0.014137833214664977
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "ci_lower": -0.011635258649130342,
+    "ci_upper": 0.00689066555128659,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert_affine",
+    "loss": 1,
+    "mean_advantage": -0.002372296548921876,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "coerror_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.00689066555128659,
+      "null_regression": -0.011635258649130342
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": -0.004409688594396906,
+    "ci_upper": -0.0025310037388275677,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 2,
+    "mean_advantage": -0.003470346166612237,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "coerror_no_cert_affine",
+    "task_advantages": {
+      "additive_regression": -0.0025310037388275677,
+      "null_regression": -0.004409688594396906
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "ci_lower": -0.08617807744764387,
+    "ci_upper": -0.0019071140288622705,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 2,
+    "mean_advantage": -0.044042595738253074,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.08617807744764387,
+      "null_regression": -0.0019071140288622705
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_quality"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "abs_correlation"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": 0.005674177013461475,
+    "ci_upper": 0.027361128212879744,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.01651765261317061,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.027361128212879744,
+      "null_regression": 0.005674177013461475
+    },
+    "tie": 0,
+    "win": 2
+  },
+  {
+    "left": "top_quality",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "shrinkage",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror"
+  },
+  {
+    "left": "coerror",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "caruana"
+  },
+  {
+    "ci_lower": -0.1188677639964242,
+    "ci_upper": 0.028786091277842835,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.04504083635929068,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.1188677639964242,
+      "null_regression": 0.028786091277842835
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "ci_lower": -0.023378638125092315,
+    "ci_upper": 0.008796743269137708,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "coerror_no_cert_affine",
+    "loss": 1,
+    "mean_advantage": -0.007290947427977304,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "coerror_no_cert",
+    "task_advantages": {
+      "additive_regression": 0.008796743269137708,
+      "null_regression": -0.023378638125092315
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": -0.008785708048656268,
+    "ci_upper": -0.0025397764951405146,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 2,
+    "mean_advantage": -0.005662742271898391,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "coerror_no_cert_affine",
+    "task_advantages": {
+      "additive_regression": -0.0025397764951405146,
+      "null_regression": -0.008785708048656268
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "ci_lower": -0.112610797222427,
+    "ci_upper": -0.003378254895905745,
+    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "left": "affine_profiled",
+    "loss": 2,
+    "mean_advantage": -0.05799452605916638,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 12,
+    "paired_tasks": 2,
+    "right": "random_forest",
+    "task_advantages": {
+      "additive_regression": -0.112610797222427,
+      "null_regression": -0.003378254895905745
+    },
+    "tie": 0,
+    "win": 0
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "B": [
+    30,
+    100,
+    300
+  ],
+  "K": 8,
+  "interpretation": "OOF/test gaps combine selection, training-size/refit, and sampling effects; no causal or significance claim",
+  "report_sha256": "8eb371e7f21e3955daedbf6350af7d3e179151fb764d5a0f224043dc4bde4d21",
+  "role": "development",
+  "runs": [
+    "exp_003_pool_b30_v1",
+    "exp_003_pool_b100_v1",
+    "exp_003_pool_b300_v1"
+  ]
+}

@@ -11,6 +11,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.ticker import NullLocator
 
 from decorrelated_ensemble.evaluation.artifacts import sha256, write_json
 
@@ -52,6 +53,11 @@ def verify_prefixes(roots):
                         raise ValueError(f"Non-identical pool OOF/split prefix: {name}/{key}")
             if (a / "inner_splits.json").read_text() != (z / "inner_splits.json").read_text():
                 raise ValueError("Inner splits differ")
+            baseline_a = np.load(a / "random_forest/test_predictions.npz")
+            baseline_z = np.load(z / "random_forest/test_predictions.npz")
+            for key in baseline_a.files:
+                if not np.array_equal(baseline_a[key], baseline_z[key]):
+                    raise ValueError("Unchanged forest reference has different predictions")
             cert_a, cert_z = np.load(a / "certification.npz"), np.load(z / "certification.npz")
             for key in cert_a.files:
                 expected = cert_z[key][:, :b] if key == "bootstrap" else cert_z[key][:b]
@@ -116,8 +122,9 @@ def make_report(run_ids):
             xlabel="Candidate B; K=8",
         )
         ax.set_xticklabels(["30", "100", "300"])
-    axes.flat[1].legend(fontsize=7)
-    axes.flat[3].legend(fontsize=7)
+        ax.xaxis.set_minor_locator(NullLocator())
+    handles, names = axes.flat[1].get_legend_handles_labels()
+    fig.legend(handles, names, loc="outside lower center", ncols=7, fontsize=8)
     fig.savefig(figures / "performance_vs_B.pdf")
     fig.savefig(figures / "performance_vs_B.png", dpi=180)
     plt.close(fig)
@@ -143,8 +150,9 @@ def make_report(run_ids):
             xlabel="Candidate B; K=8",
         )
         ax.set_xticklabels(["30", "100", "300"])
-    axes.flat[1].legend(fontsize=7)
-    axes.flat[3].legend(fontsize=7)
+        ax.xaxis.set_minor_locator(NullLocator())
+    handles, names = axes.flat[1].get_legend_handles_labels()
+    fig.legend(handles, names, loc="outside lower center", ncols=5, fontsize=8)
     fig.savefig(figures / "oof_test_vs_B.pdf")
     plt.close(fig)
     screening = splits.dropna(subset=["certified_count"]).drop_duplicates(
@@ -157,20 +165,26 @@ def make_report(run_ids):
         axes[0].plot(rows.index, rows.certified_count, "o-", label=dataset.removeprefix("null_"))
         axes[1].plot(rows.index, rows.certification_rate, "o-")
     for method, label, color in zip(methods[1:6], labels[1:6], colors[1:6]):
-        rows = tasks[tasks.method == method].groupby("pool_B").train_cpu_seconds.mean()
+        rows = (
+            tasks[(tasks.method == method) & (tasks.task == "regression")]
+            .groupby("pool_B")
+            .train_cpu_seconds.mean()
+        )
         if len(rows):
             axes[2].plot(rows.index, rows, "o-", label=label, color=color)
     for ax in axes:
         ax.set(xscale="log", xticks=[30, 100, 300], xlabel="Candidate B; K=8")
         ax.set_xticklabels(["30", "100", "300"])
+        ax.xaxis.set_minor_locator(NullLocator())
     axes[0].set_ylabel("Mean null-screen survivors")
     axes[1].set_ylabel("Mean null-screen rate")
-    axes[2].set_ylabel("Standalone search/train CPU seconds")
+    axes[2].set_ylabel("Search/train CPU sec (regression tasks)")
     axes[0].legend(fontsize=7)
     axes[2].legend(fontsize=6)
     fig.savefig(figures / "screening_compute_vs_B.pdf")
     plt.close(fig)
     effects = []
+    seed_effects = []
     for task, metric in [("binary", "auroc"), ("regression", "normalized_squared_loss")]:
         for method in methods:
             frame = splits[
@@ -192,7 +206,19 @@ def make_report(run_ids):
                         "paired_splits": len(rows),
                     }
                 )
+            for (dataset, seed), rows in a.groupby(["dataset", "seed"]):
+                seed_effects.append(
+                    {
+                        "dataset": dataset,
+                        "seed": seed,
+                        "method": method,
+                        "metric": metric,
+                        "advantage_B300_vs_B30": rows.advantage_300.mean(),
+                        "paired_folds": len(rows),
+                    }
+                )
     pd.DataFrame(effects).to_csv(out / "endpoint_effects.csv", index=False)
+    pd.DataFrame(seed_effects).to_csv(out / "seed_effects.csv", index=False)
     facts = {}
     pool_words = {30: "Thirty", 100: "Hundred", 300: "ThreeHundred"}
     for task in ["binary", "regression"]:
@@ -214,6 +240,14 @@ def make_report(run_ids):
             facts[f"ExpThreeAdditive{suffix}B{pool_words[b]}"] = (
                 f"{table.loc[('additive_regression', b), method]:.3f}"
             )
+        apce = tasks[
+            (tasks.dataset == "additive_regression")
+            & (tasks.pool_B == b)
+            & (tasks.method == "affine_profiled")
+        ].iloc[0]
+        facts[f"ExpThreeAdditiveProfiledOOFB{pool_words[b]}"] = (
+            f"{apce.oof_calibrated_squared_loss:.3f}"
+        )
     Path("paper/tables/exp_003_pool_scaling_v1_facts.tex").write_text(
         "% Generated from frozen artifacts.\n"
         + "\n".join(
@@ -236,6 +270,8 @@ def make_report(run_ids):
         "# exp_003 pool scaling: generated factual note\n\n"
         + "## Endpoint effects (positive = B300 better than B30)\n\n"
         + pd.DataFrame(effects).to_string(index=False)
+        + "\n\n## Generation-seed endpoint effects\n\n"
+        + pd.DataFrame(seed_effects).to_string(index=False)
         + "\n\n"
         + "## Null screening counts/rates\n\n"
         + screening[screening.dataset.str.startswith("null_")]

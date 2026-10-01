@@ -1,0 +1,20 @@
+{
+  "affine_fits_audited": 24,
+  "checks": [
+    "artifact hashes",
+    "outer disjointness",
+    "outer/inner partitions and OOF coverage",
+    "OOF and test label row mapping",
+    "test prediction row mapping",
+    "stored metric reconstruction",
+    "weighted co-error identity",
+    "direct/greedy squared objective identity",
+    "training OOF affine fit and profiled loss reconstruction where applicable",
+    "same selected subsets for raw/calibrated controls where applicable"
+  ],
+  "folds_audited": 24,
+  "maximum_squared_loss_identity_error": 6.661338147750939e-16,
+  "run_id": "exp_003_pool_b30_v1",
+  "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel",
+  "test_predictions_audited": 156
+}

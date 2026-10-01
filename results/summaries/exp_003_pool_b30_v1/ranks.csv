@@ -1,0 +1,15 @@
+method,mean_rank,tasks,task_type
+coerror,4.0,1,binary
+coerror_no_cert,2.75,2,binary
+random_forest,3.0,2,binary
+random_subspace,5.5,2,binary
+shrinkage_no_cert,1.75,2,binary
+top_no_cert,3.5,2,binary
+top_quality,6.0,1,binary
+affine_profiled,1.75,2,regression
+coerror_no_cert,4.5,2,regression
+coerror_no_cert_affine,2.25,2,regression
+random_forest,4.0,2,regression
+random_subspace,5.5,2,regression
+shrinkage_no_cert,4.0,2,regression
+top_no_cert,6.0,2,regression

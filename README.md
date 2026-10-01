@@ -53,6 +53,9 @@ baselines at these settings. Screening causes infeasibility and null false survi
 unchanged co-error subsets in five of six regimes, but affine-profiled selection
 loses on five of six task means despite improving its training OOF criterion.
 These negative findings are retained in the manuscript and research log.
+`exp_003_pool_b{30,100,300}_v1` adds 72 outer evaluations at fixed K=8. Exact
+pool/OOF/bootstrap prefixes isolate B. Binary additive co-error improves, but
+regression gains are non-monotone and profiled selection overfits its OOF criterion.
 
 Bundles in `results/artifacts/` include data, predictions, decisions, config,
 source snapshot, environment, and checksums. Large-run bundles explicitly omit
