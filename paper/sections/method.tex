@@ -65,6 +65,9 @@ $G_{ii}$, with stable candidate-ID ties and equal weights. It uses no cross-erro
 terms. For regression it is equivalent to ranking individual cross-fitted skill
 on a common null denominator; for classification it tests whether comparing
 AUROC quality with Brier-based co-error confounds quality-criterion alignment.
+Mathematical regression equivalence does not require identical finite-precision
+rankings: skill transforms can collapse loss differences and alter boundary ties.
+Actual ID/subset/prediction equivalence is recorded rather than assumed.
 
 \subsection{Bias-Preserving Shrinkage Variant}
 We additionally test $G_\alpha=(1-\alpha)C+\alpha\operatorname{diag}(C)+\mu\mu^\top$.

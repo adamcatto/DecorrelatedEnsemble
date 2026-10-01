@@ -16,6 +16,25 @@ def audit(run_id, predictions_only=False):
     verify_manifest(root, allow_missing_models=predictions_only)
     if json.loads((root / "status.json").read_text())["state"] != "complete":
         raise ValueError("Only completed interventions can enter the audit")
+    resume_path = root / "resume.json"
+    if resume_path.exists():
+        resume = json.loads(resume_path.read_text())
+        previous = Path("results/runs") / resume["run_id"]
+        verify_manifest(previous, allow_missing_models=predictions_only)
+        if sha256(previous / "manifest.json") != resume["manifest_sha256"]:
+            raise ValueError("Immutable failed resume source changed")
+        for reused in resume["reused_folds"]:
+            for name, digest in reused["sha256"].items():
+                old, new = previous / reused["fold"] / name, root / reused["fold"] / name
+                if (
+                    predictions_only
+                    and name == "model.joblib"
+                    and not old.exists()
+                    and not new.exists()
+                ):
+                    continue
+                if sha256(old) != digest or sha256(new) != digest:
+                    raise ValueError("Resumed artifact changed or was rescored")
     rows, checked = [], set()
     for pointer in sorted(root.rglob("reference.json")):
         fold = pointer.parent
@@ -55,8 +74,6 @@ def audit(run_id, predictions_only=False):
         np.testing.assert_array_equal(selection["weights"], np.full(64, 1 / 64))
         original = json.loads((source / "top_quality_b6000_k64" / "selection.json").read_text())
         same = original["ids"] == selection["ids"]
-        if metadata["task"] == "regression" and not same:
-            raise ValueError("Regression selection control changed")
         test = np.load(fold / "test_predictions.npz")
         np.testing.assert_array_equal(test["rows"], split["test"])
         np.testing.assert_array_equal(test["y"], data_y[split["test"]])
@@ -89,6 +106,17 @@ def audit(run_id, predictions_only=False):
                 "dataset": metadata["id"],
                 "fold_path": str(fold.relative_to(root)),
                 "same_original_quality_ids": same,
+                "same_original_quality_subset": set(original["ids"]) == set(selection["ids"]),
+                "max_original_quality_prediction_difference": float(
+                    np.max(
+                        np.abs(
+                            test["prediction"]
+                            - np.load(source / "top_quality_b6000_k64" / "test_predictions.npz")[
+                                "prediction"
+                            ]
+                        )
+                    )
+                ),
                 "gram_identity_error": abs(gram_loss - actual_loss),
             }
         )
@@ -110,7 +138,8 @@ def audit(run_id, predictions_only=False):
                 "group and label/prediction row mapping",
                 "metric reconstruction",
                 "Gram loss identity",
-                "identical regression selection/refit predictions",
+                "observed original quality selection/refit equivalence; finite-precision ties recorded",
+                "byte-exact reused decisions/refits/scores linked to immutable failed attempt where present",
             ],
             "scope": "Engineering audit on reused development folds; no independent confirmation or population inference",
         },

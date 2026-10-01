@@ -45,7 +45,11 @@ def verify_export(run_id):
         metadata = restore_bundle(run_id, artifacts, runs, temporary)
         cfg = json.loads((runs / run_id / "config.json").read_text())
         dependencies = []
-        for dependency in cfg.get("reference_runs", []):
+        dependency_ids = list(cfg.get("reference_runs", []))
+        resume_path = runs / run_id / "resume.json"
+        if resume_path.exists():
+            dependency_ids.append(json.loads(resume_path.read_text())["run_id"])
+        for dependency in dependency_ids:
             restored = restore_bundle(dependency, artifacts, runs, temporary)
             dependencies.append(
                 {"run_id": dependency, "archive_sha256": restored["archive_sha256"]}

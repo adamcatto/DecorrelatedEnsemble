@@ -288,3 +288,20 @@ All95 tests pass after adding sample/partition metadata checks. The report's
 generated Musk LaTeX macro names use alphabetic identifiers; paper compilation
 checks the resulting tables. Main configurations remain unchanged. Exp_007 is
 next, on the entire immutable panel; all six tasks remain development only.
+
+### 2026-10-01 — numerical control failure preserved; continuation registered
+
+Exp_007 v1 stops at California fold0 after12 records/13 saved outcomes. Training-
+only diagnosis: sorted loss changes one boundary member173->1529 versus sorted
+stored skill; same feature mask/settings, loss differs1e-16, OOF difference at
+most1.78e-15. Other rank-order swaps also arise from skill-tie collapse. No test
+outcomes were read for the diagnosis, and no algorithm/parameter/ranking changes
+follow. Requiring an expected scientific control result as a program invariant
+was incorrect. Added an analytic float counterexample and byte-exact continuation
+tests; preserve the immutable failed attempt and source manifest.
+
+V2 will reuse13 completed decisions/refits/scores without reevaluation, verify
+their input/decision/file hashes, fit only the5 remaining folds, and report actual
+ID/subset/prediction equivalence. Per-method resources retain original costs;
+the continuation's total timer covers only that continuation. This correction
+is independently justified by numerical training evidence, not poor performance.

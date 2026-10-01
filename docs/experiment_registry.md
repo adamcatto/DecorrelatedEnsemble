@@ -43,7 +43,7 @@ Registered count-only molecule control averagesAUC.454 (folds.498/.456/.408).
 This primary-metric counterexample is preserved; no simple count-only explanation
 is supported, and more complex pooling/cardinality effects remain possible.
 
-## exp_007 — loss-aligned quality-only control (registered; pending)
+## exp_007 — loss-aligned quality-only control (registered; continuation pending)
 
 - **Hypothesis:** Co-error versus AUROC-quality differences partly reflect loss
   alignment rather than cross-error optimization.
@@ -55,3 +55,8 @@ is supported, and more complex pooling/cardinality effects remain possible.
 - **Status:** Registered after the three larger classification results, before
   this control's predictions. Development reuse is explicit; regression is an
   expected unchanged-selection check. Main exp_006 settings remain unchanged.
+- **Failure preserved:** v1 stopped at California fold0 after12 records/13 saved
+  predictions because a numerical regression-equality assertion was too strong.
+  Training-only diagnosis finds a one-member boundary change with1.78e-15 max
+  OOF difference and tied skill. V2 preserves/copies13 outcomes byte-exact and
+  completes5 remaining folds; selector unchanged, actual equality reported.

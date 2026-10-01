@@ -7,8 +7,11 @@ sample/partition metadata, task-level statistics and resource plots are generate
 Musk molecule AUC supplies a negative primary result despite improved row Brier.
 
 Exp_007 loss-aligned quality control was registered/tested before its scoring.
-It is next to run on all six immutable parents. All95 tests pass. Preserve all
-outcomes and failed artifacts; the main sweep settings remain frozen.
+V1 stopped after13 saved outcomes at a finite-precision regression assertion;
+the training-only diagnosis is recorded and the failed run remains immutable.
+V2 will copy13 outcomes byte-exact and score only5 remaining folds. Export both
+attempts and include the failed source in v2's fresh reconstruction dependencies.
+The selector and main settings remain frozen; equality is an observed control.
 
 Avoid heavy exports/tests/plots during timed training. After Musk completes,
 run the registered controls, audit their artifacts, generate the full six-task

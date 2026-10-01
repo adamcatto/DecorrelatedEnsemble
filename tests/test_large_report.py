@@ -150,3 +150,45 @@ def test_large_metadata_separates_sample_and_full_source_counts(tmp_path):
     assert partitions.loc["train", "positive_rows"] == 1
     assert partitions.loc["train", "positive_molecules"] == 1
     assert partitions.loc["test", "split_groups"] == 1
+
+
+def test_resume_reuses_artifacts_and_rejects_changed_decisions(tmp_path):
+    import json
+
+    spec = importlib.util.spec_from_file_location(
+        "alignment", Path("scripts/run_quality_alignment.py")
+    )
+    aligned = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(aligned)
+    old, new = tmp_path / "old", tmp_path / "new"
+    old.mkdir()
+    new.mkdir()
+    for name in ["reference.json", "selection.json"]:
+        for root in [old, new]:
+            (root / name).write_text(json.dumps({"fixed": [1, 2, 3]}))
+    for name in [
+        "model.joblib",
+        "resources.json",
+        "diagnostics.json",
+        "test_predictions.npz",
+        "test_metrics.json",
+    ]:
+        (old / name).write_bytes(b"immutable fitted or scored artifact")
+    copied = aligned.reuse_completed_fold(old, new)
+    assert len(copied) == 7
+    for name in copied:
+        assert (old / name).read_bytes() == (new / name).read_bytes()
+    (new / "selection.json").write_text(json.dumps({"fixed": [2, 3, 4]}))
+    with pytest.raises(ValueError, match="decisions or frozen inputs changed"):
+        aligned.reuse_completed_fold(old, new)
+
+
+def test_finite_precision_skill_transform_can_collapse_loss_order():
+    import numpy as np
+
+    loss = np.array([0.5, np.nextafter(0.5, 0)])
+    quality = 1 - loss
+    assert loss[1] < loss[0]
+    assert quality[0] == quality[1]
+    np.testing.assert_array_equal(np.argsort(loss, kind="stable"), [1, 0])
+    np.testing.assert_array_equal(np.argsort(-quality, kind="stable"), [0, 1])

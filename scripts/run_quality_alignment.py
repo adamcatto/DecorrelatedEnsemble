@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import shutil
 from pathlib import Path
 
 import joblib
@@ -43,7 +44,32 @@ def squared_quality_selection(y, P, null, task, method, seed):
     )
 
 
-def run(config_path, run_id, predictions_only=False):
+def reuse_completed_fold(previous, target):
+    """Reuse frozen decisions, refits and scores without another test evaluation."""
+    for name in ["reference.json", "selection.json"]:
+        saved = json.loads((previous / name).read_text())
+        current = json.loads((target / name).read_text())
+        if saved != current:
+            raise ValueError("Resumed fold decisions or frozen inputs changed")
+    names = [
+        "reference.json",
+        "selection.json",
+        "model.joblib",
+        "resources.json",
+        "diagnostics.json",
+        "test_predictions.npz",
+        "test_metrics.json",
+    ]
+    copied = {}
+    for name in names:
+        if not (previous / name).exists():
+            raise ValueError("Resumed completed fold lacks required artifacts")
+        shutil.copy2(previous / name, target / name)
+        copied[name] = sha256(target / name)
+    return copied
+
+
+def run(config_path, run_id, predictions_only=False, resume_from=None):
     repo = Path(__file__).resolve().parents[1]
     cfg = yaml.safe_load(Path(config_path).read_text())
     if cfg["role"] != "development" or cfg["method"] != {
@@ -70,12 +96,29 @@ def run(config_path, run_id, predictions_only=False):
         verify_manifest(reference, allow_missing_models=predictions_only)
         if json.loads((reference / "status.json").read_text())["state"] != "complete":
             raise ValueError("All reference tasks must be complete")
+    resume = (repo / "results" / "runs" / resume_from) if resume_from else None
+    resume_info, reused = {}, []
+    if resume is not None:
+        verify_manifest(resume)
+        if json.loads((resume / "config.json").read_text()) != cfg:
+            raise ValueError("Resume config differs from the registered intervention")
+        old_status = json.loads((resume / "status.json").read_text())
+        if old_status["state"] != "failed":
+            raise ValueError("Only an immutable failed attempt can supply resume artifacts")
+        resume_info = {
+            "run_id": resume_from,
+            "manifest_sha256": sha256(resume / "manifest.json"),
+            "status": old_status,
+            "scope": "Reuse completed decisions/refits/test outcomes byte-exact; no repeated test scoring. Total run time measures this continuation only; per-method resources retain inherited and original refit costs.",
+        }
     destination = repo / "results" / "runs" / run_id
     destination.mkdir(parents=True, exist_ok=False)
     write_json(destination / "config.json", cfg)
     write_json(destination / "environment.json", environment(repo))
     snapshot(repo, destination / "source.zip")
     write_json(destination / "status.json", {"state": "running", "run_id": run_id})
+    if resume is not None:
+        write_json(destination / "resume.json", {**resume_info, "reused_folds": []})
     records, audits = [], []
     try:
         with threadpool_limits(limits=1), ResourceTimer() as total:
@@ -149,72 +192,89 @@ def run(config_path, run_id, predictions_only=False):
                             "trace": chosen.trace,
                         },
                     )
-                    with ResourceTimer() as refit_timer:
-                        model = fit_selection(
-                            X.iloc[train], y, specs, chosen, task, n_jobs=cfg["refit_jobs"]
+                    previous = (resume / name / data.name / source.name) if resume else None
+                    if previous is not None and (previous / "test_metrics.json").exists():
+                        copied = reuse_completed_fold(previous, target)
+                        reused.append(
+                            {"fold": str(target.relative_to(destination)), "sha256": copied}
                         )
-                    joblib.dump(model, target / "model.joblib", compress=0)
-                    resource = {
-                        "selection": selection_timer.to_dict(),
-                        "refit": refit_timer.to_dict(),
-                        "model_bytes": (target / "model.joblib").stat().st_size,
-                        **model.capacity(),
-                        **measure_inference(model, X.iloc[train], lambda m, x: m.predict(x)),
-                    }
-                    inherited = json.loads(
-                        (source / "coerror_b6000_k64" / "resources.json").read_text()
-                    )
-                    for kind in ["cpu", "wall"]:
-                        key = kind + "_seconds"
-                        resource["train_" + key] = (
-                            inherited["search"][key]
-                            + inherited["screen"][key]
-                            + getattr(selection_timer, kind)
-                            + getattr(refit_timer, kind)
+                        write_json(
+                            destination / "resume.json", {**resume_info, "reused_folds": reused}
                         )
-                    resource["search"] = inherited["search"]
-                    resource["screen"] = inherited["screen"]
-                    resource["resource_scope"] = (
-                        "Inherited full shared-library cost plus incremental selector/refit; cached-input reads separate in total run time; no matched budget"
-                    )
-                    quality = np.load(source / "certification.npz")["quality"]
-                    diag = diagnostics(y, P, task, specs, chosen, quality)
-                    write_json(target / "resources.json", resource)
-                    write_json(target / "diagnostics.json", diag)
-                    # Every decision and refit is saved before accessing test outcomes here.
-                    prediction = model.predict(X.iloc[test])
-                    metrics = evaluate_metrics(y_all[test], prediction, task)
-                    if parent_cfg.get("group_aggregation"):
-                        metrics.update(
-                            evaluate_binary_groups(
-                                y_all[test],
-                                prediction,
-                                groups[test],
-                                parent_cfg["group_aggregation"],
+                        resource = json.loads((target / "resources.json").read_text())
+                        diag = json.loads((target / "diagnostics.json").read_text())
+                        metrics = json.loads((target / "test_metrics.json").read_text())
+                        with np.load(target / "test_predictions.npz") as saved:
+                            prediction = saved["prediction"]
+                    else:
+                        with ResourceTimer() as refit_timer:
+                            model = fit_selection(
+                                X.iloc[train], y, specs, chosen, task, n_jobs=cfg["refit_jobs"]
                             )
+                        joblib.dump(model, target / "model.joblib", compress=0)
+                        resource = {
+                            "selection": selection_timer.to_dict(),
+                            "refit": refit_timer.to_dict(),
+                            "model_bytes": (target / "model.joblib").stat().st_size,
+                            **model.capacity(),
+                            **measure_inference(model, X.iloc[train], lambda m, x: m.predict(x)),
+                        }
+                        inherited = json.loads(
+                            (source / "coerror_b6000_k64" / "resources.json").read_text()
                         )
-                    metrics["normalized_squared_loss"] = squared_loss(
-                        y_all[test], prediction, task
-                    ) / max(squared_loss(y_all[test], np.full(len(test), y.mean()), task), 1e-15)
-                    np.savez_compressed(
-                        target / "test_predictions.npz",
-                        rows=test,
-                        y=y_all[test],
-                        prediction=prediction,
-                    )
-                    write_json(target / "test_metrics.json", metrics)
+                        for kind in ["cpu", "wall"]:
+                            key = kind + "_seconds"
+                            resource["train_" + key] = (
+                                inherited["search"][key]
+                                + inherited["screen"][key]
+                                + getattr(selection_timer, kind)
+                                + getattr(refit_timer, kind)
+                            )
+                        resource["search"] = inherited["search"]
+                        resource["screen"] = inherited["screen"]
+                        resource["resource_scope"] = (
+                            "Inherited full shared-library cost plus incremental selector/refit; cached-input reads separate in total run time; no matched budget"
+                        )
+                        quality = np.load(source / "certification.npz")["quality"]
+                        diag = diagnostics(y, P, task, specs, chosen, quality)
+                        write_json(target / "resources.json", resource)
+                        write_json(target / "diagnostics.json", diag)
+                        # Every decision and refit is saved before accessing test outcomes here.
+                        prediction = model.predict(X.iloc[test])
+                        metrics = evaluate_metrics(y_all[test], prediction, task)
+                        if parent_cfg.get("group_aggregation"):
+                            metrics.update(
+                                evaluate_binary_groups(
+                                    y_all[test],
+                                    prediction,
+                                    groups[test],
+                                    parent_cfg["group_aggregation"],
+                                )
+                            )
+                        metrics["normalized_squared_loss"] = squared_loss(
+                            y_all[test], prediction, task
+                        ) / max(
+                            squared_loss(y_all[test], np.full(len(test), y.mean()), task), 1e-15
+                        )
+                        np.savez_compressed(
+                            target / "test_predictions.npz",
+                            rows=test,
+                            y=y_all[test],
+                            prediction=prediction,
+                        )
+                        write_json(target / "test_metrics.json", metrics)
                     original_top = json.loads(
                         (source / "top_quality_b6000_k64" / "selection.json").read_text()
                     )
                     same_ids = original_top["ids"] == chosen.ids.tolist()
-                    if task == "regression" and not same_ids:
-                        raise ValueError("Regression quality/loss selection control changed")
                     audit = {
                         "dataset": name,
                         "seed": seed,
                         "fold": fold,
                         "stable_top_diagonal_verified": True,
                         "same_ids_as_original_quality": same_ids,
+                        "same_subset_as_original_quality": set(original_top["ids"])
+                        == set(chosen.ids.tolist()),
                         "squared_objective_identity_error": abs(
                             diag["oof_squared_loss"]
                             - squared_loss(y, P[:, chosen.ids] @ chosen.weights, task)
@@ -226,6 +286,12 @@ def run(config_path, run_id, predictions_only=False):
                         ) as original:
                             np.testing.assert_array_equal(prediction, original["prediction"])
                         audit["same_test_predictions"] = True
+                    with np.load(
+                        source / "top_quality_b6000_k64" / "test_predictions.npz"
+                    ) as original:
+                        audit["max_original_quality_prediction_difference"] = float(
+                            np.max(np.abs(prediction - original["prediction"]))
+                        )
                     audits.append(audit)
                     records.append(
                         {
@@ -248,7 +314,7 @@ def run(config_path, run_id, predictions_only=False):
             destination / "audit.json",
             {
                 "folds": audits,
-                "scope": "Frozen-input hashes, stable diagonal ranking, unchanged regression subsets/test predictions, engineering controls; no population inference",
+                "scope": "Frozen-input hashes, stable diagonal ranking, observed regression subset/prediction equality; finite precision may change ties, engineering controls; no population inference",
             },
         )
         write_json(
@@ -276,5 +342,6 @@ if __name__ == "__main__":
     parser.add_argument("config")
     parser.add_argument("--run-id", default="exp_007_quality_alignment_v1")
     parser.add_argument("--predictions-only", action="store_true")
+    parser.add_argument("--resume-from")
     args = parser.parse_args()
-    print(run(args.config, args.run_id, args.predictions_only))
+    print(run(args.config, args.run_id, args.predictions_only, args.resume_from))
