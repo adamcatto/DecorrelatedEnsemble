@@ -19,6 +19,17 @@ alone removes bias. Neither equals squared ensemble loss. Statistical independen
 does not follow from zero correlation. Prediction correlation, error correlation,
 and useful ensemble complementarity are distinct.
 
+For multiclass probabilities, define vector residuals $r_{ni}=u_{y_n}-p_{ni}$,
+where $u_y$ is one-hot. We use $G_{ij}=N^{-1}\sum_n r_{ni}^\top r_{nj}$,
+giving sum-over-classes Brier loss. Classwise means $\mu_{ic}$ yield
+$G_{ij}=\sum_c C_{ij,c}+\sum_c\mu_{ic}\mu_{jc}$; covariance-only and
+shrinkage preserve this distinction. The initial multiclass correlation selectors
+apply Pearson correlation to flattened sample/class residual coordinates.
+Because each probability vector sums to one, the flattened residual means are
+zero and this correlation is $G_{ij}/\sqrt{G_{ii}G_{jj}}$. It retains classwise
+bias and should not be interpreted as a correlation of class-centered residuals.
+This convention is recorded explicitly before interpreting the wine results.
+
 We compare random selection, empirical quality, absolute and signed error
 correlation, minimax dependence, quality--dependence tradeoffs, and greedy
 co-error followed by improving one-swaps. Direct squared-loss selection without

@@ -1,0 +1,20 @@
+{
+  "affine_fits_audited": 12,
+  "checks": [
+    "artifact hashes",
+    "outer disjointness",
+    "outer/inner partitions and OOF coverage",
+    "OOF and test label row mapping",
+    "test prediction row mapping",
+    "stored metric reconstruction",
+    "weighted co-error identity",
+    "direct/greedy squared objective identity",
+    "training OOF affine fit and profiled loss reconstruction where applicable",
+    "same selected subsets for raw/calibrated controls where applicable"
+  ],
+  "folds_audited": 18,
+  "maximum_squared_loss_identity_error": 1.3642420526593924e-12,
+  "run_id": "exp_004_real_f50_v1",
+  "scope": "Engineering audit; does not prove statistical validity or absence of every leakage channel",
+  "test_predictions_audited": 468
+}

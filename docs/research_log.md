@@ -127,3 +127,31 @@ The statistical reporter now suppresses a degenerate task bootstrap interval
 when there is only one paired dataset; overlapping CV folds cannot repair that
 missing scientific replication. Real-panel reporting preserves paired feasible
 support, width effects and all secondary/resource metrics without pooled ranks.
+
+## exp_004 completed — real data reveal width and duplicate-column confounds
+
+36 outer evaluations, 936 test-prediction artifacts and 24 affine fits audited.
+All 18 paired-width partitions/nulls and 144 unchanged baseline prediction pairs
+match exactly. Applicable screened methods are feasible; top-quality screening
+returns identical IDs/weights to unscreened top quality in all 36 comparisons.
+Co-error improves primary means over top quality at both widths on all tasks,
+but the fixed RF and logistic/ridge controls are better in each case.
+Wider subspaces help wine/diabetes and hurt cancer AUROC: no universal width remedy.
+Large candidate search costs are explicit; smaller retained models do not imply
+faster/cheaper training. Full effects, secondary metrics and resources are generated
+in `results/summaries/exp_004_real_v1/`. No confirmation data were accessed.
+
+Exploratory OOF-equivalence audit: narrow diabetes has exactly ten distinct
+prediction columns among 100 specifications in every fold. Top quality's eight
+members contain only one or two distinct vectors; co-error contains two to four.
+This is effective weighting/duplicate avoidance, not proof of eight independent
+specialists. Wine's wide top quality gives zero probability to true labels in
+three splits; AUROC screening and log-loss evaluation are different objectives.
+These findings require mechanism controls, not an expanded superiority claim.
+
+Next test: OOF-deduplicated random/top/co-error at fixed K=8 on the same raw pools,
+with explicit infeasibility if fewer than eight observed prediction classes remain.
+Keep original variants and rerun their predictions as reproducibility controls.
+OOF equality is an observed equivalence relation, not global functional identity;
+deduplication uses training OOF only and supplies no population diversity guarantee.
+This complements the still-pending independent-selection/refit diagnostic.

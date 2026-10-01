@@ -118,12 +118,70 @@ generation-seed effects are stored with the artifacts.}
 No confirmation benchmark has been evaluated. Current benchmark versions and
 baseline requirements will be recorded before locking the study.
 
+\subsection{Experiment 004: Three Real Development Tasks}
+\input{tables/exp_004_real_v1_facts}
+The two preregistered feature-width runs complete all 36 outer evaluations;
+the paired-control audit verifies identical splits and unchanged baseline
+predictions. All task-applicable screened subsets are feasible. Empirical
+top-quality screening chooses the exact same subset and weights as unscreened
+top quality in all \ExpFourSameTopSubsets{} paired cases. This panel supplies
+no evidence of incremental benefit from that screen for top-quality selection.
+\input{tables/exp_004_real_v1_results}
+
+Unfiltered co-error improves primary task means relative to unfiltered top
+quality on all three datasets at both widths, but trails the fixed Random Forest
+reference in each case. The simple logistic/ridge control performs better still:
+breast-cancer AUROC is \ExpFourCancerLinearNarrow{}, wine log loss
+\ExpFourWineLinearNarrow{}, and diabetes RMSE \ExpFourDiabetesLinearNarrow{}.
+The full table preserves stronger and weaker static baselines; this is not a
+tuned or resource-matched superiority comparison.
+
+Increasing width changes wine co-error log loss from
+\ExpFourWineCoerrorNarrow{} to \ExpFourWineCoerrorWide{}, approaching the forest
+(\ExpFourWineForestNarrow{}) but remaining worse than logistic regression.
+Diabetes RMSE changes from \ExpFourDiabetesCoerrorNarrow{} to
+\ExpFourDiabetesCoerrorWide{}, while the forest achieves
+\ExpFourDiabetesForestNarrow{}. Breast-cancer AUROC worsens from
+\ExpFourCancerCoerrorNarrow{} to \ExpFourCancerCoerrorWide{}.
+Wider masks are therefore not a universal remedy. Wine's top-quality log loss
+worsens with width; stored probability-tail diagnostics reveal true-class zeros
+in three of six wide top-quality splits, making clipped log loss sensitive to
+those failures. Quality screening by macro AUROC does not control this behavior.
+
+An exploratory duplicate-column audit exposes another explanation for selection
+gains. The diabetes narrow pool has exactly \ExpFourDiabetesPoolDistinctMin{}
+distinct OOF prediction columns despite $B=100$. Its eight top-quality
+specifications represent only \ExpFourDiabetesTopDistinctMin{}--\ExpFourDiabetesTopDistinctMax{}
+distinct observed prediction vectors; co-error represents
+\ExpFourDiabetesCoerrorDistinctMin{}--\ExpFourDiabetesCoerrorDistinctMax{}.
+Equal weights over distinct specifications can thus produce unequal effective
+weights over repeated prediction vectors. OOF equality is not global functional
+identity and does not guarantee identical refits. This confound prevents
+attributing the quality-control gap solely to independent complementary learners.
+The next ablation removes exact OOF duplicates before selection while retaining
+fixed $K$, comparing top quality, random, and co-error on the same eligible pool.
+
+\begin{figure}[p]
+\centering\includegraphics[width=\linewidth]{figures/exp_004_real_v1/performance_vs_fraction.pdf}
+\caption{Real development feature-width comparison. Lines are task means and
+dots are overlapping outer split observations, not confidence intervals. The
+three primary metrics retain their own scales. Linear controls outperform these
+selected sparse-tree ensembles; larger masks help conditionally.}
+\end{figure}
+
+The selected tree ensembles are smaller in serialized bytes than the 256-tree
+forest, but require more charged search CPU time. Pipeline/preprocessing overhead
+also limits inference savings relative to tree-count differences. Stored resource
+measurements and the compute--performance figure preserve these tradeoffs; no
+isolated-process memory or matched-budget advantage is established.
+
 \section{Ablations and Analysis}
 The stored ablations include all required v0 components, signed versus absolute
 residual correlation, prediction correlation, covariance without bias, direct
 squared-loss greedy selection, with-replacement selection, and shrinkage. An
 artifact audit reconstructed loss and test metrics for all selected methods;
-the maximum squared-loss/co-error identity discrepancy was below $10^{-12}$.
+the maximum squared-loss/co-error identity discrepancy was below $10^{-10}$,
+including the larger-scale raw diabetes targets.
 Direct squared-loss and co-error greedy validation objectives agree, confirming
 that their distinction supplies no additional mechanism.
 

@@ -1,0 +1,840 @@
+[
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.006997869570363413,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_quality",
+    "task_advantages": {
+      "breast_cancer": 0.006997869570363413
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.0027789989235130395,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "abs_correlation",
+    "task_advantages": {
+      "breast_cancer": -0.0027789989235130395
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.0017849393278438115,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "breast_cancer": -0.0017849393278438115
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.006997869570363413,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "breast_cancer": 0.006997869570363413
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "top_quality",
+    "loss": 0,
+    "mean_advantage": 0.0,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "breast_cancer": 0.0
+    },
+    "tie": 1,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "shrinkage",
+    "loss": 1,
+    "mean_advantage": -0.0010060362173038666,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror",
+    "task_advantages": {
+      "breast_cancer": -0.0010060362173038666
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.0020054500673509223,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "caruana",
+    "task_advantages": {
+      "breast_cancer": 0.0020054500673509223
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.0017849393278438115,
+    "metric": "auroc",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "breast_cancer": -0.0017849393278438115
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "auroc",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 4.627038681283078,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_quality",
+    "task_advantages": {
+      "diabetes": 4.627038681283078
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.8684431029429772,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "abs_correlation",
+    "task_advantages": {
+      "diabetes": 0.8684431029429772
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -1.7217273995969695,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -1.7217273995969695
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 4.375338833139055,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "diabetes": 4.375338833139055
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "top_quality",
+    "loss": 0,
+    "mean_advantage": 0.0,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "diabetes": 0.0
+    },
+    "tie": 1,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "shrinkage",
+    "loss": 0,
+    "mean_advantage": 0.03558486323288316,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror",
+    "task_advantages": {
+      "diabetes": 0.03558486323288316
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.2511046867886719,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "caruana",
+    "task_advantages": {
+      "diabetes": 0.2511046867886719
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -1.973427247740992,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -1.973427247740992
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert_affine",
+    "loss": 0,
+    "mean_advantage": 1.619951135502981,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror_no_cert",
+    "task_advantages": {
+      "diabetes": 1.619951135502981
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "affine_profiled",
+    "loss": 0,
+    "mean_advantage": 0.1812439184928157,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror_no_cert_affine",
+    "task_advantages": {
+      "diabetes": 0.1812439184928157
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "rmse",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "affine_profiled",
+    "loss": 1,
+    "mean_advantage": -0.17223219374519516,
+    "metric": "rmse",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -0.17223219374519516
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.10260331387981259,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_quality",
+    "task_advantages": {
+      "diabetes": 0.10260331387981259
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.01695342569113023,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "abs_correlation",
+    "task_advantages": {
+      "diabetes": 0.01695342569113023
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.03123541798266083,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -0.03123541798266083
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.09796932135624291,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "diabetes": 0.09796932135624291
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "top_quality",
+    "loss": 0,
+    "mean_advantage": 0.0,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "diabetes": 0.0
+    },
+    "tie": 1,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "shrinkage",
+    "loss": 0,
+    "mean_advantage": 0.0006862257069247257,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror",
+    "task_advantages": {
+      "diabetes": 0.0006862257069247257
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.00462089711811936,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "caruana",
+    "task_advantages": {
+      "diabetes": 0.00462089711811936
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.03586941050623051,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -0.03586941050623051
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert_affine",
+    "loss": 0,
+    "mean_advantage": 0.0299377852925324,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror_no_cert",
+    "task_advantages": {
+      "diabetes": 0.0299377852925324
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "affine_profiled",
+    "loss": 0,
+    "mean_advantage": 0.004306035587896893,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror_no_cert_affine",
+    "task_advantages": {
+      "diabetes": 0.004306035587896893
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "normalized_squared_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "affine_profiled",
+    "loss": 1,
+    "mean_advantage": -0.0016255896258012177,
+    "metric": "normalized_squared_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "diabetes": -0.0016255896258012177
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.016797331558101206,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_quality",
+    "task_advantages": {
+      "wine": 0.016797331558101206
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 0,
+    "mean_advantage": 0.06327936754694835,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "abs_correlation",
+    "task_advantages": {
+      "wine": 0.06327936754694835
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.07877899399313948,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "wine": -0.07877899399313948
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 0,
+    "mean_advantage": 0.016797331558101206,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "wine": 0.016797331558101206
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "top_quality",
+    "loss": 0,
+    "mean_advantage": 0.0,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "top_no_cert",
+    "task_advantages": {
+      "wine": 0.0
+    },
+    "tie": 1,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "shrinkage",
+    "loss": 0,
+    "mean_advantage": 0.003814100228282588,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "coerror",
+    "task_advantages": {
+      "wine": 0.003814100228282588
+    },
+    "tie": 0,
+    "win": 1
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror",
+    "loss": 1,
+    "mean_advantage": -0.0053201405918161665,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "caruana",
+    "task_advantages": {
+      "wine": -0.0053201405918161665
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
+    "left": "coerror_no_cert",
+    "loss": 1,
+    "mean_advantage": -0.07877899399313948,
+    "metric": "log_loss",
+    "multiplicity": "exploratory intervals, unadjusted; no significance declarations",
+    "paired_splits": 6,
+    "paired_tasks": 1,
+    "right": "random_forest",
+    "task_advantages": {
+      "wine": -0.07877899399313948
+    },
+    "tie": 0,
+    "win": 0
+  },
+  {
+    "left": "random_subspace_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace"
+  },
+  {
+    "left": "top_no_cert_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert"
+  },
+  {
+    "left": "coerror_no_cert_affine",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "coerror_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "top_no_cert_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_subspace_affine"
+  },
+  {
+    "left": "affine_profiled",
+    "metric": "log_loss",
+    "paired_splits": 0,
+    "paired_tasks": 0,
+    "right": "random_forest"
+  }
+]

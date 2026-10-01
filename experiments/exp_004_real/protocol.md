@@ -34,6 +34,8 @@ across the two runs; candidate masks/OOF predictions may change.
 Use the existing v0-v4 equal-weight ablations, no-screen controls, residual versus
 prediction correlation, signed/absolute correlation, covariance, shrinkage .5,
 direct squared-loss selection, and with-replacement Brier/MSE Caruana selection.
+Caruana uses eight forward steps and may retain fewer than eight unique members;
+its unequal frequency weights/capacity are recorded as a separate reference.
 Regression alone adds affine co-error and APCE as preserved diagnostics. Binary
 alone adds direct AUROC selection. Bootstrap: 100 joint draws, lower .05 quantile,
 AUROC or macro-OVR threshold .51; regression cross-fitted skill threshold .01.

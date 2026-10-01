@@ -1,0 +1,40 @@
+\begin{table}[p]
+\centering\small
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \multicolumn{2}{c}{Cancer AUROC $\uparrow$} & \multicolumn{2}{c}{Wine log loss $\downarrow$} & \multicolumn{2}{c}{Diabetes RMSE $\downarrow$} \\
+Method & .1 & .5 & .1 & .5 & .1 & .5 \\
+\midrule
+Random subspace & 0.984 & 0.980 & 0.457 & 0.169 & 67.498 & 59.023 \\
+Screened random & 0.984 & 0.980 & 0.457 & 0.169 & 63.594 & 59.506 \\
+Screened top quality & 0.981 & 0.974 & 0.248 & 0.502 & 64.453 & 59.980 \\
+Top quality (unfiltered) & 0.981 & 0.974 & 0.248 & 0.502 & 64.453 & 59.980 \\
+Absolute residual correlation & 0.990 & 0.986 & 0.294 & 0.176 & 60.695 & 59.459 \\
+Signed residual correlation & 0.990 & 0.986 & 0.294 & 0.176 & 60.695 & 59.459 \\
+Minimax residual correlation & 0.989 & 0.984 & 0.320 & 0.176 & 61.502 & 59.156 \\
+Quality + diversity & 0.988 & 0.985 & 0.231 & 0.165 & 61.071 & 59.642 \\
+Prediction correlation & 0.957 & 0.985 & 0.612 & 0.233 & 61.719 & 60.628 \\
+Co-error greedy & 0.988 & 0.982 & 0.228 & 0.162 & 59.826 & 58.825 \\
+Direct squared loss & 0.988 & 0.982 & 0.228 & 0.162 & 59.826 & 58.825 \\
+Screened co-error + swaps & 0.988 & 0.981 & 0.231 & 0.161 & 59.826 & 59.072 \\
+Co-error (unfiltered) & 0.988 & 0.981 & 0.231 & 0.161 & 60.078 & 59.072 \\
+Covariance only & 0.988 & 0.981 & 0.234 & 0.162 & 59.826 & 59.072 \\
+Shrinkage .5 & 0.987 & 0.981 & 0.227 & 0.167 & 59.791 & 58.783 \\
+Caruana (frequency weights) & 0.986 & 0.981 & 0.225 & 0.163 & 60.077 & 59.042 \\
+Direct AUROC & 0.991 & 0.979 & -- & -- & -- & -- \\
+Co-error + affine & -- & -- & -- & -- & 58.458 & 58.554 \\
+APCE & -- & -- & -- & -- & 58.277 & 58.932 \\
+\midrule
+Shallow Random Forest & 0.984 & 0.984 & 0.255 & 0.255 & 57.098 & 57.098 \\
+Shallow ExtraTrees & 0.983 & 0.983 & 0.476 & 0.476 & 58.337 & 58.337 \\
+Random Patches & 0.986 & 0.982 & 0.426 & 0.246 & 68.739 & 59.161 \\
+Random Forest (256) & 0.989 & 0.989 & 0.152 & 0.152 & 58.104 & 58.104 \\
+ExtraTrees (256) & 0.994 & 0.994 & 0.158 & 0.158 & 57.315 & 57.315 \\
+XGBoost & 0.991 & 0.991 & 0.140 & 0.140 & 59.493 & 59.493 \\
+LightGBM & 0.991 & 0.991 & 0.118 & 0.118 & 58.589 & 58.589 \\
+CatBoost & 0.993 & 0.993 & 0.168 & 0.168 & 55.902 & 55.902 \\
+Logistic / ridge & 0.995 & 0.995 & 0.079 & 0.079 & 54.974 & 54.974 \\
+\bottomrule
+\end{tabular}
+\caption{Experiment 004: three real development datasets, B=100 and K=8 for subset methods, depth 3, six outer evaluations per dataset/width. Caruana uses eight steps and can retain fewer unique learners. Each pair of columns changes only feature fraction (.1/.5) and its Random Patches control. Means use completed splits; $\dagger$ marks partial feasibility, -- indicates infeasible or task-restricted. Baselines use static settings and unmatched resources. Wine co-error optimizes Brier, not its primary log loss. Repeated CV folds are not independent datasets.}
+\end{table}

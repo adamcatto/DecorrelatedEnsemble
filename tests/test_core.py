@@ -218,6 +218,11 @@ def test_multiclass_brier_and_class_bias_shrinkage():
     )
     bias = (np.eye(3)[y][:, None, :] - P).mean(axis=0).T
     raw = E.T @ E / len(E)
+    # Pooled sample/class residual means vanish; this convention is normalized G.
+    np.testing.assert_allclose(E.mean(axis=0), 0, atol=1e-15)
+    np.testing.assert_allclose(
+        correlation_matrix(E), raw / np.sqrt(np.outer(np.diag(raw), np.diag(raw)))
+    )
     expected = np.diag(np.diag(raw) - np.sum(bias**2, axis=0)) + bias.T @ bias
     np.testing.assert_allclose(CoError(E, 1, n_classes=3).dense(), expected)
 

@@ -50,6 +50,12 @@ Correlation centers residuals; covariance drops bias if used alone;
 G includes bias. Zero-variance residual columns have undefined correlation and
 receive conservative pairwise dependence 1 in correlation-based selection.
 This value is a selection convention, not an estimate of correlation.
+For multiclass the initial correlation selector applies Pearson correlation to
+flattened sample/class residuals. Their pooled means are zero for normalized
+probabilities, so this is normalized co-error G_ij/sqrt(G_ii*G_jj), not the sum
+of class-centered residual correlations. It retains classwise bias. Covariance-only
+and shrinkage instead center/preserve bias separately for each class. This
+implementation convention must be explicit in multiclass interpretation.
 
 Co-error greedy starts from lowest diagonal error, updates marginal objectives,
 and applies improving 1-swaps. Direct squared-loss forward selection without

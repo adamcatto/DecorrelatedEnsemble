@@ -5,10 +5,6 @@ import copy
 import json
 from pathlib import Path
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
@@ -169,7 +165,83 @@ def paired_effects(records):
     return pd.concat(within, ignore_index=True), pd.concat(width, ignore_index=True)
 
 
+def prediction_columns(P):
+    """One flattened observed OOF vector per candidate; exact equality only."""
+    return P.transpose(1, 0, 2).reshape(P.shape[1], -1) if P.ndim == 3 else P.T
+
+
+def audit_duplicate_predictions(roots, configs):
+    pools, subsets, tails = [], [], []
+    same_top = 0
+    for root, cfg in zip(roots, configs):
+        fraction = cfg["candidates"]["feature_fractions"][0]
+        for path in sorted(root.rglob("oof.npz")):
+            dataset, seed, fold = path.relative_to(root).parts[:-1]
+            key = {
+                "dataset": dataset,
+                "seed": int(seed.removeprefix("seed_")),
+                "fold": int(fold.removeprefix("fold_")),
+                "feature_fraction": fraction,
+            }
+            P = np.load(path)["predictions"]
+            columns = prediction_columns(P)
+            specs = json.loads((path.parent / "candidates.json").read_text())
+            pools.append(
+                {
+                    **key,
+                    "B": len(columns),
+                    "distinct_oof_columns": len(np.unique(columns, axis=0)),
+                    "distinct_masks": len({tuple(s["features"]) for s in specs}),
+                }
+            )
+            selections = {}
+            for selection_path in sorted(path.parent.glob("*/selection.json")):
+                method = selection_path.parent.name
+                selected = json.loads(selection_path.read_text())
+                ids = selected["ids"]
+                selections[method] = selected
+                subsets.append(
+                    {
+                        **key,
+                        "method": method,
+                        "retained_specifications": len(ids),
+                        "distinct_selected_oof_columns": len(np.unique(columns[ids], axis=0)),
+                        "distinct_selected_masks": len({tuple(specs[i]["features"]) for i in ids}),
+                    }
+                )
+            if all(m in selections for m in ("top_quality", "top_no_cert")):
+                a, b = selections["top_quality"], selections["top_no_cert"]
+                same_top += int(a["ids"] == b["ids"] and a["weights"] == b["weights"])
+            task = json.loads((path.parent.parent / "metadata.json").read_text())["task"]
+            if task == "regression":
+                continue
+            for test_path in sorted(path.parent.glob("*/test_predictions.npz")):
+                test = np.load(test_path)
+                p = test["prediction"]
+                true_p = (
+                    p[np.arange(len(p)), test["y"]]
+                    if task == "multiclass"
+                    else np.where(test["y"] == 1, p, 1 - p)
+                )
+                tails.append(
+                    {
+                        **key,
+                        "method": test_path.parent.name,
+                        "n_test": len(p),
+                        "zero_true_class_probabilities": int(np.sum(true_p == 0)),
+                        "min_true_class_probability": float(true_p.min()),
+                        "mean_true_class_probability": float(true_p.mean()),
+                    }
+                )
+    return pd.DataFrame(pools), pd.DataFrame(subsets), pd.DataFrame(tails), same_top
+
+
 def make_report(run_ids, predictions_only=False):
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
     roots = [Path("results/runs") / name for name in run_ids]
     configs, controls = verify_width_controls(roots, predictions_only)
     frames = []
@@ -197,6 +269,10 @@ def make_report(run_ids, predictions_only=False):
     means = means.merge(counts, on=keys)
     means.to_csv(output / "per_task.csv", index=False)
     within, width = paired_effects(records)
+    pools, subsets, tails, same_top = audit_duplicate_predictions(roots, configs)
+    pools.to_csv(output / "candidate_equivalence.csv", index=False)
+    subsets.to_csv(output / "selected_equivalence.csv", index=False)
+    tails.to_csv(output / "prediction_tail_diagnostics.csv", index=False)
     within.to_csv(output / "selection_effects.csv", index=False)
     width.to_csv(output / "width_effects.csv", index=False)
     for label, effects, grouping in [
@@ -250,7 +326,7 @@ def make_report(run_ids, predictions_only=False):
     lines += [
         r"\bottomrule",
         r"\end{tabular}",
-        r"\caption{Experiment 004: three real development datasets, B=100 and K=8, depth 3, six outer evaluations per dataset/width. Each pair of columns changes only feature fraction (.1/.5) and its Random Patches control. Means use completed splits; $\dagger$ marks partial feasibility, -- indicates infeasible or task-restricted. Baselines use static settings and unmatched resources. Wine co-error optimizes Brier, not its primary log loss. Repeated CV folds are not independent datasets.}",
+        r"\caption{Experiment 004: three real development datasets, B=100 and K=8 for subset methods, depth 3, six outer evaluations per dataset/width. Caruana uses eight steps and can retain fewer unique learners. Each pair of columns changes only feature fraction (.1/.5) and its Random Patches control. Means use completed splits; $\dagger$ marks partial feasibility, -- indicates infeasible or task-restricted. Baselines use static settings and unmatched resources. Wine co-error optimizes Brier, not its primary log loss. Repeated CV folds are not independent datasets.}",
         r"\end{table}",
     ]
     (table_root / "exp_004_real_v1_results.tex").write_text("\n".join(lines) + "\n")
@@ -307,7 +383,7 @@ def make_report(run_ids, predictions_only=False):
         fig.savefig(figure_root / ("performance_vs_fraction." + suffix), dpi=180)
     plt.close(fig)
     # Standalone costs preserve the charged search cost, rather than sharing it away.
-    fig, axes = plt.subplots(1, 3, figsize=(10, 3.6))
+    fig, axes = plt.subplots(1, 3, figsize=(10, 4.2))
     for ax, (dataset, title) in zip(axes, DATASET_LABELS.items()):
         task = controls["dataset_metadata"][dataset]["task"]
         metric, _ = PRIMARY[task]
@@ -320,26 +396,51 @@ def make_report(run_ids, predictions_only=False):
                     marker="o" if row.feature_fraction == 0.1 else "s",
                     color=colors.get(method, "#111111"),
                     s=25,
+                    label=LABELS[method] if row.feature_fraction == 0.5 else None,
                 )
-                if row.feature_fraction == 0.5:
-                    ax.annotate(
-                        LABELS[method].replace(" (unfiltered)", ""),
-                        (row.train_cpu_seconds, row[metric]),
-                        xytext=(3, 3),
-                        textcoords="offset points",
-                        fontsize=6,
-                    )
         ax.set(
             xscale="log",
             xlabel="Charged training CPU seconds",
             ylabel=metric.replace("_", " "),
             title=title,
         )
-    fig.tight_layout()
+    fig.legend(
+        *axes[0].get_legend_handles_labels(), loc="lower center", ncols=3, frameon=False, fontsize=8
+    )
+    fig.suptitle("Circles: 10% features; squares: 50% features", fontsize=9)
+    fig.tight_layout(rect=(0, 0.22, 1, 0.94))
     for suffix in ("pdf", "png"):
         fig.savefig(figure_root / ("compute_performance." + suffix), dpi=180)
     plt.close(fig)
     facts = {}
+    facts["ExpFourSameTopSubsets"] = str(same_top)
+    for prefix, data, column in [
+        (
+            "DiabetesPoolDistinct",
+            pools[(pools.dataset == "diabetes") & (pools.feature_fraction == 0.1)],
+            "distinct_oof_columns",
+        ),
+        (
+            "DiabetesTopDistinct",
+            subsets[
+                (subsets.dataset == "diabetes")
+                & (subsets.feature_fraction == 0.1)
+                & (subsets.method == "top_no_cert")
+            ],
+            "distinct_selected_oof_columns",
+        ),
+        (
+            "DiabetesCoerrorDistinct",
+            subsets[
+                (subsets.dataset == "diabetes")
+                & (subsets.feature_fraction == 0.1)
+                & (subsets.method == "coerror_no_cert")
+            ],
+            "distinct_selected_oof_columns",
+        ),
+    ]:
+        facts["ExpFour" + prefix + "Min"] = str(int(data[column].min()))
+        facts["ExpFour" + prefix + "Max"] = str(int(data[column].max()))
     for dataset, prefix in [
         ("breast_cancer", "Cancer"),
         ("wine", "Wine"),
@@ -396,6 +497,14 @@ def make_report(run_ids, predictions_only=False):
         "",
         "All per-split secondary metrics, effects, seed effects and resource measurements are stored in CSV files.",
         "No pooled ranking or statistical superiority claim is warranted.",
+        "",
+        "## Observed OOF-equivalence classes (exploratory diagnostic)",
+        "",
+        pools.groupby(["dataset", "feature_fraction"])
+        .distinct_oof_columns.agg(["min", "max"])
+        .to_string(),
+        "",
+        "Equal OOF columns do not prove globally identical functions or identical full-training refits.",
     ]
     (output / "research_note.md").write_text("\n".join(notes) + "\n")
     write_json(

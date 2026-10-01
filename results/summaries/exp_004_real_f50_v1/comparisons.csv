@@ -1,0 +1,61 @@
+left,right,metric,paired_tasks,paired_splits,mean_advantage,ci_lower,ci_upper,win,tie,loss,interval_scope,multiplicity
+coerror,top_quality,auroc,1,6,0.007045353352608641,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,abs_correlation,auroc,1,6,-0.004901819882882778,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,random_forest,auroc,1,6,-0.008330092600420466,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,top_no_cert,auroc,1,6,0.007045353352608641,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,auroc,1,6,0.0,,,0.0,1.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+shrinkage,coerror,auroc,1,6,-3.80433863686469e-05,,,0.0,1.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,caruana,auroc,1,6,-0.0003347818000439817,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,random_forest,auroc,1,6,-0.008330092600420466,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+random_subspace_affine,random_subspace,auroc,0,0,,,,,,,,
+top_no_cert_affine,top_no_cert,auroc,0,0,,,,,,,,
+coerror_no_cert_affine,coerror_no_cert,auroc,0,0,,,,,,,,
+affine_profiled,coerror_no_cert_affine,auroc,0,0,,,,,,,,
+affine_profiled,top_no_cert_affine,auroc,0,0,,,,,,,,
+affine_profiled,random_subspace_affine,auroc,0,0,,,,,,,,
+affine_profiled,random_forest,auroc,0,0,,,,,,,,
+coerror,top_quality,rmse,1,6,0.908502703192589,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,abs_correlation,rmse,1,6,0.38690288718788207,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,random_forest,rmse,1,6,-0.9671411403171793,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,top_no_cert,rmse,1,6,0.908502703192589,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,rmse,1,6,0.0,,,0.0,1.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+shrinkage,coerror,rmse,1,6,0.288842240039281,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,caruana,rmse,1,6,-0.029463163883891735,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,random_forest,rmse,1,6,-0.9671411403171793,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+random_subspace_affine,random_subspace,rmse,0,0,,,,,,,,
+top_no_cert_affine,top_no_cert,rmse,0,0,,,,,,,,
+coerror_no_cert_affine,coerror_no_cert,rmse,1,6,0.5178754056033531,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,coerror_no_cert_affine,rmse,1,6,-0.37789317710958653,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,top_no_cert_affine,rmse,0,0,,,,,,,,
+affine_profiled,random_subspace_affine,rmse,0,0,,,,,,,,
+affine_profiled,random_forest,rmse,1,6,-0.8271589118234127,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,top_quality,normalized_squared_loss,1,6,0.017222493906751724,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,abs_correlation,normalized_squared_loss,1,6,0.007236906127470864,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,random_forest,normalized_squared_loss,1,6,-0.019071717613894378,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,top_no_cert,normalized_squared_loss,1,6,0.017222493906751724,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,normalized_squared_loss,1,6,0.0,,,0.0,1.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+shrinkage,coerror,normalized_squared_loss,1,6,0.004917873636534694,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,caruana,normalized_squared_loss,1,6,6.456722164282132e-05,,,0.0,1.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,random_forest,normalized_squared_loss,1,6,-0.019071717613894378,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+random_subspace_affine,random_subspace,normalized_squared_loss,0,0,,,,,,,,
+top_no_cert_affine,top_no_cert,normalized_squared_loss,0,0,,,,,,,,
+coerror_no_cert_affine,coerror_no_cert,normalized_squared_loss,1,6,0.00735164881639952,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,coerror_no_cert_affine,normalized_squared_loss,1,6,-0.00819394764085656,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+affine_profiled,top_no_cert_affine,normalized_squared_loss,0,0,,,,,,,,
+affine_profiled,random_subspace_affine,normalized_squared_loss,0,0,,,,,,,,
+affine_profiled,random_forest,normalized_squared_loss,1,6,-0.019914016438351417,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,top_quality,log_loss,1,6,0.3408007760454938,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,abs_correlation,log_loss,1,6,0.014334636135693005,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,random_forest,log_loss,1,6,-0.009223634643780535,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,top_no_cert,log_loss,1,6,0.3408007760454938,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+top_quality,top_no_cert,log_loss,1,6,0.0,,,0.0,1.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+shrinkage,coerror,log_loss,1,6,-0.005929638680003832,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror,caruana,log_loss,1,6,0.0017613623341132766,,,1.0,0.0,0.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+coerror_no_cert,random_forest,log_loss,1,6,-0.009223634643780535,,,0.0,0.0,1.0,not estimated: only one paired dataset; repeated folds do not supply new task units,"exploratory intervals, unadjusted; no significance declarations"
+random_subspace_affine,random_subspace,log_loss,0,0,,,,,,,,
+top_no_cert_affine,top_no_cert,log_loss,0,0,,,,,,,,
+coerror_no_cert_affine,coerror_no_cert,log_loss,0,0,,,,,,,,
+affine_profiled,coerror_no_cert_affine,log_loss,0,0,,,,,,,,
+affine_profiled,top_no_cert_affine,log_loss,0,0,,,,,,,,
+affine_profiled,random_subspace_affine,log_loss,0,0,,,,,,,,
+affine_profiled,random_forest,log_loss,0,0,,,,,,,,

@@ -56,6 +56,11 @@ These negative findings are retained in the manuscript and research log.
 `exp_003_pool_b{30,100,300}_v1` adds 72 outer evaluations at fixed K=8. Exact
 pool/OOF/bootstrap prefixes isolate B. Binary additive co-error improves, but
 regression gains are non-monotone and profiled selection overfits its OOF criterion.
+`exp_004_real_f{10,50}_v1` adds breast cancer, wine and diabetes (36 outer evaluations).
+Co-error improves over top quality, but RF and logistic/ridge controls do better
+in each task/width mean. Width effects are conditional; duplicate OOF predictions
+expose effective weighting as a confound. These are tiny numerical development
+tasks, not a representative confirmation suite.
 
 Bundles in `results/artifacts/` include data, predictions, decisions, config,
 source snapshot, environment, and checksums. Large-run bundles explicitly omit

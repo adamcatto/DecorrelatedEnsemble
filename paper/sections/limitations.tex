@@ -6,11 +6,16 @@ bootstrap screens do not justify guarantees under overlapping training folds,
 large candidate libraries, grouped observations, or temporal shifts. Sparse
 shallow trees can fail on interactions that need joint feature access. Only two
 generation seeds and one dimensional/sample-size setting have been tested in the
-completed studies. Static baselines lack tuning and resources are unmatched.
+completed synthetic studies. The three real tasks are small numerical development
+datasets, with only one dataset per task type and repeated splits of the same rows.
+Duplicate OOF columns can make equal specification weights into effective frequency
+weights, and flattened multiclass correlation includes classwise bias. Static
+baselines lack tuning and resources are unmatched.
 Phase RSS includes the runner's retained models and shared arrays, so it does not
 estimate isolated model memory. Synthetic regimes can share generation randomness;
 descriptive task resampling does not supply calibrated interval coverage.
-Linear/oracle controls and competitive tuned modern methods remain untested.
+Linear controls have been tested on the real panel; additive synthetic linear/oracle
+controls and competitive tuned modern methods remain untested.
 Partial screening feasibility changes the support of comparisons; aggregate effects can
 be driven by one mechanism. These restrictions preclude real-world or broad
 algorithm-superiority claims.
@@ -24,3 +29,6 @@ selection usually worsens test loss despite improving OOF fit. Increasing the
 candidate library has conditional benefits and can amplify this optimism at
 fixed retained size. Independent selection/refit controls remain necessary before
 any locked benchmark evaluation.
+The real development panel confirms conditional selection gains but also exposes
+duplicate-column weighting and a gap to linear models. These findings motivate
+mechanism controls rather than a general tabular-performance claim.

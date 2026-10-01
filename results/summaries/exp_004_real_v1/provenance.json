@@ -1,0 +1,247 @@
+{
+  "control_audit": {
+    "checks": [
+      "artifact hashes and completed status",
+      "configs differ only in declared widths",
+      "identical raw data, metadata, outer/inner partitions and null",
+      "unchanged baseline predictions"
+    ],
+    "dataset_metadata": {
+      "breast_cancer": {
+        "adaptation": "sklearn bundled copy; ID removed, diagnosis encoded, 30 numerical features",
+        "citation": "Wolberg, Mangasarian, Street, and Street (1993), doi:10.24432/C5DW2B",
+        "class_counts": {
+          "0": 212,
+          "1": 357
+        },
+        "content_sha256": "9cbd9168c756608d4f0c28c9dbbe01349d732e2ba1ee83edf26defad71ec20fb",
+        "dataset_version": "bundled in scikit-learn 1.9.1",
+        "description": ".. _breast_cancer_dataset:\n\nBreast cancer Wisconsin (diagnostic) dataset\n--------------------------------------------\n\n**Data Set Characteristics:**\n\n:Number of Instances: 569\n\n:Number of Attributes: 30 numeric, predictive attributes and the class\n\n:Attribute Information:\n    - radius (mean of distances from center to points on the perimeter)\n    - texture (standard deviation of gray-scale values)\n    - perimeter\n    - area\n    - smoothness (local variation in radius lengths)\n    - compactness (perimeter^2 / area - 1.0)\n    - concavity (severity of concave portions of the contour)\n    - concave points (number of concave portions of the contour)\n    - symmetry\n    - fractal dimension (\"coastline approximation\" - 1)\n\n    The mean, standard error, and \"worst\" or largest (mean of the three\n    worst/largest values) of these features were computed for each image,\n    resulting in 30 features.  For instance, field 0 is Mean Radius, field\n    10 is Radius SE, field 20 is Worst Radius.\n\n    - class:\n            - WDBC-Malignant\n            - WDBC-Benign\n\n:Summary Statistics:\n\n===================================== ====== ======\n                                        Min    Max\n===================================== ====== ======\nradius (mean):                        6.981  28.11\ntexture (mean):                       9.71   39.28\nperimeter (mean):                     43.79  188.5\narea (mean):                          143.5  2501.0\nsmoothness (mean):                    0.053  0.163\ncompactness (mean):                   0.019  0.345\nconcavity (mean):                     0.0    0.427\nconcave points (mean):                0.0    0.201\nsymmetry (mean):                      0.106  0.304\nfractal dimension (mean):             0.05   0.097\nradius (standard error):              0.112  2.873\ntexture (standard error):             0.36   4.885\nperimeter (standard error):           0.757  21.98\narea (standard error):                6.802  542.2\nsmoothness (standard error):          0.002  0.031\ncompactness (standard error):         0.002  0.135\nconcavity (standard error):           0.0    0.396\nconcave points (standard error):      0.0    0.053\nsymmetry (standard error):            0.008  0.079\nfractal dimension (standard error):   0.001  0.03\nradius (worst):                       7.93   36.04\ntexture (worst):                      12.02  49.54\nperimeter (worst):                    50.41  251.2\narea (worst):                         185.2  4254.0\nsmoothness (worst):                   0.071  0.223\ncompactness (worst):                  0.027  1.058\nconcavity (worst):                    0.0    1.252\nconcave points (worst):               0.0    0.291\nsymmetry (worst):                     0.156  0.664\nfractal dimension (worst):            0.055  0.208\n===================================== ====== ======\n\n:Missing Attribute Values: None\n\n:Class Distribution: 212 - Malignant, 357 - Benign\n\n:Creator:  Dr. William H. Wolberg, W. Nick Street, Olvi L. Mangasarian\n\n:Donor: Nick Street\n\n:Date: November, 1995\n\nThis is a copy of UCI ML Breast Cancer Wisconsin (Diagnostic) datasets.\nhttps://goo.gl/U2Uwz2\n\nFeatures are computed from a digitized image of a fine needle\naspirate (FNA) of a breast mass.  They describe\ncharacteristics of the cell nuclei present in the image.\n\nSeparating plane described above was obtained using\nMultisurface Method-Tree (MSM-T) [K. P. Bennett, \"Decision Tree\nConstruction Via Linear Programming.\" Proceedings of the 4th\nMidwest Artificial Intelligence and Cognitive Science Society,\npp. 97-101, 1992], a classification method which uses linear\nprogramming to construct a decision tree.  Relevant features\nwere selected using an exhaustive search in the space of 1-4\nfeatures and 1-3 separating planes.\n\nThe actual linear program used to obtain the separating plane\nin the 3-dimensional space is that described in:\n[K. P. Bennett and O. L. Mangasarian: \"Robust Linear\nProgramming Discrimination of Two Linearly Inseparable Sets\",\nOptimization Methods and Software 1, 1992, 23-34].\n\nThis database is also available through the UW CS ftp server:\n\nftp ftp.cs.wisc.edu\ncd math-prog/cpo-dataset/machine-learn/WDBC/\n\n.. dropdown:: References\n\n  - W.N. Street, W.H. Wolberg and O.L. Mangasarian. Nuclear feature extraction\n    for breast tumor diagnosis. IS&T/SPIE 1993 International Symposium on\n    Electronic Imaging: Science and Technology, volume 1905, pages 861-870,\n    San Jose, CA, 1993.\n  - O.L. Mangasarian, W.N. Street and W.H. Wolberg. Breast cancer diagnosis and\n    prognosis via linear programming. Operations Research, 43(4), pages 570-577,\n    July-August 1995.\n  - W.H. Wolberg, W.N. Street, and O.L. Mangasarian. Machine learning techniques\n    to diagnose breast cancer from fine-needle aspirates. Cancer Letters 77 (1994)\n    163-171.\n",
+        "feature_dtypes": [
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64"
+        ],
+        "feature_names": [
+          "mean radius",
+          "mean texture",
+          "mean perimeter",
+          "mean area",
+          "mean smoothness",
+          "mean compactness",
+          "mean concavity",
+          "mean concave points",
+          "mean symmetry",
+          "mean fractal dimension",
+          "radius error",
+          "texture error",
+          "perimeter error",
+          "area error",
+          "smoothness error",
+          "compactness error",
+          "concavity error",
+          "concave points error",
+          "symmetry error",
+          "fractal dimension error",
+          "worst radius",
+          "worst texture",
+          "worst perimeter",
+          "worst area",
+          "worst smoothness",
+          "worst compactness",
+          "worst concavity",
+          "worst concave points",
+          "worst symmetry",
+          "worst fractal dimension"
+        ],
+        "id": "breast_cancer",
+        "license": "CC-BY-4.0 (UCI source)",
+        "loader": "load_breast_cancer",
+        "loader_arguments": {
+          "as_frame": true
+        },
+        "loader_documentation": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html",
+        "missing_values": 0,
+        "n": 569,
+        "name": "breast_cancer",
+        "original_source": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+        "p": 30,
+        "role": "development",
+        "sampling_assumption": "IID rows assumed; no group/time identifiers in bundled feature table",
+        "sampling_structure": "iid",
+        "seed": 29,
+        "source": "sklearn",
+        "target_definition": "Diagnosis: 0=malignant, 1=benign (sklearn convention)",
+        "task": "binary"
+      },
+      "diabetes": {
+        "adaptation": "sklearn bundled raw feature copy, scaled=False; original collection transforms remain",
+        "citation": "Efron, Hastie, Johnstone, and Tibshirani (2004), Least Angle Regression",
+        "class_counts": null,
+        "content_sha256": "5efd18ccff52abd8a1bfa8dbfdcca3b90206c6c0f1d040792afc85d7f4f695e8",
+        "dataset_version": "bundled in scikit-learn 1.9.1",
+        "description": ".. _diabetes_dataset:\n\nDiabetes dataset\n----------------\n\nTen baseline variables, age, sex, body mass index, average blood\npressure, and six blood serum measurements were obtained for each of n =\n442 diabetes patients, as well as the response of interest, a\nquantitative measure of disease progression one year after baseline.\n\n**Data Set Characteristics:**\n\n:Number of Instances: 442\n\n:Number of Attributes: First 10 columns are numeric predictive values\n\n:Target: Column 11 is a quantitative measure of disease progression one year after baseline\n\n:Attribute Information:\n    - age     age in years\n    - sex\n    - bmi     body mass index\n    - bp      average blood pressure\n    - s1      tc, total serum cholesterol\n    - s2      ldl, low-density lipoproteins\n    - s3      hdl, high-density lipoproteins\n    - s4      tch, total cholesterol / HDL\n    - s5      ltg, possibly log of serum triglycerides level\n    - s6      glu, blood sugar level\n\nNote: Each of these 10 feature variables have been mean centered and scaled by the standard deviation times the square root of `n_samples` (i.e. the sum of squares of each column totals 1).\n\nSource URL:\nhttps://www4.stat.ncsu.edu/~boos/var.select/diabetes.html\n\nFor more information see:\nBradley Efron, Trevor Hastie, Iain Johnstone and Robert Tibshirani (2004) \"Least Angle Regression,\" Annals of Statistics (with discussion), 407-499.\n(https://web.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf)\n",
+        "feature_dtypes": [
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64"
+        ],
+        "feature_names": [
+          "age",
+          "sex",
+          "bmi",
+          "bp",
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "id": "diabetes",
+        "license": "Original dataset license not stated in loader documentation; sklearn package BSD-3-Clause does not establish a separate data license",
+        "loader": "load_diabetes",
+        "loader_arguments": {
+          "as_frame": true,
+          "scaled": false
+        },
+        "loader_documentation": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html",
+        "missing_values": 0,
+        "n": 442,
+        "name": "diabetes",
+        "original_source": "https://www4.stat.ncsu.edu/~boos/var.select/diabetes.html",
+        "p": 10,
+        "role": "development",
+        "sampling_assumption": "IID rows assumed; no group/time identifiers in bundled feature table",
+        "sampling_structure": "iid",
+        "seed": 29,
+        "source": "sklearn",
+        "target_definition": "Quantitative disease progression one year after baseline",
+        "task": "regression"
+      },
+      "wine": {
+        "adaptation": "sklearn bundled copy, 13 numerical features",
+        "citation": "Aeberhard and Forina (1992), doi:10.24432/C5PC7J",
+        "class_counts": {
+          "0": 59,
+          "1": 71,
+          "2": 48
+        },
+        "content_sha256": "574ce3c8778317d24a7becc5eddd55f937fdc6dd448f918807f47f8e16071819",
+        "dataset_version": "bundled in scikit-learn 1.9.1",
+        "description": ".. _wine_dataset:\n\nWine recognition dataset\n------------------------\n\n**Data Set Characteristics:**\n\n:Number of Instances: 178\n:Number of Attributes: 13 numeric, predictive attributes and the class\n:Attribute Information:\n    - Alcohol\n    - Malic acid\n    - Ash\n    - Alcalinity of ash\n    - Magnesium\n    - Total phenols\n    - Flavanoids\n    - Nonflavanoid phenols\n    - Proanthocyanins\n    - Color intensity\n    - Hue\n    - OD280/OD315 of diluted wines\n    - Proline\n    - class:\n        - class_0\n        - class_1\n        - class_2\n\n:Summary Statistics:\n\n============================= ==== ===== ======= =====\n                                Min   Max   Mean     SD\n============================= ==== ===== ======= =====\nAlcohol:                      11.0  14.8    13.0   0.8\nMalic Acid:                   0.74  5.80    2.34  1.12\nAsh:                          1.36  3.23    2.36  0.27\nAlcalinity of Ash:            10.6  30.0    19.5   3.3\nMagnesium:                    70.0 162.0    99.7  14.3\nTotal Phenols:                0.98  3.88    2.29  0.63\nFlavanoids:                   0.34  5.08    2.03  1.00\nNonflavanoid Phenols:         0.13  0.66    0.36  0.12\nProanthocyanins:              0.41  3.58    1.59  0.57\nColour Intensity:              1.3  13.0     5.1   2.3\nHue:                          0.48  1.71    0.96  0.23\nOD280/OD315 of diluted wines: 1.27  4.00    2.61  0.71\nProline:                       278  1680     746   315\n============================= ==== ===== ======= =====\n\n:Missing Attribute Values: None\n:Class Distribution: class_0 (59), class_1 (71), class_2 (48)\n:Creator: R.A. Fisher\n:Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)\n:Date: July, 1988\n\nThis is a copy of UCI ML Wine recognition datasets.\nhttps://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data\n\nThe data is the results of a chemical analysis of wines grown in the same\nregion in Italy by three different cultivators. There are thirteen different\nmeasurements taken for different constituents found in the three types of\nwine.\n\nOriginal Owners:\n\nForina, M. et al, PARVUS -\nAn Extendable Package of Programs for Data Exploration, Classification and Correlation.\nInstitute of Pharmaceutical and Food Analysis and Technologies,\nVia Brigata Salerno, 16147 Genoa, Italy.\n\nCitation:\n\nLichman, M. (2013). UCI Machine Learning Repository\n[https://archive.ics.uci.edu/ml]. Irvine, CA: University of California,\nSchool of Information and Computer Science.\n\n.. dropdown:: References\n\n    (1) S. Aeberhard, D. Coomans and O. de Vel,\n    Comparison of Classifiers in High Dimensional Settings,\n    Tech. Rep. no. 92-02, (1992), Dept. of Computer Science and Dept. of\n    Mathematics and Statistics, James Cook University of North Queensland.\n    (Also submitted to Technometrics).\n\n    The data was used with many others for comparing various\n    classifiers. The classes are separable, though only RDA\n    has achieved 100% correct classification.\n    (RDA : 100%, QDA 99.4%, LDA 98.9%, 1NN 96.1% (z-transformed data))\n    (All results using the leave-one-out technique)\n\n    (2) S. Aeberhard, D. Coomans and O. de Vel,\n    \"THE CLASSIFICATION PERFORMANCE OF RDA\"\n    Tech. Rep. no. 92-01, (1992), Dept. of Computer Science and Dept. of\n    Mathematics and Statistics, James Cook University of North Queensland.\n    (Also submitted to Journal of Chemometrics).\n",
+        "feature_dtypes": [
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64",
+          "float64"
+        ],
+        "feature_names": [
+          "alcohol",
+          "malic_acid",
+          "ash",
+          "alcalinity_of_ash",
+          "magnesium",
+          "total_phenols",
+          "flavanoids",
+          "nonflavanoid_phenols",
+          "proanthocyanins",
+          "color_intensity",
+          "hue",
+          "od280/od315_of_diluted_wines",
+          "proline"
+        ],
+        "id": "wine",
+        "license": "CC-BY-4.0 (UCI source)",
+        "loader": "load_wine",
+        "loader_arguments": {
+          "as_frame": true
+        },
+        "loader_documentation": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_wine.html",
+        "missing_values": 0,
+        "n": 178,
+        "name": "wine",
+        "original_source": "https://archive.ics.uci.edu/dataset/109/wine",
+        "p": 13,
+        "role": "development",
+        "sampling_assumption": "IID rows assumed; no group/time identifiers in bundled feature table",
+        "sampling_structure": "iid",
+        "seed": 29,
+        "source": "sklearn",
+        "target_definition": "Cultivar class, encoded 0/1/2 instead of original 1/2/3",
+        "task": "multiclass"
+      }
+    },
+    "scope": "Mechanism controls; wider candidate feature masks are not nested subsets",
+    "unchanged_baseline_prediction_pairs": 144,
+    "width_fold_pairs": 18
+  },
+  "development_only": true,
+  "metrics": {
+    "binary": [
+      "auroc",
+      true
+    ],
+    "multiclass": [
+      "log_loss",
+      false
+    ],
+    "regression": [
+      "rmse",
+      false
+    ]
+  },
+  "raw_manifests": {
+    "exp_004_real_f10_v1": "825458d078b9fbff3e2a44925a735bf4c07b2dd761492d110232fc409eb4a706",
+    "exp_004_real_f50_v1": "99f7e55195d53ad37bf2890a3221358a253e017861e06926b9ace81d730aae3d"
+  },
+  "report_script_sha256": "3c88d155f4f7c4e1029bee5ce2b15ea4041091e82aaf8db9d362c3463aeef0a2",
+  "runs": [
+    "exp_004_real_f10_v1",
+    "exp_004_real_f50_v1"
+  ],
+  "uncertainty": "No IID fold intervals or task-population inference from three hand-named tasks"
+}
