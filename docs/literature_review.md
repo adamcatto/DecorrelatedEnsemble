@@ -21,10 +21,16 @@ texts and compare assumptions, selection matrices, certification, and resource
 budgets before proposing a submission contribution. The evidence presently
 supports a research study of mechanisms and estimation risk, not a novel-method claim.
 
+Cross-validation uncertainty sources: [Bengio & Grandvalet (2004)](https://jmlr.org/papers/v5/grandvalet04a.html)
+establish the absence of a universally unbiased variance estimator for K-fold CV;
+[Bates, Hastie & Tibshirani](https://arxiv.org/abs/2104.00673) distinguish CV estimands
+and study poor coverage of naive intervals. These support documenting OOF-bootstrap
+limitations; they do not themselves supply a valid certification procedure for
+this adaptive candidate library.
+
 ## Remaining search
 
 Stacking (Wolpert 1992), portfolio-based ensemble pruning/weighting, residual
 covariance shrinkage, conditional error dependence, OOF uncertainty/multiplicity,
 selective inference, feature bagging, and modern ensemble selection variants.
 Do not claim bias-preserving shrinkage is new before this review is complete.
-

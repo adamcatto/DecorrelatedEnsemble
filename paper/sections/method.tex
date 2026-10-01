@@ -33,3 +33,23 @@ also suppress genuine complementarity. The falsifying experiment holds $K$ fixed
 varies $B/N$, and measures outer loss and selection optimism. This regularizer
 has no established novelty or superiority claim.
 
+\subsection{An Oracle Attenuation Counterexample}
+Suppose $Y=\sum_{j=1}^d s_j(X_j)+\epsilon$, with independent centered signal
+components of equal variance $v$, independent centered noise of variance
+$\sigma^2$, and population-optimal subspace learners
+$f_b=\mathbb E[Y\mid X_{F_b}]=\sum_{j\in F_b}s_j(X_j)$.
+Define $w_j=K^{-1}\sum_{b\in S}\mathbb I(j\in F_b)$. Then
+\begin{equation}
+L(S)=\sigma^2+v\sum_{j=1}^d(1-w_j)^2.
+\end{equation}
+If each mask contains at most $q<d$ informative features, then
+$\sum_j w_j\le q$ and Jensen's inequality yields
+$L(S)\ge\sigma^2+dv(1-q/d)^2$. Thus averaging individually optimal subspace
+predictors attenuates distributed additive signal, even when their union covers
+all informative coordinates and $B,K$ are arbitrarily large. For the additive
+regression development design, $d=16$, $v=1/16$, $q\le4$, and $\sigma^2=1$,
+so this idealized conditional-mean ensemble has risk at least $1.5625$.
+This is a population calculation for these oracle learners, not a lower bound
+for arbitrary subspace functions, finite-sample fitted trees, or classification
+AUROC. Coordinated fitting or non-simplex rescaling can escape its assumptions.
+It motivates testing aggregate scale calibration separately from diversity.

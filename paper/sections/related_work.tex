@@ -9,6 +9,13 @@ The ambiguity decomposition \citep{krogh1995} motivates squared-loss aggregation
 diversity can help or hurt majority votes \citep{brown2010}. These precedents
 require differentiating any eventual contribution through mechanism, statistical
 procedure, scaling, or a substantiated algorithmic improvement.
-Stacking, negative correlation learning, pruning, portfolio objectives, and
-random projections require further primary-source review before submission.
-
+Quadratic pruning with cardinality constraints and SDP relaxations predates this
+study \citep{zhang2006}; the optimization formulation alone is not a contribution.
+Negative correlation learning jointly trains interacting networks
+\citep{liu1999}, whereas our current models are generated independently and
+selected afterward. Random-projection ensembles also combine randomized search,
+validation selection, and aggregation \citep{cannings2017}. Diversity penalties
+can change effective capacity \citep{reeve2018}, motivating a regularization
+explanation. Cross-validation uncertainty is subtle under overlapping fits
+\citep{bengio2004,bates2024}. Portfolio-based weighting, stacking, conditional
+dependence, and selective inference require further full-text review.

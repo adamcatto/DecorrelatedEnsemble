@@ -28,3 +28,13 @@ n=600, p=40, two generation seeds, three outer and three OOF folds, nine mechani
 for each of binary and regression. This small development design cannot establish
 task-population superiority or matched-resource superiority. Strong baselines are
 static configurations; tuned modern-method confirmation remains unrun.
+
+## During exp_001, before inspecting scored results — attenuation calculation
+
+For independent additive signal and individually population-optimal conditional
+mean learners, averaging subspaces produces coefficients equal to feature inclusion
+frequencies. Equal-size subspaces imply residual bias even with full union coverage.
+Derived and added the precise population formula and Jensen lower bound to the
+paper; a Hadamard-design analytic test verifies it. This is not a novel theorem
+claim or a universal lower bound for feature-sparse functions. It motivates a
+later aggregate-scale diagnostic, contingent on the first completed experiment.
