@@ -58,6 +58,36 @@ def paired_effect(frame, left, right, metric, higher):
     return joined
 
 
+def normalized_protocol(cfg):
+    """Permit only the registered molecule-versus-vector grouping difference."""
+    c = copy.deepcopy(cfg)
+    name = c["datasets"][0]["id"]
+    expected = (
+        {
+            "source_groups": True,
+            "sampling_structure": "clustered",
+            "group_exact_duplicates": False,
+            "group_aggregation": "max",
+        }
+        if name == "musk2"
+        else {
+            "source_groups": False,
+            "sampling_structure": "iid",
+            "group_exact_duplicates": True,
+            "group_aggregation": None,
+        }
+    )
+    if name not in NAMES or len(c["datasets"]) != 1:
+        raise ValueError("Unregistered dataset in panel")
+    for key, value in expected.items():
+        if c.get(key, value) != value:
+            raise ValueError(f"Registered group protocol changed: {name} {key}")
+        c.pop(key, None)
+    c.pop("id")
+    c.pop("datasets")
+    return c
+
+
 def verify_sweep(root, predictions_only=False):
     verify_manifest(root, allow_missing_models=predictions_only)
     if json.loads((root / "status.json").read_text())["state"] != "complete":
@@ -240,19 +270,7 @@ def report(run_ids, predictions_only=False):
         resources.append(
             {"run_id": root.name, **json.loads((root / "status.json").read_text())["resources"]}
         )
-    normalized = []
-    for cfg in configs:
-        c = copy.deepcopy(cfg)
-        c.pop("id")
-        c.pop("datasets")
-        for key in [
-            "source_groups",
-            "sampling_structure",
-            "group_exact_duplicates",
-            "group_aggregation",
-        ]:
-            c.pop(key, None)
-        normalized.append(c)
+    normalized = [normalized_protocol(cfg) for cfg in configs]
     if any(c != normalized[0] for c in normalized):
         raise ValueError("Panel methodology differs across task configs")
     records = pd.concat(frames, ignore_index=True)
@@ -260,6 +278,21 @@ def report(run_ids, predictions_only=False):
         raise ValueError("Report must retain every registered dataset")
     if records.duplicated(["dataset", "seed", "fold", "method"]).any():
         raise ValueError("Repeated paired-split records")
+    for cfg in configs:
+        name = cfg["datasets"][0]["id"]
+        expected_keys = {
+            (seed, fold, method["id"])
+            for seed in cfg["seeds"]
+            for fold in range(cfg["outer_folds"])
+            for method in cfg["methods"] + cfg["baselines"]
+        }
+        actual_keys = set(
+            records[records.dataset == name][["seed", "fold", "method"]].itertuples(
+                index=False, name=None
+            )
+        )
+        if actual_keys != expected_keys:
+            raise ValueError("Panel coverage differs from all registered settings")
     output = Path("results/summaries/exp_006_large_v1")
     output.mkdir(parents=True, exist_ok=True)
     records.to_csv(output / "per_split.csv", index=False)
@@ -334,7 +367,7 @@ def report(run_ids, predictions_only=False):
         r"\bottomrule",
         r"\end{tabular}",
         r"}",
-        r"\caption{Predesignated $B=6,000,K=64$ co-error anchor and static references. Means of three outer feature-group folds, one seed. Other sweep cells are reported separately; no test-based winner selection or resource matching.}",
+        r"\caption{Predesignated $B=6,000,K=64$ co-error anchor and static references. Means of three outer folds and one seed. Exact feature-vector groups for five tasks; molecule groups and molecule-max AUC for Musk. Other sweep cells are reported separately; no test-based winner selection or resource matching.}",
         r"\end{table}",
     ]
     (tables / "anchor.tex").write_text("\n".join(lines) + "\n")
@@ -373,7 +406,7 @@ def report(run_ids, predictions_only=False):
         ]
     ]
     anchor.to_csv(output / "anchor_and_references.csv", index=False)
-    note = "# Experiment 006: larger-data sweep\n\nRegistered panel; all five tasks retained, one seed and three feature-group outer folds.\nNo calibrated intervals or best-test tuned method; static baselines and unmatched budgets.\n\n"
+    note = "# Experiment 006: larger-data sweep\n\nAll five original tasks and the registered Musk extension retained; one seed and three group-separated outer folds. Molecule-max AUROC is primary only for Musk.\nNo calibrated intervals or best-test tuned method; static baselines and unmatched budgets.\n\n"
     for name in NAMES:
         frame = means[means.dataset == name].set_index("method")
         metric = "group_auroc" if name == "musk2" else PRIMARY[frame.task.iloc[0]]

@@ -9,6 +9,17 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 
+def test_large_report_rejects_changed_group_protocol():
+    import yaml
+
+    cfg = yaml.safe_load(Path("configs/experiments/exp_006_large_musk2.yaml").read_text())
+    normalized = module.normalized_protocol(cfg)
+    assert "source_groups" not in normalized
+    cfg["group_aggregation"] = "mean"
+    with pytest.raises(ValueError, match="Registered group protocol changed"):
+        module.normalized_protocol(cfg)
+
+
 def test_large_paired_effect_directions_and_infeasible_support():
     frame = pd.DataFrame(
         [
