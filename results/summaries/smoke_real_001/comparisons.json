@@ -1,8 +1,8 @@
 [
   {
-    "ci_lower": -0.03852057014745594,
-    "ci_upper": -0.03852057014745594,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "coerror",
     "loss": 1,
     "mean_advantage": -0.03852057014745594,
@@ -18,9 +18,9 @@
     "win": 0
   },
   {
-    "ci_lower": 0.01953720249025062,
-    "ci_upper": 0.01953720249025062,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "coerror",
     "loss": 0,
     "mean_advantage": 0.01953720249025062,
@@ -36,9 +36,9 @@
     "win": 1
   },
   {
-    "ci_lower": -0.11426001595792645,
-    "ci_upper": -0.11426001595792645,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "coerror",
     "loss": 1,
     "mean_advantage": -0.11426001595792645,
@@ -54,9 +54,9 @@
     "win": 0
   },
   {
-    "ci_lower": -0.03852057014745594,
-    "ci_upper": -0.03852057014745594,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "coerror_no_cert",
     "loss": 1,
     "mean_advantage": -0.03852057014745594,
@@ -72,9 +72,9 @@
     "win": 0
   },
   {
-    "ci_lower": 0.0,
-    "ci_upper": 0.0,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "top_quality",
     "loss": 0,
     "mean_advantage": 0.0,
@@ -90,9 +90,9 @@
     "win": 0
   },
   {
-    "ci_lower": 0.022304722200070848,
-    "ci_upper": 0.022304722200070848,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "shrinkage",
     "loss": 0,
     "mean_advantage": 0.022304722200070848,
@@ -108,9 +108,9 @@
     "win": 1
   },
   {
-    "ci_lower": -0.06414494325132275,
-    "ci_upper": -0.06414494325132275,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "coerror",
     "loss": 1,
     "mean_advantage": -0.06414494325132275,
@@ -126,9 +126,9 @@
     "win": 0
   },
   {
-    "ci_lower": -0.11426001595792645,
-    "ci_upper": -0.11426001595792645,
-    "interval_scope": "task bootstrap over observed development tasks; no population guarantee",
+    "ci_lower": null,
+    "ci_upper": null,
+    "interval_scope": "not estimated: only one paired dataset; repeated folds do not supply new task units",
     "left": "coerror_no_cert",
     "loss": 1,
     "mean_advantage": -0.11426001595792645,

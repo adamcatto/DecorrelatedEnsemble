@@ -15,3 +15,33 @@ and inference measurements accompany accuracy; matched-budget claims require
 dedicated experiments. Paired task-level analyses average folds and seeds before
 resampling tasks. No row-level significance claims across tasks are permitted.
 
+\subsection{Real Development Panel}
+Experiment 004 uses the complete sklearn-bundled Wisconsin diagnostic breast
+cancer and wine datasets \citep{wdbc1993,wine1992}, and diabetes regression
+\citep{efron2004}. They contain respectively 569/30, 178/13, and 442/10
+rows/features. All features are numerical and no entries are missing. These
+three tasks were named before scored results, to exercise binary, multiclass,
+and regression evaluation. They are development tasks, not a representative
+confirmation suite. IID row splitting is assumed; the bundled feature tables
+supply no grouping/time identifiers to evaluate that assumption.
+
+The diabetes loader explicitly uses \texttt{scaled=False}; its default global
+centering/scaling would precede the evaluation splits. Any subsequent learned
+transform is fitted on training rows. The positive breast-cancer class is
+sklearn's benign class, so its AUPRC describes that convention. Wine targets are
+encoded 0/1/2. Dataset versions, loader arguments, source attribution, raw data,
+content hashes, and target conventions accompany every run. The UCI sources
+state CC-BY-4.0; the diabetes source's separate dataset license remains unspecified.
+
+Two fixed configurations compare feature fractions .1 and .5 at $B=100$, $K=8$,
+depth 3 and minimum leaf size 5. With ceiling rounding, these produce 3/2/1 versus
+15/7/5 features per learner across the three tasks. Seeds 11/29 and three outer
+and three OOF folds give six repeated evaluations per task/width; the same raw
+dataset is reused across seeds. Width changes the candidate population rather
+than generating nested feature masks. Unchanged baselines and outer/inner
+partitions must agree exactly across the two runs. Forest/boosting configurations
+are fixed, and a ridge ($\alpha=1$) or logistic ($C=1$) control uses fold-local
+standardization. No hyperparameter tuning is performed. Primary metrics remain
+task-specific; no pooled ranking or task-population interval is reported for
+this panel with one dataset per task type. Split effects are descriptive and
+their overlapping observations are not independent uncertainty replicates.

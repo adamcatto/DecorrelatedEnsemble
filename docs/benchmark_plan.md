@@ -9,8 +9,9 @@ repository revision, curation version, task IDs, split IDs, and metric conventio
 separately when importing the benchmark. Recheck before locking the study.
 
 `configs/datasets/benchmark_policy.yaml` records scope and unfulfilled gates.
-Built-in sklearn tasks are implementation checks only, not a substitute for an
-established benchmark suite. No benchmark task has yet been excluded or tested.
+Built-in sklearn tasks are a small real development panel, not a substitute for
+an established benchmark suite. Experiment 004 names breast cancer, wine and
+diabetes before scored runs. No established-suite task has yet been excluded or tested.
 Freeze a development subset by task metadata and compute limits before any
 performance inspection. Reserve the remaining eligible tasks for confirmation;
 publish every exclusion. Scope competitive current neural/foundation models from
@@ -22,4 +23,3 @@ TabArena **system** where appropriate; calling it a single untuned tree estimato
 would misrepresent its compute. Under a shared tuning protocol, all extra nested
 fits must count against the resource budget. Current synthetic static configurations
 do not satisfy tuned, resource-matched benchmark comparisons.
-
