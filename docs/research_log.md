@@ -108,3 +108,15 @@ sample, comparing retained fits and refitted specifications on the same outer
 test. `docs/independent_certification_design.md` derives a conservative simultaneous
 binary AUROC bound for fixed functions and records what it cannot certify. Also
 inspect exact tiny-pool optimization gaps before attributing all failure to statistics.
+
+## exp_004 registered — user-requested real development panel
+
+Before scored results, fixed breast cancer/wine/diabetes at feature fractions .1/.5,
+B=100 K=8, existing selectors/static baselines and an additional ridge/logistic
+control. Identical splits and unchanged baselines will be audited between widths.
+Diabetes loader inspection found default scaling across the complete dataset;
+fixed to raw `scaled=False` and tested before the first builtin experiment.
+Metadata now records source/attribution, package copy/version, class convention,
+loader arguments and content hashes. This resolves the loader issue prospectively;
+no previous scored builtin run exists. The larger independent-selection study
+remains pending. No confirmation access or dataset exclusion occurs here.

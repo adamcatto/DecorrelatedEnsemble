@@ -5,7 +5,9 @@ from sklearn.ensemble import (
     RandomForestClassifier,
     RandomForestRegressor,
 )
+from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 from decorrelated_ensemble.candidates import generate_candidates
 from decorrelated_ensemble.ensembles import SelectedEnsemble
@@ -33,6 +35,13 @@ def baseline(cfg, X, task, seed):
             raise ValueError(f"Unknown random patches parameters: {params}")
         return SelectedEnsemble(
             specs, np.full(count, 1 / count), task, len(np.unique(cfg.get("classes", [0, 1])))
+        )
+    if family == "linear":
+        if not regression:
+            params.setdefault("max_iter", 3000)
+        model = Ridge(**params) if regression else LogisticRegression(random_state=seed, **params)
+        return Pipeline(
+            [("preprocess", preprocessor(X)), ("scale", StandardScaler()), ("model", model)]
         )
     if family in {"random_forest", "extra_trees"}:
         cls = (
@@ -74,6 +83,13 @@ def capacity(model):
     if isinstance(model, SelectedEnsemble):
         return model.capacity()
     estimator = model["model"]
+    if hasattr(estimator, "coef_"):
+        return {
+            "retained_count": 1,
+            "nodes": None,
+            "leaves": None,
+            "coefficient_count": int(np.size(estimator.coef_) + np.size(estimator.intercept_)),
+        }
     if hasattr(estimator, "estimators_"):
         trees = np.asarray(estimator.estimators_, dtype=object).ravel()
         return {

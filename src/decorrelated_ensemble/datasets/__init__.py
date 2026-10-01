@@ -1,4 +1,6 @@
+import hashlib
 from dataclasses import dataclass
+from importlib.metadata import version
 
 import numpy as np
 import pandas as pd
@@ -98,10 +100,43 @@ def load_dataset(config: dict, seed: int) -> Dataset:
             "wine": (skdata.load_wine, "multiclass"),
         }
         loader, task = loaders[config["name"]]
-        data = loader(as_frame=True)
+        # The default diabetes loader centers/scales on all rows before splitting.
+        # Load raw values so any sample-dependent transform belongs to the fit fold.
+        arguments = {"as_frame": True}
+        if config["name"] == "diabetes":
+            arguments["scaled"] = False
+        data = loader(**arguments)
+        sources = {
+            "breast_cancer": {
+                "original_source": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+                "citation": "Wolberg, Mangasarian, Street, and Street (1993), doi:10.24432/C5DW2B",
+                "license": "CC-BY-4.0 (UCI source)",
+                "target_definition": "Diagnosis: 0=malignant, 1=benign (sklearn convention)",
+                "adaptation": "sklearn bundled copy; ID removed, diagnosis encoded, 30 numerical features",
+            },
+            "wine": {
+                "original_source": "https://archive.ics.uci.edu/dataset/109/wine",
+                "citation": "Aeberhard and Forina (1992), doi:10.24432/C5PC7J",
+                "license": "CC-BY-4.0 (UCI source)",
+                "target_definition": "Cultivar class, encoded 0/1/2 instead of original 1/2/3",
+                "adaptation": "sklearn bundled copy, 13 numerical features",
+            },
+            "diabetes": {
+                "original_source": "https://www4.stat.ncsu.edu/~boos/var.select/diabetes.html",
+                "citation": "Efron, Hastie, Johnstone, and Tibshirani (2004), Least Angle Regression",
+                "license": "Original dataset license not stated in loader documentation; sklearn package BSD-3-Clause does not establish a separate data license",
+                "target_definition": "Quantitative disease progression one year after baseline",
+                "adaptation": "sklearn bundled raw feature copy, scaled=False; original collection transforms remain",
+            },
+        }
+        target = np.asarray(data.target)
+        digest = hashlib.sha256()
+        digest.update(pd.util.hash_pandas_object(data.data, index=True).values.tobytes())
+        digest.update(target.tobytes())
+        digest.update(repr(list(data.data.columns)).encode())
         return Dataset(
             data.data,
-            np.asarray(data.target),
+            target,
             task,
             {
                 **config,
@@ -110,7 +145,22 @@ def load_dataset(config: dict, seed: int) -> Dataset:
                 "p": data.data.shape[1],
                 "role": "development",
                 "sampling_structure": "iid",
-                "license": "see sklearn dataset documentation",
+                **sources[config["name"]],
+                "loader": loader.__name__,
+                "loader_arguments": arguments,
+                "dataset_version": "bundled in scikit-learn " + version("scikit-learn"),
+                "loader_documentation": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets."
+                + loader.__name__
+                + ".html",
+                "content_sha256": digest.hexdigest(),
+                "feature_names": list(data.data.columns),
+                "feature_dtypes": [str(t) for t in data.data.dtypes],
+                "missing_values": int(data.data.isna().sum().sum()),
+                "class_counts": {str(c): int(np.sum(target == c)) for c in np.unique(target)}
+                if task != "regression"
+                else None,
+                "sampling_assumption": "IID rows assumed; no group/time identifiers in bundled feature table",
+                "description": data.DESCR,
                 "seed": seed,
             },
         )
